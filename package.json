@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "connection-string": "^4.4.0",
+    "pg-promise": "^11.6.0"
+  }
+}
