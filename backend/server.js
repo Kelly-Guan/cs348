@@ -1,29 +1,25 @@
-const cors = require('cors');
-const express = require('express')
-const app = express()
-const port = 3001
+const cors = require("cors");
+const express = require("express");
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-const port = 3001;
-const pgp = require('pg-promise')(/* options */)
-const {ConnectionString} = require('connection-string');
-const path = require('path');
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-const sslrootcert = path.join(__dirname, 'ca-certificate.crt');
+const pgp = require("pg-promise")(/* options */);
+const db = pgp("postgres://postgres:postgres@127.0.0.1:5432");
 
-const cs = new ConnectionString('postgresql://doadmin:AVNS_8sl0qMgsAIoFa7iGZPg@cs348-serial-do-user-13354341-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require');
-
-cs.setDefaults({
-	params: {sslrootcert}
+app.get("/test", async (req, res) => {
+  try {
+    const data = await db.any("SELECT * FROM test");
+    res.status(200).json(data);
+  } catch {
+    res.status(500).json("fucked");
+  }
 });
-
-const db = pgp(cs.toString());
 
 app.get("/", async (req, res) => {
   try {
-    const resp = await db.one("SELECT * FROM test;");
+    const resp = await db.one("SELECT * FROM anime limit 2;");
     res.json(resp);
   } catch (error) {
     console.log("Error:", error);
@@ -31,6 +27,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(3001, () => {
+  console.log(`Example app listening on port 3001`);
+});

@@ -4,6 +4,10 @@ Initialize npm projects:
   cd ../backend
   npm i
 
+Initialize docker:
+  install docker
+  docker-compose -y compose.yaml up
+
 Running the project:
 
   cd backend
