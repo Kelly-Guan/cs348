@@ -8,6 +8,10 @@ Initialize docker:
   install docker
   docker-compose -f compose.yaml up
 
+Add data to databse:
+  cd sampleData/inserts
+  psql postgres://postgres:postgres@127.0.0.1:5432 -f *.sql
+
 Running the project:
 
   cd backend
