@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MovieButton from "../components/ui/movieButton";
 import SearchBar from "../components/searchBar";
 import movieFiller from "../assets/littleWomen.jpg";
+import movieFillerVer from "../assets/fillerVert.jpg";
 
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
@@ -46,6 +47,7 @@ function SearchPage() {
           <div className="grid grid-cols-4 gap-x-3 gap-y-8">
             <MovieButton 
               movieImg={movieFiller}
+              movieImgVert={movieFillerVer}
               movieTitle="The GodFather"
               movieTime="2004 2h 17m"
               movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."

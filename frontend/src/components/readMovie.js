@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { X } from "lucide-react";
+import CreateNewReview from "./createNewReview";
 
-function ReadMovie({ movieImg, movieTitle, movieTime, movieDescription, movieCast, movieGenre, onClose }) {
+function ReadMovie({ movieImg, movieImgVert,  movieTitle, movieTime, movieDescription, movieCast, movieGenre, onClose }) {
+  const [showReviewPopup, setShowReviewPopup] = useState(false);
+
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {
@@ -19,6 +22,10 @@ function ReadMovie({ movieImg, movieTitle, movieTime, movieDescription, movieCas
     if (e.target.classList.contains("popup-overlay")) {
       onClose();
     }
+  };
+
+  const handleCloseReviewPopup = () => {
+    setShowReviewPopup(false);
   };
 
   return (
@@ -51,10 +58,17 @@ function ReadMovie({ movieImg, movieTitle, movieTime, movieDescription, movieCas
           
         </div>
 
-        <button className="bg-blue-500 text-white py-2 px-4 rounded self-end m-10">Add Review</button>
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded self-end m-10"
+          onClick={() => handleClickOutside && setShowReviewPopup(true)} >Add Review </button>      
 
-
-
+        {showReviewPopup && (
+          <CreateNewReview
+          movieImgVert={movieImgVert}
+          movieTitle={movieTitle}
+          onClose={handleCloseReviewPopup}
+          />
+        )}
       </div>
     </div>
 

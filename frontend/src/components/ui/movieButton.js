@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReadMovie from '../readMovie';
 
-function MovieButton({ movieImg, alt, movieTitle, movieTime, movieDescription, movieCast, movieGenre }) {
+function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movieDescription, movieCast, movieGenre }) {
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClosePopup = () => {
@@ -16,6 +16,7 @@ function MovieButton({ movieImg, alt, movieTitle, movieTime, movieDescription, m
       {showPopup && (
         <ReadMovie
           movieImg={movieImg}
+          movieImgVert={movieImgVert}
           movieTitle={movieTitle}
           movieTime={movieTime}
           movieDescription={movieDescription}
