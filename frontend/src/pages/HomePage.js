@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Content from "../components/Content";
-
 import GenreDropdown from "../components/genreDropDown";
+import movie from "../assets/movie.jpeg";
 
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
 function Home() {
   const [selectedGenre, setSelectedGenre] = useState("Genres");
-
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -33,28 +32,39 @@ function Home() {
   };
 
   return (
-    <div className="w-5/6 ml-auto p-0">
+    <div className="w-5/6 ml-auto bg-gray-200 p-12">
       <div className="flex flex-col justify-start">
-        <div className="w-1/6 flex flex-row justify-between items-center mb-8">
+        <div className="w-1/4 flex flex-row justify-between items-center mb-8">
           <h3 className="text-4xl font-bold">Home</h3>
           <GenreDropdown genres={genres} onSelect={handleGenreSelect} />
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Comedy</h3>
-          <div className="flex flex-row overflow-x-auto space-x-4">
-            {
-              movies.map((m, i) => <Content description={m.description} profileName={"Hudson Koyanagi"}imageURL={m.posterlink}/>)
-            }
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+
+            {/* {
+              movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
+            } */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Romance</h3>
-          <div className="flex flex-row overflow-x-auto space-x-4">
-            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
-            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
-            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
+
+            {/* {
+              movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
+            } */}
           </div>
         </div>
       </div>
