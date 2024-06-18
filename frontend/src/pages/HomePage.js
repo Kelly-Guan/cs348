@@ -48,9 +48,9 @@ function Home() {
             <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
             <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
 
-            {/* {
+            {
               movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            }
           </div>
         </div>
 
@@ -62,9 +62,9 @@ function Home() {
             <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
             <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
 
-            {/* {
+            {
               movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            }
           </div>
         </div>
       </div>
