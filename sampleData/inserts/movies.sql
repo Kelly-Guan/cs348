@@ -1,0 +1,8 @@
+mID, title, releaseDate, runtime, description, poster_link
+
+INSERT INTO movies (title, relaseDate, runtime, decription, posterLink) VALUES
+('Toy Story', '1995-11-22', 81, 'A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy''s bedroom.', 'https://www.imdb.com/title/tt0114709/mediaviewer/rm3813007616/?ref_=tt_ov_i'),
+('E.T. the Extra-Terrestrial', '1982-06-11', 115, 'A troubled child summons the courage to help a friendly alien escape from Earth and return to his home planet.', 'https://www.imdb.com/title/tt0083866/mediaviewer/rm1993282560/?ref_=tt_ov_i'),
+('Cloudy with a Chance of Meatballs', '2009-09-12', 90, 'A local scientist is often regarded as a failure until he invents a machine that can make food fall from the sky. But little does he know that things are about to take a turn for the worst.', 'https://www.imdb.com/title/tt0844471/mediaviewer/rm1398507520/?ref_=tt_ov_i'),
+('Cars', '2006-03-14', 116, 'On the way to the biggest race of his life, a hotshot rookie race car gets stranded in a rundown town and learns that winning isn''t everything in life.', 'https://www.imdb.com/title/tt0317219/mediaviewer/rm3794114560/?ref_=tt_ov_i'),
+('The Incredibles', '2004-10-24', 115, 'While trying to lead a quiet suburban life, a family of undercover superheroes are forced into action to save the world.', 'https://www.imdb.com/title/tt0317705/mediaviewer/rm915381504/?ref_=tt_ov_i');

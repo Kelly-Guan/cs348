@@ -4,7 +4,7 @@ import ProfileTitle from "./ui/profileTitle";
 import Movie from "../assets/movie.jpeg";
 import slice from "lodash";
 
-function Content({ ProfilePic, profileName, timePosted, fullName, description, movie }) {
+function Content({ ProfilePic, profileName, timePosted, fullName, description, movie, imageURL}) {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const truncatedDescription = showFullDescription
@@ -19,7 +19,7 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, m
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative">
         <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
-        <img src={Movie} alt="Movie" className="w-full h-56 object-cover" />
+        <img src={imageURL} alt="Movie" className="w-full h-56 object-cover" />
         <div className="absolute bottom-0 left-0 p-4">
           <div className="flex space-x-2">
             <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">

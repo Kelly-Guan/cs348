@@ -1,32 +1,13 @@
 const cors = require("cors");
 const express = require("express");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const pgp = require("pg-promise")(/* options */);
-const db = pgp("postgres://postgres:postgres@127.0.0.1:5432");
+const moviesRoutes = require("./routes/movies");
 
-app.get("/test", async (req, res) => {
-  try {
-    const data = await db.any("SELECT * FROM test");
-    res.status(200).json(data);
-  } catch {
-    res.status(500).json("fucked");
-  }
-});
+app.use("/api/movies", moviesRoutes)
 
-app.get("/", async (req, res) => {
-  try {
-    const resp = await db.one("SELECT * FROM anime limit 2;");
-    res.json(resp);
-  } catch (error) {
-    console.log("Error:", error);
-    res.status(500).json("Internal Server Error");
-  }
-});
-
-app.listen(3001, () => {
-  console.log(`Example app listening on port 3001`);
+app.listen(process.env.API_PORT, () => {
+  console.log(`Limelight listening on port ${process.env.API_PORT}`);
 });
