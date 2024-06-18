@@ -14,7 +14,7 @@ Add data to databse:
   cd ../inserts
   psql postgres://postgres:postgres@127.0.0.1:5432 -f movies.sql
   psql postgres://postgres:postgres@127.0.0.1:5432 -f users.sql
-
+  psql postgres://postgres:postgres@127.0.0.1:5432 -f ratings.sql
 
 Running the project:
 
