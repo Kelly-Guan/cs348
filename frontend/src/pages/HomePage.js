@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+import Content from "../components/Content";
+import NavBar from "../components/Navbar";
+import GenreDropdown from "../components/genreDropDown";
+
+const genres = ['Comedy', 'Horror', 'Drama', 'Romance', 'Action', 'Sci-Fi']; // Add more genres as needed
+
+function Home() {
+    const [selectedGenre, setSelectedGenre] = useState('Genres');
+
+    const handleGenreSelect = (genre) => {
+        setSelectedGenre(genre);
+    };
+
+    return (
+        <div className="flex max-w-screen">
+            <div className="bg-gray-800 h-screen fixed left-0 top-0">
+                <NavBar />
+            </div>
+            
+            <div className="w-5/6 ml-auto bg-gray-200 p-12">
+                <div className="flex flex-col justify-start">
+                    <div className="w-1/6 flex flex-row justify-between items-center mb-8">
+                        <h3 className="text-4xl font-bold">Home</h3>
+                        <GenreDropdown genres={genres} onSelect={handleGenreSelect} />
+                    </div>
+
+                    <div className="mb-20">
+                        <h3 className="text-2xl font-bold mb-4">Comedy</h3>
+                        <div className="flex flex-row overflow-x-auto space-x-4">
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                        </div>
+                    </div>
+
+                    <div className="mb-20">
+                        <h3 className="text-2xl font-bold mb-4">Romance</h3>
+                        <div className="flex flex-row overflow-x-auto space-x-4">
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                            <Content description="Lorem ipsum dolor sit amet, delectus theophrastus nec te, te cum prompta debitis. Vix at quem probatus sadipscing. Sea quem quando volumus cu, consul postea appellantur ea eum. Mel quando reprimique temporibus ei. Habemus conclusionemque eos at, liber quodsi facilis pro eu. Ei eum vidisse fastidii, te pro natum etiam, sed dicat iracundia in." />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Home;
