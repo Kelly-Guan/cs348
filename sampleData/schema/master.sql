@@ -23,8 +23,6 @@ CREATE TABLE UserConnections (
   PRIMARY KEY(following_uID, follower_uID)
 );
 
-w
-
 CREATE TABLE Favourites (
   uID INTEGER NOT NULL REFERENCES Users(uID),
   rank INT NOT NULL,
