@@ -54,7 +54,7 @@ CREATE TABLE Rating (
   ratingText VARCHAR(255),
   upvotes INT,
   downvotes INT,
-  timestamp TIME NOT NULL,
+  datePosted TIMESTAMP NOT NULL,
   PRIMARY KEY(uID, mID)
 );
 
