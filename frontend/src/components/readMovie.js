@@ -55,20 +55,8 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
         </div>
 
         <button
-          className="bg-blue-500 text-white py-2 px-4 rounded self-end m-10"
+          className="bg-pink-500 text-white py-2 px-4 rounded self-end m-10"
           onClick={onAddReview}> Add Review</button>
-
-        {/* <button
-          className="bg-blue-500 text-white py-2 px-4 rounded self-end m-10"
-          onClick={handleAddReview}>Add Review </button>     
-           
-        {showReviewPopup && (
-          <CreateNewReview
-            movieImgVert={movieImgVert}
-            movieTitle={movieTitle}
-            onClose={onClose} // Assuming the onClose passed down closes the CreateNewReview as well
-          />
-        )} */}
       </div>
     </div>
 
