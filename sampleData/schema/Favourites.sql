@@ -1,0 +1,6 @@
+CREATE TABLE Favourites (
+    uID SERIAL NOT NULL REFERENCES User(uID),
+    rank INT NOT NULL,
+    mID NOT NULL SERIAL REFERENCES Movies(mID),
+    PRIMARY_KEY(uID, rank)
+);

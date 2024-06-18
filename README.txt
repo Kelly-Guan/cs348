@@ -6,7 +6,7 @@ Initialize npm projects:
 
 Initialize docker:
   install docker
-  docker-compose -y compose.yaml up
+  docker-compose -f compose.yaml up
 
 Running the project:
 
