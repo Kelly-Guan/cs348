@@ -1,6 +1,6 @@
 const pool = require("../config/database");
 
-exports.allRatings = async (res) => {
+exports.allRatings = async (req,res,next) => {
   const client = await pool.connect();
   try {
     const result = await client.query("SELECT * FROM Ratings");
