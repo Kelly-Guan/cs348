@@ -1,0 +1,6 @@
+CREATE TABLE Watched (
+    uID SERIAL NOT NULL REFERENCES User(uID),
+    mID SERIAL NOT NULL REFERENCES Movies(mID),
+    t_stamp NOT NULL INT,
+    PRIMARY_KEY(uID, mID)
+);
