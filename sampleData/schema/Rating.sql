@@ -5,6 +5,6 @@ score INT NOT NULL,
 ratingText VARCHAR(255),
 upvotes INT,
 downvotes INT,
-t_stamp TIME NOT NULL,
+timestamp TIME NOT NULL,
 PRIMARY KEY(uID, mID)
 );
