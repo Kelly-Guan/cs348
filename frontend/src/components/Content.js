@@ -15,7 +15,7 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, i
   };
 
   return (
-    <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden">
+    <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-black">
         <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
         <div className="mt-4 mx-auto max-w-full">
         <img src={imageURL} alt="Movie" className="w-full object-cover" />

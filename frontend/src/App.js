@@ -1,5 +1,4 @@
 // Mostly for handling routes or other behind the scene globals
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from './Layout';
@@ -11,7 +10,7 @@ import Layout from './Layout';
 import Home from './pages/HomePage';
 // import Landing from './pages/LandingPage';
 // import LogIn from './pages/LogInPage';
-// import Search from './pages/SearchPage';
+import Search from './pages/SearchPage';
 // import Profile from './pages/ProfilePage';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -40,6 +39,7 @@ function App() {
       <Layout>
         <Routes>
           <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/search" element={<Search/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>

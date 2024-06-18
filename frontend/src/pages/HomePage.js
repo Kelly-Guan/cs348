@@ -32,10 +32,10 @@ function Home() {
   };
 
   return (
-    <div className="w-5/6 ml-auto bg-gray-200 p-12">
+    <div className="w-5/6 ml-auto p-12">
       <div className="flex flex-col justify-start">
-        <div className="w-1/4 flex flex-row justify-between items-center mb-8">
-          <h3 className="text-4xl font-bold">Home</h3>
+        <div className="w-1/4 flex flex-row items-center mb-8">
+          <h3 className="text-4xl font-bold pr-10 ">Home</h3>
           <GenreDropdown genres={genres} onSelect={handleGenreSelect} />
         </div>
 

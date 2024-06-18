@@ -31,3 +31,10 @@ code {
     scrollbar-width: none; /* Firefox */
   }
 }
+.popup-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
