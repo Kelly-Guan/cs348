@@ -2,9 +2,9 @@ import React from "react";
 
 function NavBarButtons({ Icon, label }) {
   return (
-    <button className="flex items-center justify-between w-28 p-2 my-2 text-left bg-gray-100 hover:bg-gray-200 transition duration-300">
-      <Icon className="w-5 h-5 mr-2" />
-      <span>{label}</span>
+    <button className="flex items-center px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300 transition duration-300">
+      <Icon className="w-6 h-6 mr-2" />
+      <span className="text-xl">{label}</span>
     </button>
   );
 }

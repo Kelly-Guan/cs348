@@ -1,5 +1,5 @@
 CREATE TABLE UserConnections (
-    following_uID SERIAL NOT NULL REFERENCES User(uID),
-    follower_uID SERIAL NOT NULL REFERENCES User(uID),
-    PRIMARY KEY(following_uID, follower_uID)
+following_uID INTEGER NOT NULL REFERENCES Users(uID),
+follower_uID INTEGER NOT NULL REFERENCES Users(uID),
+PRIMARY KEY(following_uID, follower_uID)
 );

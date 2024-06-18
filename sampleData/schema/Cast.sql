@@ -1,7 +1,7 @@
 CREATE TABLE Cast (
-    mID SERIAL NOT NULL REFERENCES Movies(mID),
-    name NOT NULL VARCHAR(255),
-    role NOT NULL VARCHAR(255),
+    mID INTEGER NOT NULL REFERENCES Movies(mID),
+    name VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL,
     character VARCHAR(255),
-    PRIMARY_KEY(mID, name, role)
+    PRIMARY KEY(mID, name, role)
 );

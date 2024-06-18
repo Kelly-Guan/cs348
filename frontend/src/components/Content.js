@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Circle, ThumbsUp, ThumbsDown, MessageCircle, ChevronDown } from 'lucide-react';
+import { Circle, ThumbsUp, ThumbsDown, MessageCircle, ChevronDown } from "lucide-react";
 import ProfileTitle from "./ui/profileTitle";
 import Movie from "../assets/movie.jpeg";
-import slice from 'lodash';
-
+import slice from "lodash";
 
 function Content({ ProfilePic, profileName, timePosted, fullName, description, movie }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -17,12 +16,11 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, m
   };
 
   return (
-    <div className="bg-white rounded-lg p-6 w-96">
-        <ProfileTitle ProfilePic={Circle} profileName="kellyg.png" timePosted="2H" />
-        <div className="mt-4 mx-auto max-w-full">
-        <img src={Movie} alt="Movie" className="w-full" />
-        </div>
-        <div className="flex justify-between items-end mt-4">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="relative">
+        <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
+        <img src={Movie} alt="Movie" className="w-full h-56 object-cover" />
+        <div className="absolute bottom-0 left-0 p-4">
           <div className="flex space-x-2">
             <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
               <ThumbsUp className="w-5 h-5" />
@@ -35,24 +33,24 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, m
             </button>
           </div>
         </div>
-        <div className="mt-4">
-          <div className="font-bold">Kelly Guan</div>
-          <div className="text-gray-600">
-            {truncatedDescription}
-            {description.length > 100 && (
-              <button
-                className="text-blue-500 hover:text-blue-700 ml-2"
-                onClick={toggleDescriptionVisibility}
-              >
-                <ChevronDown
-                  className={`w-4 h-4 inline-block transition-transform ${
-                    showFullDescription ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            )}
-          </div>
+      </div>
+      <div className="p-4">
+        <div className="font-bold">{fullName}</div>
+        <div className="text-gray-600">
+          {truncatedDescription}
+          {description.length > 100 && (
+            <button
+              className="text-blue-500 hover:text-blue-700 ml-2"
+              onClick={toggleDescriptionVisibility}>
+              <ChevronDown
+                className={`w-4 h-4 inline-block transition-transform ${
+                  showFullDescription ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+          )}
         </div>
+      </div>
     </div>
   );
 }
