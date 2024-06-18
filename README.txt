@@ -5,7 +5,7 @@ Initialize npm projects:
   npm i
 
 Initialize docker:
-  install docker
+  install docker from their website
   docker-compose -f compose.yaml up
 
 Add data to databse:
