@@ -47,7 +47,7 @@ CREATE TABLE Movie_Cast (
   PRIMARY KEY(mID, name, role)
 );
 
-CREATE TABLE Rating (
+CREATE TABLE Ratings (
   uID INTEGER NOT NULL REFERENCES Users(uID),
   mID INTEGER NOT NULL REFERENCES Movies(mID),
   score INT NOT NULL,
