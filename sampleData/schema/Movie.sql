@@ -1,4 +1,4 @@
-CREATE TABLE Movie (
+CREATE TABLE Movies (
   mID SERIAL PRIMARY KEY,
   title VARCHAR(255),
   relaseDate DATE,
