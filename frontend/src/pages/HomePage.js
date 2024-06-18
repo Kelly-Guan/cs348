@@ -11,7 +11,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/movies/homeTopFive")
+    fetch("http://localhost:3001/api/movies/allMovies")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);

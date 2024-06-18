@@ -1,6 +1,4 @@
-mID, title, releaseDate, runtime, description, poster_link
-
-INSERT INTO movies (title, relaseDate, runtime, decription, posterLink) VALUES
+INSERT INTO movies (title, releaseDate, runtime, description, posterLink) VALUES
 ('Toy Story', '1995-11-22', 81, 'A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy''s bedroom.', 'https://www.imdb.com/title/tt0114709/mediaviewer/rm3813007616/?ref_=tt_ov_i'),
 ('E.T. the Extra-Terrestrial', '1982-06-11', 115, 'A troubled child summons the courage to help a friendly alien escape from Earth and return to his home planet.', 'https://www.imdb.com/title/tt0083866/mediaviewer/rm1993282560/?ref_=tt_ov_i'),
 ('Cloudy with a Chance of Meatballs', '2009-09-12', 90, 'A local scientist is often regarded as a failure until he invents a machine that can make food fall from the sky. But little does he know that things are about to take a turn for the worst.', 'https://www.imdb.com/title/tt0844471/mediaviewer/rm1398507520/?ref_=tt_ov_i'),
