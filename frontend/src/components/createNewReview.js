@@ -4,9 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-
-
-
 function CreateNewReview({movieImgVert, movieTitle, onClose}) {
     const [starRating, setStarRating] = useState(0);
     const [date, setDate] = useState(new Date());
