@@ -1,4 +1,4 @@
-CREATE TYPE movie_genre AS ENUM (
+CREATE TYPE MovieGenre AS ENUM (
   'Animation',
   'Adventure',
   'Comedy',
@@ -9,6 +9,6 @@ CREATE TYPE movie_genre AS ENUM (
 
 CREATE TABLE Genre (
   mID INTEGER NOT NULL REFERENCES Movies(mID),
-  genre movie_genre NOT NULL,
+  genre MovieGenre NOT NULL,
   PRIMARY KEY(mID, genre)
 );

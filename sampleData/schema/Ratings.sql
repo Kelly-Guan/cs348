@@ -1,10 +1,10 @@
-CREATE TABLE Rating (
+CREATE TABLE Ratings (
 uID INTEGER NOT NULL REFERENCES Users(uID),
 mID INTEGER NOT NULL REFERENCES Movies(mID),
 score INT NOT NULL,
 ratingText VARCHAR(255),
 upvotes INT,
 downvotes INT,
-t_stamp TIME NOT NULL,
+datePosted TIMESTAMP NOT NULL,
 PRIMARY KEY(uID, mID)
 );

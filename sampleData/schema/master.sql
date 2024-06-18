@@ -1,3 +1,12 @@
+CREATE TYPE MovieGenre AS ENUM (
+  'Animation',
+  'Adventure',
+  'Comedy',
+  'Family',
+  'Sci-Fi',
+  'Sport'
+);
+
 CREATE TABLE Movies (
   mID SERIAL NOT NULL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
@@ -10,17 +19,11 @@ CREATE TABLE Movies (
 
 CREATE TABLE Users (
   uID SERIAL PRIMARY KEY,
-  f_name VARCHAR(255) NOT NULL,
-  l_name VARCHAR(255) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE UserConnections (
-  following_uID INTEGER NOT NULL REFERENCES Users(uID),
-  follower_uID INTEGER NOT NULL REFERENCES Users(uID),
-  PRIMARY KEY(following_uID, follower_uID)
 );
 
 CREATE TABLE Favourites (
@@ -30,30 +33,35 @@ CREATE TABLE Favourites (
   PRIMARY KEY(uID, rank)
 );
 
-CREATE TYPE movie_genre AS ENUM (
-  'Animation',
-  'Adventure',
-  'Comedy',
-  'Family',
-  'Sci-Fi',
-  'Sport'
-);
-
 CREATE TABLE Genre (
   mID INTEGER NOT NULL REFERENCES Movies(mID),
-  genre movie_genre NOT NULL,
+  genre MovieGenre NOT NULL,
   PRIMARY KEY(mID, genre)
 );
 
-CREATE TABLE Rating (
+CREATE TABLE Movie_Cast (
+  mID INTEGER NOT NULL REFERENCES Movies(mID),
+  name VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  character VARCHAR(255),
+  PRIMARY KEY(mID, name, role)
+);
+
+CREATE TABLE Ratings (
   uID INTEGER NOT NULL REFERENCES Users(uID),
   mID INTEGER NOT NULL REFERENCES Movies(mID),
   score INT NOT NULL,
   ratingText VARCHAR(255),
   upvotes INT,
   downvotes INT,
-  t_stamp TIME NOT NULL,
+  datePosted TIMESTAMP NOT NULL,
   PRIMARY KEY(uID, mID)
+);
+
+CREATE TABLE UserConnections (
+  followingUID INTEGER NOT NULL REFERENCES Users(uID),
+  followerUID INTEGER NOT NULL REFERENCES Users(uID),
+  PRIMARY KEY(followingUID, followerUID)
 );
 
 CREATE TABLE WatchLater (
@@ -65,6 +73,6 @@ CREATE TABLE WatchLater (
 CREATE TABLE Watched (
   uID INTEGER NOT NULL REFERENCES Users(uID),
   mID INTEGER NOT NULL REFERENCES Movies(mID),
-  t_stamp TIME NOT NULL,
+  timestamp TIME NOT NULL,
   PRIMARY KEY(uID, mID)
 );

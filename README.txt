@@ -9,10 +9,12 @@ Initialize docker:
   docker-compose -f compose.yaml up
 
 Add data to databse:
-  cd sampleData/inserts
+  cd sampleData/schema
+  psql postgres://postgres:postgres@127.0.0.1:5432 -f master.sql
+  cd ../inserts
   psql postgres://postgres:postgres@127.0.0.1:5432 -f movies.sql
   psql postgres://postgres:postgres@127.0.0.1:5432 -f users.sql
-
+  psql postgres://postgres:postgres@127.0.0.1:5432 -f ratings.sql
 
 Running the project:
 
@@ -24,4 +26,3 @@ Running the project:
   
 
 Dataset source: https://www.kaggle.com/datasets/azathoth42/myanimelist/discussion
-

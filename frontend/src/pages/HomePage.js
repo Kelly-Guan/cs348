@@ -7,10 +7,10 @@ const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // 
 
 function Home() {
   const [selectedGenre, setSelectedGenre] = useState("Genres");
-  const [movies, setMovies] = useState([]);
+  const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/movies/allMovies")
+    fetch("http://localhost:3001/api/ratings/allRatings")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
@@ -19,11 +19,11 @@ function Home() {
       })
       .then((data) => {
         console.log(data);
-        setMovies(data.data);
+        setRatings(data.data);
       })
       .catch((err) => {
         console.error("Fetch error:", err);
-        setMovies([]);
+        setRatings([]);
       });
   }, []);
 
@@ -42,29 +42,41 @@ function Home() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Comedy</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-
-            {/* {
-              movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {ratings.map((r, i) => (
+              <Content
+                key={i}
+                className="min-w-[300px]"
+                description={r.ratingtext}
+                profileName={r.username}
+                imageURL={movie}
+              />
+            ))}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Romance</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-            <Content description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups." profileName={"Hudson Koyanagi"} imageURL={movie} />
-
-            {/* {
-              movies.map((m, i) => <Content key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            <Content
+              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+              profileName={"Hudson Koyanagi"}
+              imageURL={movie}
+            />
+            <Content
+              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+              profileName={"Hudson Koyanagi"}
+              imageURL={movie}
+            />
+            <Content
+              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+              profileName={"Hudson Koyanagi"}
+              imageURL={movie}
+            />
+            <Content
+              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+              profileName={"Hudson Koyanagi"}
+              imageURL={movie}
+            />
           </div>
         </div>
       </div>
