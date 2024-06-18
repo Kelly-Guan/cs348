@@ -1,9 +1,9 @@
 CREATE TABLE Movies (
   mID SERIAL NOT NULL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
-  relaseDate DATE NOT NULL,
+  releaseDate DATE NOT NULL,
   runtime INT NOT NULL,
-  decription TEXT NOT NULL,
+  description TEXT NOT NULL,
   posterLink VARCHAR(512) NOT NULL,
   adult BOOLEAN NOT NULL
 );
