@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MovieButton from "../components/ui/movieButton";
-import SearchBar from "../components/searchBar";
+import SearchBar from "../components/ui/searchBar";
 import movieFiller from "../assets/littleWomen.jpg";
 import movieFillerVer from "../assets/fillerVert.jpg";
 
@@ -11,7 +11,6 @@ const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // 
 
 
 function SearchPage() {
-  const [selectedGenre, setSelectedGenre] = useState("Genres");
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -32,19 +31,15 @@ function SearchPage() {
       });
   }, []);
 
-  const handleGenreSelect = (genre) => {
-    setSelectedGenre(genre);
-  };
-
   return (
     <div className="w-5/6 ml-auto p-12">
-      <div className="flex flex-col justify-start">
+      <div className=" overflow-hidden w-full flex flex-col justify-start">
         <div className="flex flex-row justify-between items-center mb-8">
           <h3 className="text-4xl font-bold">Search</h3>
           <SearchBar/>
         </div>
         <div className="mb-20 w-full">
-          <div className="grid grid-cols-4 gap-x-3 gap-y-8">
+        <div className="grid gap-x-3 gap-y-10 grid-cols-4">
             <MovieButton 
               movieImg={movieFiller}
               movieImgVert={movieFillerVer}
@@ -54,43 +49,44 @@ function SearchPage() {
               movieCast= "Uma Thurman, David Carradine, Micheal, more"
               movieGenre="Martial Arts Move, Action, Adventure"
               alt="Movie Poster"
+              pageType = 'search'
              />
 
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
           </div>
         </div>
       </div>

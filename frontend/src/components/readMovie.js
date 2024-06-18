@@ -1,6 +1,5 @@
 import React, { useEffect,useState } from "react";
 import { X } from "lucide-react";
-import CreateNewReview from "./createNewReview";
 
 function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCast, movieGenre, onClose, onAddReview }) {
   useEffect(() => {
@@ -33,7 +32,7 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
         <img className="w-full relative top-0 object-cover rounded mb-4" src={movieImg} alt={movieTitle} />
 
         <div className=" w-full flex justify-between items-center absolute top-0 p-8">
-            <h2 className="text-2xl font-bold mb-4 text-white">{movieTitle}</h2>
+            <h2 className="text-3xl font-bold mb-4 text-white">{movieTitle}</h2>
             <button className="text-white" onClick={onClose}> <X size={40} /> </button>        
         </div>
         

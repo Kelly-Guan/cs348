@@ -4,7 +4,7 @@ import NavBar from "./components/Navbar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex flex-col p-3">
+    <div className="flex flex-col">
       <NavBar />
       <main className="p-0">
         {children}
