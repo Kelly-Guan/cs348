@@ -13,8 +13,8 @@ CREATE TRIGGER deleteFromWatchLater
 AFTER INSERT ON watched
 REFERENCING NEW ROW AS newWatched
 FOR EACH ROW
-    DELETE FROM watch_later
-    WHERE uid = newWatched.uid
-        AND mid = newWatched.mid
+  DELETE FROM watch_later
+  WHERE uid = newWatched.uid
+    AND mid = newWatched.mid
 
 */
