@@ -6,5 +6,6 @@ rating_text VARCHAR(255),
 upvotes INT,
 downvotes INT,
 date_posted TIMESTAMP NOT NULL,
+CHECK (uid, mid EXISTS (SELECT uid, mid FROM Watched)),
 PRIMARY KEY(uid, mid)
 );
