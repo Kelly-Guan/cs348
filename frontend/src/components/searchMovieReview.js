@@ -37,6 +37,13 @@ function SearchReviewPopUp({ onClose }) {
     }
   };
 
+  const handleSubmitReview = () => {
+    // Close both popups
+    setShowCreateReviewPopup(false);
+    setShowSearchReviewPopup(false);
+    onClose();
+  };
+
   const itemHeight = 200;
   const itemMarginBottom = 10;
   const containerHeight = itemHeight * 1.5 + itemMarginBottom * 1.5; // Height for 1 and a 1/2 rows
@@ -69,7 +76,6 @@ function SearchReviewPopUp({ onClose }) {
                 alt="Movie" 
                 movieTitle="Sample Movie" 
                 onClick={handleOpenCreateReviewPopup} 
-                onClose = {handleCloseCreateReviewPopup}
               />
               <SearchMovieBtn 
                 movieImgVert={movieFillerVer} 
@@ -123,6 +129,7 @@ function SearchReviewPopUp({ onClose }) {
           movieImgVert={movieFillerVer}
           movieTitle="The Little Women"
           onClose={handleCloseCreateReviewPopup} 
+          onSubmit={handleSubmitReview} // Pass the handleSubmitReview to close both popups
         />
       )}
     </div>

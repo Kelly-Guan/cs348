@@ -12,6 +12,10 @@ function SearchMovieBtn({movieImgVert, alt, movieTitle, onClick}) {
   const handleCloseReviewPopup = () => {
     setShowReviewPopup(false);
   };
+  const handleSubmitReview = () => {
+    // Close both popups
+    setShowReviewPopup(false);
+  };
 
   return (
     <>
@@ -26,6 +30,7 @@ function SearchMovieBtn({movieImgVert, alt, movieTitle, onClick}) {
           movieImgVert={movieImgVert}
           movieTitle={movieTitle}
           onClose={handleCloseReviewPopup}
+          onSubmit={handleSubmitReview}
         />
       )}
     </>

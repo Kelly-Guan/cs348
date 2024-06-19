@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-function CreateNewReview({movieImgVert, movieTitle, onClose}) {
+function CreateNewReview({movieImgVert, movieTitle, onClose, onSubmit}) {
     const [starRating, setStarRating] = useState(0);
     const [date, setDate] = useState(new Date());
 
@@ -43,7 +43,7 @@ function CreateNewReview({movieImgVert, movieTitle, onClose}) {
       isTop3,
       description,
     });
-    onClose();
+    onSubmit();
     
   };
 

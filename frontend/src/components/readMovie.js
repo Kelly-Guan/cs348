@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { X } from "lucide-react";
 
-function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCast, movieGenre, onClose, onAddReview }) {
+function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCast, movieGenre, onClose, onAddReview, onSubmit}) {
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === "Escape") {

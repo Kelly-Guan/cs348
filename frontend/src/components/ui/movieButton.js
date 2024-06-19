@@ -20,6 +20,13 @@ function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movie
     setShowReviewPopup(false);
   };
 
+  const handleSubmitReview = () => {
+    // Close both popups
+    setShowReadMoviePopup(false);
+    setShowReviewPopup(false);
+  };
+
+
   return (
     <>
       <button 
@@ -49,6 +56,7 @@ function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movie
           movieImgVert={movieImgVert}
           movieTitle={movieTitle}
           onClose={handleCloseReviewPopup}
+          onSubmit={handleSubmitReview}
         />
       )}
     </>
