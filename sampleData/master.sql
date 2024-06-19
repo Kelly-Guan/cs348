@@ -47,6 +47,41 @@ FOR EACH ROW
   WHERE uid = newWatched.uid
     AND mid = newWatched.mid
 
+*/CREATE TYPE movie_genre AS ENUM (
+  'Animation',
+  'Adventure',
+  'Comedy',
+  'Family',
+  'Sci-Fi',
+  'Sport'
+);
+
+CREATE TABLE genre (
+  mid INTEGER,
+  genre movie_genre NOT NULL,
+  PRIMARY KEY (mid, genre),
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
+);CREATE TABLE ratings (
+  uid INTEGER,
+  mid INTEGER,
+  score INTEGER NOT NULL,
+  rating_text VARCHAR(255),
+  upvotes INTEGER,
+  downvotes INTEGER,
+  date_posted TIMESTAMP NOT NULL,
+  PRIMARY KEY(uid, mid),
+  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
+);
+
+/*
+
+CREATE TRIGGER addRatingToWatched
+AFTER INSERT ON ratings
+REFERENCING NEW ROW AS newRow
+FOR EACH ROW
+  INSERT INTO watched VALUES(newRow.uid, newRow.mid, the time right now)
+
 */CREATE TABLE favourites (
   uid INTEGER,
   mid INTEGER,
@@ -98,46 +133,6 @@ FOR EACH STATEMENT
     SET rank = rank - 1
     WHERE rank > DelFave.rank
   END
-
-*/CREATE TABLE ratings (
-  uid INTEGER,
-  mid INTEGER,
-  score INTEGER NOT NULL,
-  rating_text VARCHAR(255),
-  upvotes INTEGER,
-  downvotes INTEGER,
-  date_posted TIMESTAMP NOT NULL,
-  PRIMARY KEY(uid, mid),
-  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);
-
-/*
-
-CREATE TRIGGER addRatingToWatched
-AFTER INSERT ON ratings
-REFERENCING NEW ROW AS newRow
-FOR EACH ROW
-  INSERT INTO watched VALUES(newRow.uid, newRow.mid, the time right now)
-
-*/CREATE TABLE watched (
-  uid INTEGER,
-  mid INTEGER,
-  date_watched DATE NOT NULL,
-  PRIMARY KEY(uid, mid),
-  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);
-
-/*
-
-CREATE TRIGGER deleteFromWatchLater
-AFTER INSERT ON watched
-REFERENCING NEW ROW AS newWatched
-FOR EACH ROW
-  DELETE FROM watch_later
-  WHERE uid = newWatched.uid
-    AND mid = newWatched.mid
 
 */CREATE TABLE movie_cast (
   mid INTEGER,
