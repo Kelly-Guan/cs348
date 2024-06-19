@@ -1,6 +1,6 @@
-CREATE TABLE Watched (
-    uID INTEGER NOT NULL REFERENCES Users(uID),
-    mID INTEGER NOT NULL REFERENCES Movies(mID),
-    timestamp TIME NOT NULL,
-    PRIMARY KEY(uID, mID)
+CREATE TABLE watched (
+    uid INTEGER NOT NULL REFERENCES users(uid),
+    mid INTEGER NOT NULL REFERENCES movies(mid),
+    date_watched DATE NOT NULL,
+    PRIMARY KEY(uid, mid)
 );

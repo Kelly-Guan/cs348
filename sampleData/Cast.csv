@@ -1,4 +1,4 @@
-mID, name, role, character
+mid, name, role, character
 1, 'John Lasseter', 'Director', NULL
 1, 'John Lasseter', 'Writer', NULL
 1, 'Pete Docter', 'Writer', NULL

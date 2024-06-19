@@ -1,4 +1,4 @@
-﻿uID,f_name,l_name,username,email,password
+﻿uid,first_name,last_name,username,email,password
 1,Andrew,Jia,akyjia,akyjia@uwaterloo.ca,abcd123
 2,Hudson,Koyonagi,hkoyo,hkoyo@uwaterloo.ca,bazinga!312
 3,Kelly,Guan,kgguan,kgguan@uwaterloo.ca,asdfg12357

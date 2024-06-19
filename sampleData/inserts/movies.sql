@@ -1,4 +1,4 @@
-INSERT INTO movies (title, releaseDate, runtime, description, posterLink, adult) VALUES
+INSERT INTO movies (title, release_date, runtime, description, poster_link, adult) VALUES
 ('Toy Story', '1995-11-22', 81, 'A cowboy doll is profoundly threatened and jealous when a new spaceman action figure supplants him as top toy in a boy''s bedroom.', 'https://i.ebayimg.com/images/g/RVoAAOSwYxBefUP8/s-l1600.jpg', false),
 ('E.T. the Extra-Terrestrial', '1982-06-11', 115, 'A troubled child summons the courage to help a friendly alien escape from Earth and return to his home planet.', 'https://m.media-amazon.com/images/M/MV5BMTQ2ODFlMDAtNzdhOC00ZDYzLWE3YTMtNDU4ZGFmZmJmYTczXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg', false),
 ('Cloudy with a Chance of Meatballs', '2009-09-12', 90, 'A local scientist is often regarded as a failure until he invents a machine that can make food fall from the sky. But little does he know that things are about to take a turn for the worst.', 'https://lh6.googleusercontent.com/proxy/cF-p1SvwORtkxASS6Zv8D7SQ_XyP7aOlnb19xXf68jpfVdq_t7uOsRmKyTjXSfg_vdHVAKIJJjW_TRJ3sMNMyd5NYp87ihPg526oCgibk4WZndIzqQ-1VqUI7FXiQrbO6O_uv_QHQw', false),

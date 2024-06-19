@@ -1,6 +1,5 @@
-CREATE TABLE favourites (
+CREATE TABLE watch_later (
     uid INTEGER NOT NULL REFERENCES users(uid),
-    rank INT NOT NULL,
     mid INTEGER NOT NULL REFERENCES movies(mid),
-    PRIMARY KEY(uid, rank)
+    PRIMARY KEY(uid, mid)
 );

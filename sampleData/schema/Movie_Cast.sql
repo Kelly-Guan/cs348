@@ -1,7 +1,7 @@
-CREATE TABLE Movie_Cast (
-    mID INTEGER NOT NULL REFERENCES Movies(mID),
+CREATE TABLE movie_cast (
+    mid INTEGER NOT NULL REFERENCES movies(mid),
     name VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
     character VARCHAR(255),
-    PRIMARY KEY(mID, name, role)
+    PRIMARY KEY(mid, name, role)
 );
