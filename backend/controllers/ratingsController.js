@@ -4,8 +4,9 @@ exports.allRatings = async (req,res,next) => {
   const client = await pool.connect();
   try {
     const result = await client.query(`
-      SELECT r.*, u.username FROM Ratings r
-      JOIN Users u ON r.uid = u.uid
+      SELECT r.*, u.username, m.poster_link FROM ratings r
+      JOIN users u ON r.uid = u.uid
+      JOIN movies m ON r.mid = m.mid
     `);
     res.status(200).json({data: result.rows});
   } catch (err) {

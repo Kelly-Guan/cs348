@@ -18,7 +18,6 @@ function Home() {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setRatings(data.data);
       })
       .catch((err) => {
@@ -46,9 +45,9 @@ function Home() {
               <Content
                 key={i}
                 className="min-w-[300px]"
-                description={r.ratingtext}
+                description={r.rating_text}
                 profileName={r.username}
-                imageURL={movie}
+                imageURL={r.poster_link}
               />
             ))}
           </div>

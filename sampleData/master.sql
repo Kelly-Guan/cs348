@@ -43,9 +43,9 @@ CREATE TRIGGER deleteFromWatchLater
 AFTER INSERT ON watched
 REFERENCING NEW ROW AS newWatched
 FOR EACH ROW
-    DELETE FROM watch_later
-    WHERE uid = newWatched.uid
-        AND mid = newWatched.mid
+  DELETE FROM watch_later
+  WHERE uid = newWatched.uid
+    AND mid = newWatched.mid
 
 */CREATE TABLE favourites (
   uid INTEGER,
@@ -63,50 +63,43 @@ CREATE TRIGGER ensureFavouritesNoGap
 AFTER INSERT ON Favourites
 REFERENCING NEW ROW AS NewFave, OLD TABLE AS OldFaves
 FOR EACH STATEMENT
-    WHEN (NewFave.rank > (SELECT COUNT(*) FROM OldFaves) + 1)
-        NewFave.rank = (SELECT COUNT(*) FROM OldFaves)
+  WHEN (NewFave.rank > (SELECT COUNT(*) FROM OldFaves) + 1)
+    NewFave.rank = (SELECT COUNT(*) FROM OldFaves)
 
 CREATE TRIGGER maintainFavouritesOrderOnInsert
 AFTER INSERT ON Favourites
 REFERENCING NEW ROW AS NewFave, NEW TABLE AS NewFaves, OLD TABLE AS OldFaves
 FOR EACH STATEMENT
-    WHEN (NewFave.rank <= (SELECT COUNT(*) FROM OldFaves))
-    BEGIN
-        UPDATE Favourites
-        SET rank = rank + 1
-        WHERE rank >= NewFave.rank
-    END
+  WHEN (NewFave.rank <= (SELECT COUNT(*) FROM OldFaves))
+  BEGIN
+    UPDATE Favourites
+    SET rank = rank + 1
+    WHERE rank >= NewFave.rank
+  END
 
 CREATE TRIGGER maintainFavouritesOrderOnUpdate
 AFTER UPDATE OF rank ON Favourites
 REFERENCING NEW ROW AS NewFave, NEW TABLE AS NewFaves, OLD TABLE AS OldFaves
 FOR EACH STATEMENT
-    WHEN (NewFave.rank <= (SELECT COUNT(*) FROM OldFaves))
-    BEGIN
-        UPDATE Favourites
-        SET rank = rank + 1
-        WHERE rank >= NewFave.rank
-    END
+  WHEN (NewFave.rank <= (SELECT COUNT(*) FROM OldFaves))
+  BEGIN
+    UPDATE Favourites
+    SET rank = rank + 1
+    WHERE rank >= NewFave.rank
+  END
 
 CREATE TRIGGER maintainFavouritesOrderOnDELETE
 AFTER UPDATE OF rank ON Favourites
 REFERENCING OLD ROW AS DelFave, NEW TABLE AS NewFaves
 FOR EACH STATEMENT
-    WHEN (DelFave.rank <= (SELECT COUNT(*) FROM NewFaves))
-    BEGIN
-        UPDATE Favourites
-        SET rank = rank - 1
-        WHERE rank > DelFave.rank
-    END
+  WHEN (DelFave.rank <= (SELECT COUNT(*) FROM NewFaves))
+  BEGIN
+    UPDATE Favourites
+    SET rank = rank - 1
+    WHERE rank > DelFave.rank
+  END
 
-*/CREATE TABLE movie_cast (
-  mid INTEGER,
-  name VARCHAR(255) NOT NULL,
-  role VARCHAR(255) NOT NULL,
-  character VARCHAR(255),
-  PRIMARY KEY (mid, name, role),
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);CREATE TABLE ratings (
+*/CREATE TABLE ratings (
   uid INTEGER,
   mid INTEGER,
   score INTEGER NOT NULL,
@@ -116,6 +109,42 @@ FOR EACH STATEMENT
   date_posted TIMESTAMP NOT NULL,
   PRIMARY KEY(uid, mid),
   FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
+);
+
+/*
+
+CREATE TRIGGER addRatingToWatched
+AFTER INSERT ON ratings
+REFERENCING NEW ROW AS newRow
+FOR EACH ROW
+  INSERT INTO watched VALUES(newRow.uid, newRow.mid, the time right now)
+
+*/CREATE TABLE watched (
+  uid INTEGER,
+  mid INTEGER,
+  date_watched DATE NOT NULL,
+  PRIMARY KEY(uid, mid),
+  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
+);
+
+/*
+
+CREATE TRIGGER deleteFromWatchLater
+AFTER INSERT ON watched
+REFERENCING NEW ROW AS newWatched
+FOR EACH ROW
+  DELETE FROM watch_later
+  WHERE uid = newWatched.uid
+    AND mid = newWatched.mid
+
+*/CREATE TABLE movie_cast (
+  mid INTEGER,
+  name VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  character VARCHAR(255),
+  PRIMARY KEY (mid, name, role),
   FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
 );CREATE TABLE user_connections (
   following_uid INTEGER,
@@ -138,8 +167,8 @@ CREATE TRIGGER checkNotInWatched
 AFTER INSERT ON watch_later
 REFERENCING NEW ROW AS newRow
 FOR EACH ROW
-    WHEN (newRow.uid, newRow.mid EXISTS (SELECT uid, mid FROM watched))
-        DELETE FROM watch_later
-        WHERE uid = newRow.uid AND mid = newRow.mid
+  WHEN (newRow.uid, newRow.mid EXISTS (SELECT uid, mid FROM watched))
+    DELETE FROM watch_later
+    WHERE uid = newRow.uid AND mid = newRow.mid
 
 */

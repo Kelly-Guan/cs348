@@ -55,20 +55,19 @@ function ExplorePage() {
                     alt="Movie Poster"
                     />
 
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
+                    {movies.map((m, i) => 
+                      <MovieButton 
+                      key={i}
+                      movieImg={m.poster_link} 
+                      movieImgVert={m.poster_link}
+                      movieTitle={m.title}
+                      movieTime={m.release_date}
+                      movieDescription={m.description}
+                      />
+                    )}
+
+
+
 
             {/* {
               movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
