@@ -26,3 +26,8 @@ Running the project:
   
 
 Dataset source: https://www.kaggle.com/datasets/azathoth42/myanimelist/discussion
+
+
+Drop all tables (testing):
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
