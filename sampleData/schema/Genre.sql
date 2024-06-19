@@ -9,7 +9,7 @@ CREATE TYPE movie_genre AS ENUM (
 
 CREATE TABLE genre (
   mid INTEGER,
-  genre MovieGenre NOT NULL,
+  genre movie_genre NOT NULL,
   PRIMARY KEY (mid, genre),
   FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
 );
