@@ -23,10 +23,15 @@ function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movie
   return (
     <>
       <button 
-        className={`bg-white rounded-lg overflow-hidden ${pageType === 'search' ? 'w-90' : 'min-w-96'}`}
-        onClick={() => setShowReadMoviePopup(true)}>
+          className={`bg-white rounded-lg overflow-hidden ${
+            pageType === 'search'
+              ? 'w-90'
+              : 'min-w-96'
+          }`}        
+          onClick={() => setShowReadMoviePopup(true)}>
         <img src={movieImg} alt={alt} />
       </button>
+
       {showReadMoviePopup && (
         <ReadMovie
           movieImg={movieImg}
