@@ -11,7 +11,7 @@ import Home from './pages/HomePage';
 // import Landing from './pages/LandingPage';
 // import LogIn from './pages/LogInPage';
 import Search from './pages/SearchPage';
-// import Profile from './pages/ProfilePage';
+import Profile from './pages/ProfilePage';
 // import Create from './pages/CreatePage';
 
 
@@ -24,6 +24,7 @@ function App() {
           <Route exact path="/" element={<Home/>}/>
           <Route exact path="/search" element={<Search/>}/>
           <Route exact path="/explore" element={<Explore/>}/>
+          <Route exact path="/profile" element={<Profile/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>
