@@ -8,6 +8,5 @@ CREATE TABLE ratings (
   date_posted TIMESTAMP NOT NULL,
   PRIMARY KEY(uid, mid),
   FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE,
-  FOREIGN KEY (uid, mid) REFERENCES watched(uid, mid)
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
 );

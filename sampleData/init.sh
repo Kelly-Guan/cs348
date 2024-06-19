@@ -9,4 +9,4 @@ for file in ./schema/*.sql; do
 done
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -f master.sql
-
+psql postgres://postgres:postgres@127.0.0.1:5432 -f inserts/insert_testing_data.sql   
