@@ -1,9 +1,11 @@
 CREATE TABLE favourites (
-    uid INTEGER NOT NULL REFERENCES users(uid),
-    rank INT NOT NULL CHECK(rank >= 1 AND rank <= 5),
-    mid INTEGER NOT NULL REFERENCES movies(mid),
-    CHECK (uid, mid EXISTS (SELECT uid, mid FROM Watched)),
-    PRIMARY KEY(uid, rank)
+  uid INTEGER,
+  mid INTEGER,
+  rank INTEGER NOT NULL CHECK(rank >= 1 AND rank <= 5),
+  PRIMARY KEY (uid, rank),
+  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE,
+  FOREIGN KEY (uid, mid) REFERENCES watched(uid, mid)
 );
 
 /*

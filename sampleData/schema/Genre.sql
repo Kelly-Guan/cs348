@@ -8,7 +8,8 @@ CREATE TYPE movie_genre AS ENUM (
 );
 
 CREATE TABLE genre (
-  mid INTEGER NOT NULL REFERENCES movies(mid),
+  mid INTEGER,
   genre MovieGenre NOT NULL,
-  PRIMARY KEY(mid, genre)
+  PRIMARY KEY (mid, genre),
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
 );

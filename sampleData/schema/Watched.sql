@@ -1,8 +1,10 @@
 CREATE TABLE watched (
-    uid INTEGER NOT NULL REFERENCES users(uid),
-    mid INTEGER NOT NULL REFERENCES movies(mid),
-    date_watched DATE NOT NULL,
-    PRIMARY KEY(uid, mid)
+  uid INTEGER,
+  mid INTEGER,
+  date_watched DATE NOT NULL,
+  PRIMARY KEY(uid, mid),
+  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
 );
 
 /*
