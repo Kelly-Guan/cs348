@@ -12,7 +12,7 @@ import Home from './pages/HomePage';
 // import LogIn from './pages/LogInPage';
 import Search from './pages/SearchPage';
 // import Profile from './pages/ProfilePage';
-import Create from './pages/CreatePage';
+// import Create from './pages/CreatePage';
 
 
 
@@ -24,7 +24,6 @@ function App() {
           <Route exact path="/" element={<Home/>}/>
           <Route exact path="/search" element={<Search/>}/>
           <Route exact path="/explore" element={<Explore/>}/>
-          <Route exact path="/create" element={<Create/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>

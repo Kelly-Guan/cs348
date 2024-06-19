@@ -2,37 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Home, Search, Compass, PlusCircle, User, LogOut } from "lucide-react";
 import NavBarButtons from "./ui/navBarButtons";
-import searchMovieReview from "./searchMovieReview";
-
+import SearchMovieReview from "./searchMovieReview";
 
 function NavBar() {
-  const [showSearchReviewPopUp, setSearchReviewPopUp] = useState(false); 
-  const [showReadMoviePopup, setShowReadMoviePopup] = useState(false); 
-  const [showReviewPopup, setShowReviewPopup] = useState(false);
+  const [showSearchMovieReviewPopup, setShowSearchMovieReviewPopup] = useState(false);
+  
 
-
-  const handleCloseSearchReviewPopup = () => {
-    setSearchReviewPopUp(false);
+  const handleOpenSearchMovieReview = () => {
+    setShowSearchMovieReviewPopup(true);
   };
 
-  const handleOpenSearchReviewPopup = () => {
-    setSearchReviewPopUp(false);
-    setShowReadMoviePopup(true);
+  const handleCloseSearchMovieReview = () => {
+    setShowSearchMovieReviewPopup(false);
   };
-
-  const handleCloseReadMoviePopup = () => {
-    setShowReadMoviePopup(false);
-  };
-
-  const handleOpenReviewPopup = () => {
-    setShowReadMoviePopup(false);
-    setShowReviewPopup(true);
-  };
-
-  const handleCloseReviewPopup = () => {
-    setShowReviewPopup(false);
-  };
-
 
   return (
     <div className="fixed flex flex-col top-0 left-0 w-1/6 h-screen bg-gray-100 p-4 items-center">
@@ -48,9 +30,9 @@ function NavBar() {
           <Link to="/explore" className="mb-4 ml-2">
             <NavBarButtons Icon={Compass} label="Explore" />
           </Link>
-          <Link to="/create" className="mb-4 ml-2">
-            <NavBarButtons Icon={PlusCircle} label="Create"/>
-          </Link>
+          <button onClick={handleOpenSearchMovieReview} className="mb-4 ml-2">
+            <NavBarButtons Icon={PlusCircle} label="Create" />
+          </button>
         </div>
         <div className="flex flex-col items-start">
           <Link to="/profile" className="mb-4 ml-2">
@@ -61,48 +43,12 @@ function NavBar() {
           </Link>
         </div>
       </div>
-{/* 
-      {showSearchReviewPopUp && (
-        <searchMovieReview
-          movieImg={movieImg}
-          movieTitle={movieTitle}
-          movieTime={movieTime}
-          movieDescription={movieDescription}
-          movieCast={movieCast}
-          movieGenre={movieGenre}
-          onClose={handleCloseSearchReviewPopup}
-          onAddReview={handleOpenSearchReviewPopup}
-        />
+      {showSearchMovieReviewPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <SearchMovieReview onClose={handleCloseSearchMovieReview} />
+        </div>
       )}
-
-
-      {showReadMoviePopup && (
-        <ReadMovie
-          movieImg={movieImg}
-          movieTitle={movieTitle}
-          movieTime={movieTime}
-          movieDescription={movieDescription}
-          movieCast={movieCast}
-          movieGenre={movieGenre}
-          onClose={handleCloseReadMoviePopup}
-          onAddReview={handleOpenReviewPopup}
-        />
-      )}
-
-      {showReviewPopup && (
-        <CreateNewReview
-          movieImgVert={movieImgVert}
-          movieTitle={movieTitle}
-          onClose={handleCloseReviewPopup}
-        />
-      )} */}
     </div>
-
-
-    
-
-
-
   );
 }
 

@@ -44,6 +44,7 @@ function CreateNewReview({movieImgVert, movieTitle, onClose}) {
       description,
     });
     onClose();
+    
   };
 
 
