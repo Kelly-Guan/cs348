@@ -25,8 +25,8 @@ CREATE TABLE genre (
   uid SERIAL UNIQUE,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
-  username VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL
 );CREATE TABLE watched (
   uid INTEGER,
@@ -46,41 +46,6 @@ FOR EACH ROW
   DELETE FROM watch_later
   WHERE uid = newWatched.uid
     AND mid = newWatched.mid
-
-*/CREATE TYPE movie_genre AS ENUM (
-  'Animation',
-  'Adventure',
-  'Comedy',
-  'Family',
-  'Sci-Fi',
-  'Sport'
-);
-
-CREATE TABLE genre (
-  mid INTEGER,
-  genre movie_genre NOT NULL,
-  PRIMARY KEY (mid, genre),
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);CREATE TABLE ratings (
-  uid INTEGER,
-  mid INTEGER,
-  score INTEGER NOT NULL,
-  rating_text VARCHAR(255),
-  upvotes INTEGER,
-  downvotes INTEGER,
-  date_posted TIMESTAMP NOT NULL,
-  PRIMARY KEY(uid, mid),
-  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
-  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);
-
-/*
-
-CREATE TRIGGER addRatingToWatched
-AFTER INSERT ON ratings
-REFERENCING NEW ROW AS newRow
-FOR EACH ROW
-  INSERT INTO watched VALUES(newRow.uid, newRow.mid, the time right now)
 
 */CREATE TABLE favourites (
   uid INTEGER,
@@ -141,7 +106,28 @@ FOR EACH STATEMENT
   character VARCHAR(255),
   PRIMARY KEY (mid, name, role),
   FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
-);CREATE TABLE user_connections (
+);CREATE TABLE ratings (
+  uid INTEGER,
+  mid INTEGER,
+  score INTEGER NOT NULL,
+  rating_text VARCHAR(255),
+  upvotes INTEGER DEFAULT 0,
+  downvotes INTEGER DEFAULT 0,
+  date_posted TIMESTAMP NOT NULL,
+  PRIMARY KEY(uid, mid),
+  FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
+  FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
+);
+
+/*
+
+CREATE TRIGGER addRatingToWatched
+AFTER INSERT ON ratings
+REFERENCING NEW ROW AS newRow
+FOR EACH ROW
+  INSERT INTO watched VALUES(newRow.uid, newRow.mid, the time right now)
+
+*/CREATE TABLE user_connections (
   following_uid INTEGER,
   follower_uid INTEGER,
   CHECK (following_uid != follower_uid),

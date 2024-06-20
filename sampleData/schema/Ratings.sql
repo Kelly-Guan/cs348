@@ -4,7 +4,7 @@ CREATE TABLE ratings (
   score INTEGER NOT NULL,
   rating_text VARCHAR(255),
   upvotes INTEGER DEFAULT 0,
-  downvotes INTEGER DEAFULT 0,
+  downvotes INTEGER DEFAULT 0,
   date_posted TIMESTAMP NOT NULL,
   PRIMARY KEY(uid, mid),
   FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
