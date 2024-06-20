@@ -1,13 +1,15 @@
 CREATE TYPE movie_genre AS ENUM (
+  'Action',
   'Animation',
   'Adventure',
   'Comedy',
   'Family',
   'Sci-Fi',
-  'Sport'
+  'Sport',
+  'Fantasy'
 );
 
-CREATE TABLE genre (
+CREATE TABLE genres (
   mid INTEGER,
   genre movie_genre NOT NULL,
   PRIMARY KEY (mid, genre),
