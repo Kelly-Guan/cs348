@@ -1,3 +1,9 @@
+-- If you have sucessfully run the databse init script you can run this file with:
+-- psql postgres://postgres:postgres@127.0.0.1:5432 -f test-sample.sql > test-sample.out
+-- This will run the tests fresh and put the results in test-sample.out
+
+
+
 /* FEATURE R6 - Account Management */
 
 
