@@ -19,7 +19,7 @@ UPDATE users SET username = 'baconman' WHERE uid = 6;
 /* Should delete Andrew Jia's account in users, as well as every row related to him */
 DELETE FROM users u WHERE u.username = 'akyjia';
 
-
+-- Showcases Recent Releases -> filter by ' release_date '
 SELECT
   m.mid,
   m.title,
@@ -38,6 +38,7 @@ ORDER BY
 LIMIT
   10;
 
+-- Shows Popular Movies -> filtered by ' rating ' and ' release_date '
 SELECT
 FROM
   movies
