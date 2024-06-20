@@ -23,7 +23,7 @@ SELECT u.password FROM users u WHERE u.username = 'pizzaman';
 UPDATE users SET username = 'baconman' WHERE uid = 6;
 
 /* Should delete Ben's account in users, as well as every row related to him */
-DELETE FROM users u WHERE u.username = 'hkoya';
+DELETE FROM users u WHERE u.username = 'baconman';
 
 
 /* FEATURE R7 - Landing Page */
