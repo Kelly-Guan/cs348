@@ -48,6 +48,7 @@ function Home() {
                 description={r.rating_text}
                 profileName={r.username}
                 imageURL={r.poster_link}
+                timePosted={r.date_posted}
               />
             ))}
           </div>
