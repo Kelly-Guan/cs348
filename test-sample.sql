@@ -102,3 +102,42 @@ WHERE following_uid = 4
 SELECT *
 FROM users u
 WHERE u.uid = 4;
+
+
+/* FEATURE R8 - User Page */
+
+/* Should select the ratings from all people Kelly follows */
+  SELECT r.*
+  FROM ratings r
+  WHERE r.uid IN (
+    SELECT following_uid FROM user_connections
+    WHERE follower_uid = 3
+  );
+
+/* Should select all ratings for action movies */
+
+  SELECT
+  r.*
+FROM
+  ratings r
+  JOIN movies m ON r.mid = m.mid
+  JOIN genres g ON m.mid = g.mid
+WHERE
+  g.genre = 'Action';
+
+/* Should select all ratings with a up to down vote ratio of 50% */
+SELECT
+  r.*
+FROM
+  ratings r
+GROUP BY r.uid, r.mid
+HAVING r.downvotes>0 AND SUM(r.upvotes)/SUM(r.downvotes) >= 0.5;
+
+/* Should upvote the post made by  */
+UPDATE
+  ratings
+SET
+  upvotes = upvotes + 1
+WHERE
+  uid = 3
+  AND mid = 3;
