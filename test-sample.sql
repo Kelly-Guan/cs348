@@ -22,6 +22,7 @@ DELETE FROM users u WHERE u.username = 'baconman';
 
 /* FEATURE R7 - Landing Page */
 
+-- Showcases Recent Releases -> filter by ' release_date '
 SELECT
   m.mid,
   m.title,
@@ -40,6 +41,7 @@ ORDER BY
 LIMIT
   10;
 
+-- Shows Popular Movies -> filtered by ' rating ' and ' release_date '
 SELECT
 FROM
   movies
