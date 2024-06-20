@@ -14,6 +14,8 @@ Please download Docker from their website (https://www.docker.com/get-started/).
 
 PostgreSQL and Node.js can be download from most package managers or from their website.
 
+\* Note: these scripts have only been tested on mac and while they'll probably work on most UNIX machines, they will definitely not work on Windows without WSL
+
 1) Run  ```docker-compose -f compose.yaml up``` in the root dir of the project
 2) Run ```cd sampleData && chmod +x init.sh && ./init.sh``` which will initialise the database with the test data
 3) Run ```cd ../backend && node i```

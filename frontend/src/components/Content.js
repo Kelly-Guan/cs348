@@ -18,7 +18,7 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, i
     <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
       <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
       <div className="mt-4 mx-auto max-w-full">
-        <img src={imageURL} width={160} width={240}  alt="Movie" className="w-full object-cover" />
+        <img src={imageURL} width={160} height={240}  alt="Movie" className="w-full object-cover" />
       </div>
       <div className="flex justify-between items-end mt-4">
         <div className="flex space-x-2">
