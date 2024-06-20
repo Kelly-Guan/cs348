@@ -6,6 +6,7 @@ CREATE TABLE ratings (
   upvotes INTEGER DEFAULT 0,
   downvotes INTEGER DEFAULT 0,
   date_posted TIMESTAMP NOT NULL,
+  CHECK(score <= 5 AND score >= 0),
   PRIMARY KEY(uid, mid),
   FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE CASCADE,
   FOREIGN KEY (mid) REFERENCES movies(mid) ON DELETE CASCADE
