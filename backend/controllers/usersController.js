@@ -191,7 +191,7 @@ exports.watchedByID = async (req, res, next) => {
     return;
   }
 
-  
+
 };
 exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
@@ -215,7 +215,7 @@ exports.ratingsByID = async (req, res, next) => {
   LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
   WHERE
   r.uid = $1 
-  ORDER BY rv.upvotes;`;
+  ORDER BY rv.upvotes`;
   const client = await pool.connect();
   try {
     const result = await client.query(query_str, [uid]);
