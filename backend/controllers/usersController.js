@@ -203,22 +203,23 @@ exports.watchLaterByID = async (req, res, next) => {
 
 exports.ratingsByID = async (req, res, next) => {
   const uid = req.params["uid"];
+  const { offset } = req.query;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
-  const query_str = `
-  SELECT m.title, r.*, rv.upvotes, rv.downvotes, u.first_name
-  FROM ratings r
-  JOIN movies m ON r.mid = m.mid
-  JOIN users u ON r.uid = u.uid
-  LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
-  WHERE
-  r.uid = $1 
-  ORDER BY rv.upvotes`;
   const client = await pool.connect();
   try {
-    const result = await client.query(query_str, [uid]);
+    const result = await client.query(`
+    SELECT m.title, r.*, rv.upvotes, rv.downvotes, u.first_name
+    FROM ratings r
+    JOIN movies m ON r.mid = m.mid
+    JOIN users u ON r.uid = u.uid
+    LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
+    WHERE
+    r.uid = $1 
+    ORDER BY rv.upvotes
+    LIMIT $2 OFFSET $3`, [uid,FOLLOW_PAGE_LIMIT,offset]);
     if (result.rowCount === 0) {
       res.status(404).json("user's ratings not found");
     } else {
@@ -231,3 +232,4 @@ exports.ratingsByID = async (req, res, next) => {
     client.release();
   }
 };
+
