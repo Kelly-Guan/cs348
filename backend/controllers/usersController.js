@@ -186,18 +186,61 @@ exports.followersByID = async (req, res, next) => {
 
 exports.watchedByID = async (req, res, next) => {
   const uid = req.params["uid"];
+  const { offset } = req.query;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
+<<<<<<< Updated upstream
 
 
+=======
+  const client = await pool.connect();
+  try{
+    const result = await client.query(`
+    SELECT m.title, u.username
+    FROM watched w
+    JOIN movies m ON w.mid = m.mid
+    JOIN users u ON u.uid = $1 
+    LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
+    if(result.rowCount === 0){
+      res.status(404).json("user's watch later list not found");
+    }else{
+      res.status(200).json(result.rows);
+    }
+  }catch (err) {
+    console.log(err);
+    res.send(500).json("Something went wrong retreiving user's Watch Later");
+  } finally {
+    client.release();
+  }  
+>>>>>>> Stashed changes
 };
 exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
+  const { offset } = req.query;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
+  }
+  const client = await pool.connect();
+  try{
+    const result = await client.query(`
+    SELECT m.title, u.username
+    FROM watch_later wl
+    JOIN movies m ON wl.mid = m.mid
+    JOIN users u ON u.uid = $1 
+    LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
+    if(result.rowCount === 0){
+      res.status(404).json("user's watch later list not found");
+    }else{
+      res.status(200).json(result.rows);
+    }
+  }catch (err) {
+    console.log(err);
+    res.send(500).json("Something went wrong retreiving user's Watch Later");
+  } finally {
+    client.release();
   }
 };
 
