@@ -23,3 +23,6 @@
 /frontendyarn-error.log*
 
 /backend/node_modules
+/prodData/cleanedCredits.csv
+/prodData/cleanedGenre.csv
+/prodData/cleanedMovies.csv
