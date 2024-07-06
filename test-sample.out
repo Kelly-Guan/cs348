@@ -27,11 +27,11 @@ DELETE 1
 
  mid |               title               | release_date |  aggregate_rating  
 -----+-----------------------------------+--------------+--------------------
-   2 | E.T. the Extra-Terrestrial        | 1982-06-11   | 2.5000000000000000
-   1 | Toy Story                         | 1995-11-22   | 3.5000000000000000
-   5 | The Incredibles                   | 2004-10-24   | 3.0000000000000000
-   4 | Cars                              | 2006-03-14   | 3.2500000000000000
-   3 | Cloudy with a Chance of Meatballs | 2009-09-12   | 3.5000000000000000
+   2 | E.T. the Extra-Terrestrial        | 1982-06-11   | 2.6000000000000000
+   1 | Toy Story                         | 1995-11-22   | 3.6000000000000000
+   5 | The Incredibles                   | 2004-10-24   | 3.2000000000000000
+   4 | Cars                              | 2006-03-14   | 2.6000000000000000
+   3 | Cloudy with a Chance of Meatballs | 2009-09-12   | 3.2000000000000000
 (5 rows)
 
                title               | uid | mid | score |       rating_text        | upvotes | downvotes |     date_posted     | first_name 
@@ -48,9 +48,12 @@ DELETE 1
  E.T. the Extra-Terrestrial |    1 | Kelly
 (1 row)
 
- title | username 
--------+----------
-(0 rows)
+               title               | username 
+-----------------------------------+----------
+ Cloudy with a Chance of Meatballs | hkoya
+ Toy Story                         | hkoya
+ E.T. the Extra-Terrestrial        | hkoya
+(3 rows)
 
  following_uid | username 
 ---------------+----------
@@ -64,27 +67,83 @@ DELETE 1
    4 | Arjun      | Walia     | a24walia | a24walia@uwaterloo.ca | 10283ub
 (1 row)
 
- uid | mid | score | rating_text | upvotes | downvotes | date_posted 
------+-----+-------+-------------+---------+-----------+-------------
-(0 rows)
+ uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
+-----+-----+-------+---------------------------+---------+-----------+---------------------
+   2 |   1 |     4 | Pretty good movie         |       5 |         1 | 2024-06-13 14:45:00
+   2 |   3 |     2 | Not my type of film       |       1 |         4 | 2024-06-14 10:15:00
+   2 |   2 |     3 | Average film              |       3 |         2 | 2024-06-20 12:00:00
+   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
+   2 |   4 |     0 | Worst movie ever          |       0 |         6 | 2024-07-01 13:30:00
+(5 rows)
 
- uid | mid | score |      rating_text      | upvotes | downvotes |     date_posted     
------+-----+-------+-----------------------+---------+-----------+---------------------
-   3 |   5 |     4 | Enjoyed it thoroughly |       6 |         1 | 2024-06-27 09:10:00
-   1 |   5 |     2 | Below average         |       1 |         3 | 2024-06-29 10:20:00
-   4 |   5 |     2 | Not my favorite       |       1 |         4 | 2024-07-03 14:20:00
-   5 |   5 |     4 | Well-made movie       |       7 |         1 | 2024-07-04 21:00:00
-(4 rows)
+ uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
+-----+-----+-------+---------------------------+---------+-----------+---------------------
+   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
+   3 |   5 |     4 | Enjoyed it thoroughly     |       6 |         1 | 2024-06-27 09:10:00
+   1 |   5 |     2 | Below average             |       1 |         3 | 2024-06-29 10:20:00
+   4 |   5 |     2 | Not my favorite           |       1 |         4 | 2024-07-03 14:20:00
+   5 |   5 |     4 | Well-made movie           |       7 |         1 | 2024-07-04 21:00:00
+(5 rows)
 
- uid | mid | score |      rating_text      | upvotes | downvotes |     date_posted     
------+-----+-------+-----------------------+---------+-----------+---------------------
-   4 |   3 |     3 | Not bad               |       2 |         2 | 2024-06-28 11:00:00
-   4 |   4 |     3 | Just alright          |       2 |         2 | 2024-06-24 17:25:00
-   5 |   5 |     4 | Well-made movie       |       7 |         1 | 2024-07-04 21:00:00
-   3 |   4 |     4 | Quite entertaining    |       5 |         1 | 2024-07-02 16:45:00
-   3 |   5 |     4 | Enjoyed it thoroughly |       6 |         1 | 2024-06-27 09:10:00
-   1 |   3 |     4 | Better than expected  |       4 |         1 | 2024-06-18 15:45:00
-   3 |   1 |     3 | It was okay           |       2 |         2 | 2024-06-17 11:20:00
-(7 rows)
+ uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
+-----+-----+-------+---------------------------+---------+-----------+---------------------
+   4 |   3 |     3 | Not bad                   |       2 |         2 | 2024-06-28 11:00:00
+   4 |   4 |     3 | Just alright              |       2 |         2 | 2024-06-24 17:25:00
+   2 |   1 |     4 | Pretty good movie         |       5 |         1 | 2024-06-13 14:45:00
+   5 |   5 |     4 | Well-made movie           |       7 |         1 | 2024-07-04 21:00:00
+   3 |   4 |     4 | Quite entertaining        |       5 |         1 | 2024-07-02 16:45:00
+   3 |   5 |     4 | Enjoyed it thoroughly     |       6 |         1 | 2024-06-27 09:10:00
+   1 |   3 |     4 | Better than expected      |       4 |         1 | 2024-06-18 15:45:00
+   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
+   2 |   2 |     3 | Average film              |       3 |         2 | 2024-06-20 12:00:00
+   3 |   1 |     3 | It was okay               |       2 |         2 | 2024-06-17 11:20:00
+(10 rows)
 
 UPDATE 1
+ mid |  avg_movie_rating  
+-----+--------------------
+   4 | 2.6000000000000000
+   2 | 2.6000000000000000
+   3 | 3.2000000000000000
+   1 | 3.6000000000000000
+   5 | 3.2000000000000000
+(5 rows)
+
+ movie_ranking 
+---------------
+             1
+(1 row)
+
+ score |      rating_text       | upvotes | downvotes |     date_posted     
+-------+------------------------+---------+-----------+---------------------
+     2 | Not my type of film    |       1 |         4 | 2024-06-14 10:15:00
+     4 | Better than expected   |       4 |         1 | 2024-06-18 15:45:00
+     2 | Could have been better |       1 |         3 | 2024-06-26 14:50:00
+     3 | Not bad                |       2 |         2 | 2024-06-28 11:00:00
+     5 | Absolutely fantastic!  |       8 |         0 | 2024-06-23 13:45:00
+(5 rows)
+
+ release_date | poster_link | runtime | adult 
+--------------+-------------+---------+-------
+ 2009-09-12   |             |      90 | f
+(1 row)
+
+        name        |   role   
+--------------------+----------
+ Christopher Miller | Director
+ Phil Lord          | Director
+(2 rows)
+
+        name        |  role  | character 
+--------------------+--------+-----------
+ Christopher Miller | Writer | 
+ Phil Lord          | Writer | 
+(2 rows)
+
+    name    | role  |   character    
+------------+-------+----------------
+ Anna Faris | Actor | Sam Sparks
+ Bill Lader | Actor | Flint Lockwood
+ James Caan | Actor | Tim Lockwood
+(3 rows)
+

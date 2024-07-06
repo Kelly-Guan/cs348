@@ -150,41 +150,56 @@ WHERE
 
 /* FEATURE R10 - Movies Page */
 
-/* Should return the average rating for a movie (Toy Story in this example with mid 1) */
-SELECT m.mid, AVG(r.score) AS movie_rating
+/* Should return the average rating for a movie (CWACOM in this example with mid 1) */
+SELECT m.mid, AVG(r.score) AS avg_movie_rating
 FROM movies m, ratings r
 WHERE m.mid = r.mid
-  AND m.mid = 1
 GROUP BY m.mid;
 
-/* Should return the rating ranking for a movie, i.e. the number of rows with average score above it (Toy Story in this example with mid 1) */
-SELECT COUNT(*) AS m_rating
-FROM movies m, ratings r
-WHERE m.mid = r.mid
-GROUP BY m.mid
-HAVING AVG(r.score) > (
-  SELECT AVG(r1.score)
-  FROM movies m1, ratings r1
-  WHERE m1.mid = r1.rid
-    AND m1.mid = 1
-  GROUP BY m1.mid
-);
+/* Should return the rating ranking for a movie, i.e. the number of rows with average score above it (CWACOM in this example with mid 3) */
+WITH mid_rating AS (
+  SELECT m.mid, AVG(r.score) as avg_score
+  FROM movies m, ratings r
+  WHERE m.mid = r.mid
+    AND m.mid = 3
+  GROUP BY m.mid
+  ORDER BY avg_score DESC
+)
+SELECT COUNT(*) + 1 AS movie_ranking
+FROM mid_rating mr1, mid_rating mr2
+WHERE mr1.mid = 3
+  AND mr1.avg_score < mr2.avg_score;
 
-/* Should return all the rating details for a film (Toy Story in this example with mid 1) */
+/* Should return all the rating details for a film (CWACOM in this example with mid 3) */
 SELECT r.score, r.rating_text, r.upvotes, r.downvotes, r.date_posted
 FROM movies m, ratings r
 WHERE m.mid = r.mid 
-  AND m.mid = 1;
+  AND m.mid = 3;
 
-/* Should return all the movie details for a film excluding cast (Toy Story in this example with mid 1) */
-SELECT release_date, poster_link, m.runtime, adult
+/* Should return all the movie details for a film excluding cast (CWACOM in this example with mid 3) */
+SELECT release_date, poster_link, runtime, adult
 FROM movies
-WHERE mid = 1;
+WHERE mid = 3;
 
-/* Should return all the cast details for a movie (Toy Story in this example with mid 1) */
+/* Should return all the directors for a movie (CWACOM in this example with mid 3) */
+SELECT name, role
+FROM movie_cast
+WHERE mid = 3
+  AND role = 'Director';
+
+/* Should return all the writers for a movie (CWACOM in this example with mid 3) */
+SELECT name, role
+FROM movie_cast
+WHERE mid = 3
+  AND role = 'Writer';
+
+/* Should return all the actors for a movie (CWACOM in this example with mid 3) */
 SELECT name, role, character
 FROM movie_cast
-WHERE mid = 1;
+WHERE mid = 3
+  AND role = 'Actor';
+
+/*
 
 /* FEATURE R11 - Search Page/User Search Page */
 
@@ -239,3 +254,5 @@ WHERE m.mid = vm.mid;
 SELECT u.uid
 FROM users u
 WHERE u.username LIKE '%search_username%';
+
+*/
