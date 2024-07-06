@@ -64,15 +64,18 @@ LIMIT
 SELECT
   m.title,
   r.*,
+  rv.upvotes,
+  rv.downvotes,
   u.first_name
 FROM
   ratings r
   JOIN movies m ON r.mid = m.mid
   JOIN users u ON r.uid = u.uid
+  LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
 WHERE
   r.uid = 1 -- Andrew's uid
 ORDER BY
-  r.upvotes;
+  rv.upvotes;
 
 /* Should select all of Kelly's favourites */
 SELECT
@@ -113,8 +116,12 @@ WHERE u.uid = 4;
 /* FEATURE R9 - Ratings Page */
 
 /* Should select the ratings from all people Kelly follows */
-  SELECT r.*
+  SELECT 
+    r.*,
+    COALESCE(rv.upvotes, 0) AS upvotes,
+    COALESCE(rv.downvotes, 0) AS downvotes
   FROM ratings r
+    LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
   WHERE r.uid IN (
     SELECT following_uid FROM user_connections
     WHERE follower_uid = 3
@@ -122,31 +129,36 @@ WHERE u.uid = 4;
 
 /* Should select all ratings for action movies */
 
-  SELECT
-  r.*
+SELECT
+  r.*,
+  COALESCE(rv.upvotes, 0) AS upvotes,
+  COALESCE(rv.downvotes, 0) AS downvotes
 FROM
   ratings r
   JOIN movies m ON r.mid = m.mid
   JOIN genres g ON m.mid = g.mid
+  LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
 WHERE
   g.genre = 'Action';
 
 /* Should select all ratings with a up to down vote ratio of 50% */
 SELECT
-  r.*
+  r.*,
+  COALESCE(rv.upvotes, 0) AS upvotes,
+  COALESCE(rv.downvotes, 0) AS downvotes
 FROM
   ratings r
-GROUP BY r.uid, r.mid
-HAVING r.downvotes>0 AND SUM(r.upvotes)/SUM(r.downvotes) >= 0.5;
+  LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
+WHERE rv.downvotes>0 AND rv.upvotes/rv.downvotes >= 0.5;
 
-/* Should upvote the post made by  */
-UPDATE
-  ratings
-SET
-  upvotes = upvotes + 1
-WHERE
-  uid = 3
-  AND mid = 3;
+-- /* Should upvote the post*/
+-- UPDATE
+--   reviewer_votes
+-- SET
+--   upvotes = upvotes + 1
+-- WHERE
+--   uid = 3
+--   AND mid = 3;
 
 /* FEATURE R10 - Movies Page */
 
@@ -171,8 +183,12 @@ WHERE mr1.mid = 3
   AND mr1.avg_score < mr2.avg_score;
 
 /* Should return all the rating details for a film (CWACOM in this example with mid 3) */
-SELECT r.score, r.rating_text, r.upvotes, r.downvotes, r.date_posted
+SELECT r.score, r.rating_text, 
+  COALESCE(rv.upvotes, 0) AS upvotes,
+  COALESCE(rv.downvotes, 0) AS downvotes, 
+  r.date_posted
 FROM movies m, ratings r
+  LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
 WHERE m.mid = r.mid 
   AND m.mid = 3;
 

@@ -14,8 +14,8 @@ INSERT 0 1
  1111111
 (1 row)
 
-UPDATE 1
-DELETE 1
+UPDATE 0
+DELETE 0
  mid |               title               | release_date | runtime |                                                                                          description                                                                                          |                                                          poster_link                                                          | adult 
 -----+-----------------------------------+--------------+---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------
    3 | Cloudy with a Chance of Meatballs | 2009-09-12   |      90 | A local scientist is often regarded as a failure until he invents a machine that can make food fall from the sky. But little does he know that things are about to take a turn for the worst. |                                                                                                                               | f
@@ -34,13 +34,13 @@ DELETE 1
    3 | Cloudy with a Chance of Meatballs | 2009-09-12   | 3.2000000000000000
 (5 rows)
 
-               title               | uid | mid | score |       rating_text        | upvotes | downvotes |     date_posted     | first_name 
------------------------------------+-----+-----+-------+--------------------------+---------+-----------+---------------------+------------
- Cars                              |   1 |   4 |     1 | Terrible experience      |       0 |         4 | 2024-06-22 22:10:00 | Andrew
- The Incredibles                   |   1 |   5 |     2 | Below average            |       1 |         3 | 2024-06-29 10:20:00 | Andrew
- E.T. the Extra-Terrestrial        |   1 |   2 |     3 | This movie is subpotimal |       2 |         3 | 2024-06-12 16:23:00 | Andrew
- Toy Story                         |   1 |   1 |     5 | This movie is awesome!   |       3 |         0 | 2024-06-12 13:23:00 | Andrew
- Cloudy with a Chance of Meatballs |   1 |   3 |     4 | Better than expected     |       4 |         1 | 2024-06-18 15:45:00 | Andrew
+               title               | uid | mid | score |       rating_text        |     date_posted     | upvotes | downvotes | first_name 
+-----------------------------------+-----+-----+-------+--------------------------+---------------------+---------+-----------+------------
+ Cloudy with a Chance of Meatballs |   1 |   3 |     4 | Better than expected     | 2024-06-18 15:45:00 |       0 |         2 | Andrew
+ Toy Story                         |   1 |   1 |     5 | This movie is awesome!   | 2024-06-12 13:23:00 |       1 |         3 | Andrew
+ Cars                              |   1 |   4 |     1 | Terrible experience      | 2024-06-22 22:10:00 |       1 |         0 | Andrew
+ E.T. the Extra-Terrestrial        |   1 |   2 |     3 | This movie is subpotimal | 2024-06-12 16:23:00 |       2 |         1 | Andrew
+ The Incredibles                   |   1 |   5 |     2 | Below average            | 2024-06-29 10:20:00 |       2 |         2 | Andrew
 (5 rows)
 
            title            | rank | first_name 
@@ -58,48 +58,43 @@ DELETE 1
  following_uid | username 
 ---------------+----------
              1 | akyjia
-             4 | a24walia
-(2 rows)
+(1 row)
 
-DELETE 1
+DELETE 0
  uid | first_name | last_name | username |         email         | password 
 -----+------------+-----------+----------+-----------------------+----------
    4 | Arjun      | Walia     | a24walia | a24walia@uwaterloo.ca | 10283ub
 (1 row)
 
- uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
------+-----+-------+---------------------------+---------+-----------+---------------------
-   2 |   1 |     4 | Pretty good movie         |       5 |         1 | 2024-06-13 14:45:00
-   2 |   3 |     2 | Not my type of film       |       1 |         4 | 2024-06-14 10:15:00
-   2 |   2 |     3 | Average film              |       3 |         2 | 2024-06-20 12:00:00
-   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
-   2 |   4 |     0 | Worst movie ever          |       0 |         6 | 2024-07-01 13:30:00
+ uid | mid | score |        rating_text        |     date_posted     | upvotes | downvotes 
+-----+-----+-------+---------------------------+---------------------+---------+-----------
+   2 |   1 |     4 | Pretty good movie         | 2024-06-13 14:45:00 |       2 |         1
+   2 |   3 |     2 | Not my type of film       | 2024-06-14 10:15:00 |       3 |         1
+   2 |   2 |     3 | Average film              | 2024-06-20 12:00:00 |       0 |         1
+   2 |   5 |     4 | Good for a one-time watch | 2024-06-25 20:15:00 |       0 |         1
+   2 |   4 |     0 | Worst movie ever          | 2024-07-01 13:30:00 |       0 |         1
 (5 rows)
 
- uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
------+-----+-------+---------------------------+---------+-----------+---------------------
-   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
-   3 |   5 |     4 | Enjoyed it thoroughly     |       6 |         1 | 2024-06-27 09:10:00
-   1 |   5 |     2 | Below average             |       1 |         3 | 2024-06-29 10:20:00
-   4 |   5 |     2 | Not my favorite           |       1 |         4 | 2024-07-03 14:20:00
-   5 |   5 |     4 | Well-made movie           |       7 |         1 | 2024-07-04 21:00:00
+ uid | mid | score |        rating_text        |     date_posted     | upvotes | downvotes 
+-----+-----+-------+---------------------------+---------------------+---------+-----------
+   2 |   5 |     4 | Good for a one-time watch | 2024-06-25 20:15:00 |       0 |         1
+   3 |   5 |     4 | Enjoyed it thoroughly     | 2024-06-27 09:10:00 |       0 |         1
+   1 |   5 |     2 | Below average             | 2024-06-29 10:20:00 |       2 |         2
+   4 |   5 |     2 | Not my favorite           | 2024-07-03 14:20:00 |       1 |         0
+   5 |   5 |     4 | Well-made movie           | 2024-07-04 21:00:00 |       0 |         2
 (5 rows)
 
- uid | mid | score |        rating_text        | upvotes | downvotes |     date_posted     
------+-----+-------+---------------------------+---------+-----------+---------------------
-   4 |   3 |     3 | Not bad                   |       2 |         2 | 2024-06-28 11:00:00
-   4 |   4 |     3 | Just alright              |       2 |         2 | 2024-06-24 17:25:00
-   2 |   1 |     4 | Pretty good movie         |       5 |         1 | 2024-06-13 14:45:00
-   5 |   5 |     4 | Well-made movie           |       7 |         1 | 2024-07-04 21:00:00
-   3 |   4 |     4 | Quite entertaining        |       5 |         1 | 2024-07-02 16:45:00
-   3 |   5 |     4 | Enjoyed it thoroughly     |       6 |         1 | 2024-06-27 09:10:00
-   1 |   3 |     4 | Better than expected      |       4 |         1 | 2024-06-18 15:45:00
-   2 |   5 |     4 | Good for a one-time watch |       5 |         1 | 2024-06-25 20:15:00
-   2 |   2 |     3 | Average film              |       3 |         2 | 2024-06-20 12:00:00
-   3 |   1 |     3 | It was okay               |       2 |         2 | 2024-06-17 11:20:00
-(10 rows)
+ uid | mid | score |       rating_text        |     date_posted     | upvotes | downvotes 
+-----+-----+-------+--------------------------+---------------------+---------+-----------
+   1 |   5 |     2 | Below average            | 2024-06-29 10:20:00 |       2 |         2
+   5 |   3 |     2 | Could have been better   | 2024-06-26 14:50:00 |       1 |         1
+   3 |   2 |     0 | This movie is awful      | 2024-06-12 19:23:00 |       1 |         1
+   4 |   2 |     2 | Quite boring             | 2024-06-19 08:50:00 |       2 |         1
+   2 |   1 |     4 | Pretty good movie        | 2024-06-13 14:45:00 |       2 |         1
+   1 |   2 |     3 | This movie is subpotimal | 2024-06-12 16:23:00 |       2 |         1
+   2 |   3 |     2 | Not my type of film      | 2024-06-14 10:15:00 |       3 |         1
+(7 rows)
 
-UPDATE 1
  mid |  avg_movie_rating  
 -----+--------------------
    3 | 3.2000000000000000
@@ -112,11 +107,11 @@ UPDATE 1
 
  score |      rating_text       | upvotes | downvotes |     date_posted     
 -------+------------------------+---------+-----------+---------------------
-     2 | Not my type of film    |       1 |         4 | 2024-06-14 10:15:00
-     4 | Better than expected   |       4 |         1 | 2024-06-18 15:45:00
-     2 | Could have been better |       1 |         3 | 2024-06-26 14:50:00
-     3 | Not bad                |       2 |         2 | 2024-06-28 11:00:00
-     5 | Absolutely fantastic!  |       8 |         0 | 2024-06-23 13:45:00
+     2 | Not my type of film    |       3 |         1 | 2024-06-14 10:15:00
+     4 | Better than expected   |       0 |         2 | 2024-06-18 15:45:00
+     5 | Absolutely fantastic!  |       0 |         2 | 2024-06-23 13:45:00
+     2 | Could have been better |       1 |         1 | 2024-06-26 14:50:00
+     3 | Not bad                |       1 |         0 | 2024-06-28 11:00:00
 (5 rows)
 
  release_date | poster_link | runtime | adult 

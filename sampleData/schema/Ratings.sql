@@ -3,8 +3,6 @@ CREATE TABLE ratings (
   mid INTEGER,
   score INTEGER NOT NULL,
   rating_text VARCHAR(255),
-  upvotes INTEGER DEFAULT 0,
-  downvotes INTEGER DEFAULT 0,
   date_posted TIMESTAMP NOT NULL,
   CHECK(score <= 5 AND score >= 0),
   PRIMARY KEY(uid, mid),
