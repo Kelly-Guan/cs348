@@ -233,7 +233,7 @@ WITH valid_mid AS (
 )
 SELECT m.title, m.poster_link
 FROM movies m, valid_mid vm
-WHERE m.mid = vm.mid
+WHERE m.mid = vm.mid;
 
 /* Should return usernames like some search query */
 SELECT u.uid
