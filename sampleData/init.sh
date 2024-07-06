@@ -15,7 +15,6 @@ rm insertsm.sql
 
 cat ./inserts/movies.sql ./inserts/users.sql ./inserts/ratings.sql ./inserts/watched.sql ./inserts/watch_later.sql ./inserts/favourites.sql ./inserts/genres.sql ./inserts/movie_cast.sql ./inserts/user_connections.sql > insertsm.sql
 
-
 psql postgres://postgres:postgres@127.0.0.1:5432 -f insertsm.sql 
 
 rm insertsm.sql
