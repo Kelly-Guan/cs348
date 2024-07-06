@@ -21,7 +21,6 @@ exports.movie = async (req, res, next) => {
     return;
   }
   const client = await pool.connect();
-
   try {
     const result = await client.query("SELECT * FROM Movies WHERE mid=$1", [mid]);
     if(result.rowCount == 0) {
@@ -32,6 +31,43 @@ exports.movie = async (req, res, next) => {
   } catch(err) {
     console.error(err);
     res.status(404).json("Invalid movie id");
+  } finally {
+    client.release();
+  }
+}
+
+exports.recentReleases = async (req, res, next) => {
+  const client = await pool.connect();
+  try {
+    const query_str = `
+    SELECT * FROM movies
+    ORDER BY release_date DESC LIMIT 10;`;
+    const result = await client.query(query_str);
+    res.status(200).json({data: result.rows});
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Something went wrong");
+  } finally {
+    client.release();
+  }
+}
+
+exports.popularMovies = async (req, res, next) => {
+  const client = await pool.connect();
+  try {
+    const query_str = `
+    SELECT m.mid, m.title, m.release_date, AVG(r.score) AS aggregate_rating
+    FROM movies m
+    JOIN ratings r ON m.mid = r.mid
+    GROUP BY m.mid, m.title, m.release_date
+    ORDER BY m.release_date, aggregate_rating DESC
+    LIMIT 10;
+  `;
+    const result = await client.query(query_str);
+    res.status(200).json({data: result.rows});
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Something went wrong");
   } finally {
     client.release();
   }

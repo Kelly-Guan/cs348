@@ -198,3 +198,34 @@ exports.watchLaterByID = async (req, res, next) => {
     return;
   }
 };
+
+exports.ratingsByID = async (req, res, next) => {
+  const uid = req.params["uid"];
+  if (uid == null && parseInt(uid,10).toString()===uid) {
+    res.status(400).json("No specified user to update");
+    return;
+  }
+  const query_str = `
+  SELECT m.title, r.*, rv.upvotes, rv.downvotes, u.first_name
+  FROM ratings r
+  JOIN movies m ON r.mid = m.mid
+  JOIN users u ON r.uid = u.uid
+  LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
+  WHERE
+  r.uid = $1 
+  ORDER BY rv.upvotes;`;
+  const client = await pool.connect();
+  try {
+    const result = await client.query(query_str, [uid]);
+    if (result.rowCount === 0) {
+      res.status(404).json("user's ratings not found");
+    } else {
+      res.status(200).json(result.rows);
+    }
+  } catch (err) {
+    console.log(err);
+    res.send(500).json("Something went wrong retreiving user's ratings");
+  } finally {
+    client.release();
+  }
+};
