@@ -110,7 +110,7 @@ FROM users u
 WHERE u.uid = 4;
 
 
-/* FEATURE R8 - User Page */
+/* FEATURE R9 - Ratings Page */
 
 /* Should select the ratings from all people Kelly follows */
   SELECT r.*
@@ -147,3 +147,95 @@ SET
 WHERE
   uid = 3
   AND mid = 3;
+
+/* FEATURE R10 - Movies Page */
+
+/* Should return the average rating for a movie (Toy Story in this example with mid 1) */
+SELECT m.mid, AVG(r.score) AS movie_rating
+FROM movies m, ratings r
+WHERE m.mid = r.mid
+  AND m.mid = 1
+GROUP BY m.mid;
+
+/* Should return the rating ranking for a movie, i.e. the number of rows with average score above it (Toy Story in this example with mid 1) */
+SELECT COUNT(*) AS m_rating
+FROM movies m, ratings r
+WHERE m.mid = r.mid
+GROUP BY m.mid
+HAVING AVG(r.score) > (
+  SELECT AVG(r1.score)
+  FROM movies m1, ratings r1
+  WHERE m1.mid = r1.rid
+    AND m1.mid = 1
+  GROUP BY m1.mid
+);
+
+/* Should return all the rating details for a film (Toy Story in this example with mid 1) */
+SELECT r.score, r.rating_text, r.upvotes, r.downvotes, r.date_posted
+FROM movies m, ratings r
+WHERE m.mid = r.mid 
+  AND m.mid = 1;
+
+/* Should return all the movie details for a film excluding cast (Toy Story in this example with mid 1) */
+SELECT release_date, poster_link, m.runtime, adult
+FROM movies
+WHERE mid = 1;
+
+/* Should return all the cast details for a movie (Toy Story in this example with mid 1) */
+SELECT name, role, character
+FROM movie_cast
+WHERE mid = 1;
+
+/* FEATURE R11 - Search Page/User Search Page */
+
+/* Should return movies based on queries, rows commented to know when to add each */
+WITH valid_mid AS (
+  SELECT m.mid
+  FROM movies m
+
+  INTERSECT /* If searching by director/actor */
+  SELECT m.mid
+  FROM movies m
+  JOIN ON movie_cast mc ON m.mid = mc.mid
+  WHERE mc.name LIKE '%search_query%'
+
+  INTERSECT /* If searching by genre, 'search_genre' is the genre being searched for */
+  SELECT m.mid
+  FROM movies m
+  WHERE 'search_genre' IN (
+    SELECT g.movie_genre
+    FROM genres g
+    WHERE g.mid = m.mid
+  )
+
+  INTERSECT /* If searching by rating, search_rating is the min score searched for */
+  SELECT m.mid
+  FROM movies m
+  JOIN ON ratings r ON m.mid = r.mid
+  GROUP BY m.mid
+  HAVING AVG(r.score) >= search_rating
+
+  INTERSECT /* If searching by runtime, lb_runtime is the lower runtime, ub_runtime is the upper runtime */
+  SELECT m.mid
+  FROM movies m
+  WHERE lb_runtime <= m.runtime 
+    AND m.runtime <= up_runtime
+  
+  INTERSECT /* If searching by title, search_title is title being searched for */
+  SELECT m.mid
+  FROM movies m
+  WHERE m.title LIKE '%search_title%'
+
+  INTERSECT /* If searching by not adult */
+  SELECT m.mid
+  FROM movies m
+  WHERE m.adult IS NOT TRUE
+)
+SELECT m.title, m.poster_link
+FROM movies m, valid_mid vm
+WHERE m.mid = vm.mid
+
+/* Should return usernames like some search query */
+SELECT u.uid
+FROM users u
+WHERE u.username LIKE '%search_username%';
