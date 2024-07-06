@@ -119,6 +119,16 @@ exports.favouritesByID = async (req, res, next) => {
   const client = await pool.connect();
   try {
    const result = await client.query(query_str, [uid]);
+   if (result.rowCount === 0) {
+     res.status(404).json("users favourites not found");
+   } else {
+     res.status(200).json(result.rows);
+   }
+  } catch(err) {
+    console.log(err);
+    res.send(500).json("Something went wrong retreiving users favourties");
+  } finally {
+    client.release();
   }
 
 };
