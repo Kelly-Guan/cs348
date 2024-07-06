@@ -199,7 +199,7 @@ FROM movie_cast
 WHERE mid = 3
   AND role = 'Actor';
 
-/*
+
 
 /* FEATURE R11 - Search Page/User Search Page */
 
@@ -208,51 +208,51 @@ WITH valid_mid AS (
   SELECT m.mid
   FROM movies m
 
-  INTERSECT /* If searching by director/actor */
+  /*INTERSECT /* If searching by director/writer/actor (this case we search for John Lass to find everything with John Lasseter) */
   SELECT m.mid
   FROM movies m
-  JOIN ON movie_cast mc ON m.mid = mc.mid
-  WHERE mc.name LIKE '%search_query%'
+  JOIN movie_cast mc ON m.mid = mc.mid
+  WHERE mc.name ILIKE '%John Lass%'
 
-  INTERSECT /* If searching by genre, 'search_genre' is the genre being searched for */
+  INTERSECT /* If searching by genre (this case finding Fantasy) */
   SELECT m.mid
   FROM movies m
-  WHERE 'search_genre' IN (
+  WHERE 'Fantasy' IN (
     SELECT g.genre
     FROM genres g
     WHERE g.mid = m.mid
   )
 
-  INTERSECT /* If searching by rating, search_rating is the min score searched for */
+  INTERSECT /* If searching by rating, this case searching for rating above 3 */
   SELECT m.mid
   FROM movies m
-  JOIN ON ratings r ON m.mid = r.mid
+  JOIN ratings r ON m.mid = r.mid
   GROUP BY m.mid
-  HAVING AVG(r.score) >= search_rating
+  HAVING AVG(r.score) >= 3
 
-  INTERSECT /* If searching by runtime, lb_runtime is the lower runtime, ub_runtime is the upper runtime */
+  INTERSECT /* If searching by runtime, this case with 90 as lower bound, 115 as upper bound */
   SELECT m.mid
   FROM movies m
-  WHERE lb_runtime <= m.runtime 
-    AND m.runtime <= up_runtime
+  WHERE 90 <= m.runtime 
+    AND m.runtime <= 115
   
-  INTERSECT /* If searching by title, search_title is title being searched for */
+  INTERSECT /* If searching by title, this case searching for anything with 'the' in it */
   SELECT m.mid
   FROM movies m
-  WHERE m.title LIKE '%search_title%'
+  WHERE m.title ILIKE '%the%'
 
   INTERSECT /* If searching by not adult */
   SELECT m.mid
   FROM movies m
-  WHERE m.adult IS NOT TRUE
+  WHERE m.adult IS NOT TRUE*/
 )
 SELECT m.title, m.poster_link
 FROM movies m, valid_mid vm
 WHERE m.mid = vm.mid;
 
-/* Should return usernames like some search query */
-SELECT u.uid
-FROM users u
-WHERE u.username LIKE '%search_username%';
 
-*/
+
+/* Should return usernames having 'k' in this case */
+SELECT u.uid, u.username
+FROM users u
+WHERE u.username ILIKE '%k%';

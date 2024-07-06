@@ -143,3 +143,19 @@ UPDATE 1
  James Caan | Actor | Tim Lockwood
 (3 rows)
 
+               title               |                                                          poster_link                                                          
+-----------------------------------+-------------------------------------------------------------------------------------------------------------------------------
+ Toy Story                         | https://i.ebayimg.com/images/g/RVoAAOSwYxBefUP8/s-l1600.jpg
+ E.T. the Extra-Terrestrial        | https://m.media-amazon.com/images/M/MV5BMTQ2ODFlMDAtNzdhOC00ZDYzLWE3YTMtNDU4ZGFmZmJmYTczXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg
+ Cloudy with a Chance of Meatballs | 
+ Cars                              | 
+ The Incredibles                   | 
+(5 rows)
+
+ uid | username 
+-----+----------
+   1 | akyjia
+   2 | hkoya
+   3 | kgguan
+(3 rows)
+
