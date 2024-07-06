@@ -150,10 +150,11 @@ WHERE
 
 /* FEATURE R10 - Movies Page */
 
-/* Should return the average rating for a movie (CWACOM in this example with mid 1) */
+/* Should return the average rating for a movie (CWACOM in this example with mid 3) */
 SELECT m.mid, AVG(r.score) AS avg_movie_rating
 FROM movies m, ratings r
 WHERE m.mid = r.mid
+  AND m.mid = 3
 GROUP BY m.mid;
 
 /* Should return the rating ranking for a movie, i.e. the number of rows with average score above it (CWACOM in this example with mid 3) */
@@ -161,7 +162,6 @@ WITH mid_rating AS (
   SELECT m.mid, AVG(r.score) as avg_score
   FROM movies m, ratings r
   WHERE m.mid = r.mid
-    AND m.mid = 3
   GROUP BY m.mid
   ORDER BY avg_score DESC
 )
