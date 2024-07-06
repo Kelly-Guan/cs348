@@ -1,5 +1,5 @@
 const pool = require("../config/database");
-const FOLLOW_PAGE_LIMIT = require("../config/constants");
+const {FOLLOW_PAGE_LIMIT} = require("../config/constants");
 // api/users/create
 // api/users/{id}/delete
 // api/users/{id}/update
@@ -136,25 +136,51 @@ exports.followingByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (uid == null && parseInt(uid,10).toString()===uid) {
-    res.status(400).json("No specified user to update");
+    res.status(400).json("No specified user to find");
     return;
   }
-
-  const result = await client.query(
-    `SELECT uc.following_uid
-     FROM user_connections uc
-     JOIN users u ON uc.following_uid = u.uid
-     WHERE uc.follower_uid = $1 
-     LIMIT $2 OFFSET $3`,
-    [uid, FOLLOW_PAGE_LIMIT, offset]
-  );
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+        `SELECT uc.following_uid, u.username
+        FROM user_connections uc
+        JOIN users u ON uc.following_uid = u.uid
+        WHERE uc.follower_uid = $1 
+        LIMIT $2 OFFSET $3`,
+        [uid, FOLLOW_PAGE_LIMIT, offset]
+    );
+    res.status(200).json(result.rows);
+ } catch(err) {
+    console.log(err);
+    res.status(500).json("Something went wrong");
+ } finally {
+    client.release();
+ }
 };
 
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null && parseInt(uid,10).toString()===uid) {
-    res.status(400).json("No specified user to update");
+  const { offset } = req.query;
+  if (uid == null && parseInt(uid, 10).toString() === uid) {
+    res.status(400).json("No specified user to find");
     return;
+  }
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+      `SELECT uc.follower_uid, u.username
+        FROM user_connections uc
+        JOIN users u ON uc.follower_uid = u.uid
+        WHERE uc.following_uid = $1 
+        LIMIT $2 OFFSET $3`,
+      [uid, FOLLOW_PAGE_LIMIT, offset]
+    );
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong");
+  } finally {
+    client.release();
   }
 };
 
