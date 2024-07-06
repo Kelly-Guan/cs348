@@ -1,12 +1,12 @@
 const pool = require("../config/database");
-
+const FOLLOW_PAGE_LIMIT = require("../config/constants");
 // api/users/create
-// api/users/delete
-// api/users/update
+// api/users/{id}/delete
+// api/users/{id}/update
 // api/users/{id}
-// api/users/{id}/favourites
-// api/users/{id}/following
-// api/users/{id}/followers
+// api/users/{id}/favourites?
+// api/users/{id}/following?
+// api/users/{id}/followers?
 
 // Assume all valid inputs(checked on the frontend)
 exports.create = async (req, res, next) => {
@@ -32,7 +32,7 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to delete");
     return;
   }
@@ -55,7 +55,7 @@ exports.delete = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -82,7 +82,7 @@ exports.update = async (req, res, next) => {
 
 exports.byID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -105,7 +105,7 @@ exports.byID = async (req, res, next) => {
 
 exports.favouritesByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -115,52 +115,59 @@ exports.favouritesByID = async (req, res, next) => {
     JOIN movies m ON f.mid = m.mid
     JOIN users u ON f.uid = u.uid
     WHERE f.uid = $1`;
-  
+
   const client = await pool.connect();
   try {
-   const result = await client.query(query_str, [uid]);
-   if (result.rowCount === 0) {
-     res.status(404).json("users favourites not found");
-   } else {
-     res.status(200).json(result.rows);
-   }
-  } catch(err) {
+    const result = await client.query(query_str, [uid]);
+    if (result.rowCount === 0) {
+      res.status(404).json("users favourites not found");
+    } else {
+      res.status(200).json(result.rows);
+    }
+  } catch (err) {
     console.log(err);
     res.send(500).json("Something went wrong retreiving users favourties");
   } finally {
     client.release();
   }
-
 };
 
 exports.followingByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  const { offset } = req.query;
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
 
-
+  const result = await client.query(
+    `SELECT uc.following_uid
+     FROM user_connections uc
+     JOIN users u ON uc.following_uid = u.uid
+     WHERE uc.follower_uid = $1 
+     LIMIT $2 OFFSET $3`,
+    [uid, FOLLOW_PAGE_LIMIT, offset]
+  );
 };
 
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
 };
 
-exports.watchedByID = async(req, res, next) => {
-    const uid = req.params["uid"];
-    if (uid == null) {
+exports.watchedByID = async (req, res, next) => {
+  const uid = req.params["uid"];
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
-    }
-}
-exports.watchLaterByID= async (req, res, next) => {
+  }
+};
+exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null) {
+  if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
