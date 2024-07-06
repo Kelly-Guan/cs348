@@ -20,5 +20,6 @@ router.get("/:uid/following", usersController.followingByID)
 router.get("/:uid/favourites", usersController.favouritesByID)
 router.get("/:uid/watched", usersController.watchedByID);
 router.get("/:uid/watch_later", usersController.watchLaterByID);
+router.get("/:uid/ratings", usersController.ratingsByID);
 
 module.exports = router;
