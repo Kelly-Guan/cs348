@@ -6,9 +6,11 @@ app.use(express.json());
 
 const moviesRoutes = require("./routes/movies");
 const ratingsRoutes = require("./routes/ratings");
+const usersRoutes = require("./routes/users");
 
 app.use("/api/movies", moviesRoutes)
 app.use("/api/ratings", ratingsRoutes)
+app.use("/api/users", usersRoutes);
 
 app.listen(process.env.API_PORT, () => {
   console.log(`Limelight listening on port ${process.env.API_PORT}`);
