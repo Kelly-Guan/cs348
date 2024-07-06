@@ -203,7 +203,7 @@ WITH valid_mid AS (
   SELECT m.mid
   FROM movies m
   WHERE 'search_genre' IN (
-    SELECT g.movie_genre
+    SELECT g.genre
     FROM genres g
     WHERE g.mid = m.mid
   )
