@@ -1,0 +1,3 @@
+const FOLLOW_PAGE_LIMIT = 50;
+const MOVIE_PAGE_LIMIT = 10;
+module.exports = {FOLLOW_PAGE_LIMIT, MOVIE_PAGE_LIMIT}
