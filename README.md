@@ -18,8 +18,8 @@ PostgreSQL and Node.js can be download from most package managers or from their 
 
 1) Run  ```docker-compose -f compose.yaml up``` in the root dir of the project
 2) Run ```cd sampleData && chmod +x init.sh && ./init.sh``` which will initialise the database with the test data
-3) Run ```cd ../backend && node i```
-4) Run ```cd ../frontend && node i```
+3) Run ```cd ../backend && npm i```
+4) Run ```cd ../frontend && npm i```
 
 
 ## Running the App
