@@ -286,10 +286,10 @@ exports.ratingsByID = async (req, res, next) => {
 exports.unfollow = async (req, res, next) => {
   const { following_uid, follower_uid } = req.query;
   console.log(following_uid,follower_uid);
-  if (following_uid == null || parseInt(following_uid,10).toString()===following_uid || (follower_uid == null || parseInt(follower_uid,10).toString()===follower_uid)) {
-    res.status(400).json("No user to unfollow");
-    return;
-  }
+  // if (following_uid == null || parseInt(following_uid,10).toString()===following_uid) {
+  //   res.status(400).json("No user to unfollow");
+  //   return;
+  // }
   const client = await pool.connect();
   try {
     const result = await client.query(`
