@@ -72,3 +72,13 @@ exports.popularMovies = async (req, res, next) => {
     client.release();
   }
 }
+
+// optional queries: genre, rating, runtime, title
+
+exports.search = async (req, res, next) => {
+
+}
+
+exports.test = async (req, res, next) => {
+  res.send(req.query);
+}

@@ -14,7 +14,7 @@ const usersController = require("../controllers/usersController");
 router.post("/create", usersController.create);
 router.put("/:uid/update", usersController.update);
 router.delete("/:uid/delete", usersController.delete);
-router.delete("/unfollow", usersController.unfollow);
+// router.delete("/unfollow", usersController.unfollow);
 
 // user related gets
 router.get("/:uid", usersController.byID);
