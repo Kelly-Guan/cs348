@@ -74,6 +74,7 @@ exports.popularMovies = async (req, res, next) => {
   }
 }
 
+
 // optional queries: genre, rating, runtime, title
 
 exports.search = async (req, res, next) => {
