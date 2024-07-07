@@ -1,5 +1,5 @@
 const pool = require("../config/database");
-const {FOLLOW_PAGE_LIMIT} = require("../config/constants");
+const { FOLLOW_PAGE_LIMIT } = require("../config/constants");
 const { query } = require("express");
 // api/users/create
 // api/users/{id}/delete
@@ -33,7 +33,7 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to delete");
     return;
   }
@@ -56,7 +56,7 @@ exports.delete = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -83,7 +83,7 @@ exports.update = async (req, res, next) => {
 
 exports.byID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -106,7 +106,7 @@ exports.byID = async (req, res, next) => {
 
 exports.favouritesByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -137,36 +137,34 @@ exports.followingByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to find");
     return;
   }
   const client = await pool.connect();
   try {
     const result = await client.query(
-        `SELECT uc.following_uid, u.username
+      `SELECT uc.following_uid, u.username
         FROM user_connections uc
         JOIN users u ON uc.following_uid = u.uid
         WHERE uc.follower_uid = $1 
         LIMIT $2 OFFSET $3`,
-        [uid, FOLLOW_PAGE_LIMIT, offset]
+      [uid, FOLLOW_PAGE_LIMIT, offset]
     );
     res.status(200).json(result.rows);
- } catch(err) {
+  } catch (err) {
     console.log(err);
     res.status(500).json("Something went wrong");
- } finally {
+  } finally {
     client.release();
- }
+  }
 };
-
-
 
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null || parseInt(uid, 10).toString() === uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to find");
     return;
   }
@@ -192,13 +190,13 @@ exports.followersByID = async (req, res, next) => {
 exports.watchedByID = async (req, res, next) => {
   const uid = req.params["uid"];
   let { offset } = req.query;
-  if(offset == null) offset = 0;
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (offset == null) offset = 0;
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
   const client = await pool.connect();
-  try{
+  try {
     const result = await client.query(
       `
     SELECT m.*, w.date_watched
@@ -208,27 +206,27 @@ exports.watchedByID = async (req, res, next) => {
     LIMIT $2 OFFSET $3;`,
       [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
     );
-    if(result.rowCount === 0){
+    if (result.rowCount === 0) {
       res.status(404).json("user's watch later list not found");
-    }else{
+    } else {
       res.status(200).json(result.rows);
     }
-  }catch (err) {
+  } catch (err) {
     console.log(err);
     res.send(500).json("Something went wrong retreiving user's Watch Later");
   } finally {
     client.release();
-  }  
+  }
 };
 exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
   const client = await pool.connect();
-  try{
+  try {
     const result = await client.query(
       `
     SELECT m.title, u.username
@@ -238,12 +236,12 @@ exports.watchLaterByID = async (req, res, next) => {
     LIMIT $2 OFFSET $3;`,
       [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
     );
-    if(result.rowCount === 0){
+    if (result.rowCount === 0) {
       res.status(404).json("user's watch later list not found");
-    }else{
+    } else {
       res.status(200).json(result.rows);
     }
-  }catch (err) {
+  } catch (err) {
     console.log(err);
     res.send(500).json("Something went wrong retreiving user's Watch Later");
   } finally {
@@ -255,13 +253,14 @@ exports.ratingsByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null || parseInt(uid,10).toString()===uid) {
+  if (uid == null) {
     res.status(400).json("No specified user to update");
     return;
   }
   const client = await pool.connect();
   try {
-    const result = await client.query(`
+    const result = await client.query(
+      `
     SELECT m.title, r.*, rv.upvotes, rv.downvotes, u.first_name
     FROM ratings r
     JOIN movies m ON r.mid = m.mid
@@ -269,7 +268,9 @@ exports.ratingsByID = async (req, res, next) => {
     LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
     WHERE r.uid = $1 
     ORDER BY rv.upvotes
-    LIMIT $2 OFFSET $3`, [uid,FOLLOW_PAGE_LIMIT,FOLLOW_PAGE_LIMIT*offset]);
+    LIMIT $2 OFFSET $3`,
+      [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
+    );
     if (result.rowCount === 0) {
       res.status(404).json("user's ratings not found");
     } else {
@@ -285,16 +286,19 @@ exports.ratingsByID = async (req, res, next) => {
 
 exports.unfollow = async (req, res, next) => {
   const { following_uid, follower_uid } = req.query;
-  console.log(following_uid,follower_uid);
-  // if (following_uid == null || parseInt(following_uid,10).toString()===following_uid) {
-  //   res.status(400).json("No user to unfollow");
-  //   return;
-  // }
+
+  if (following_uid == null || follower_uid == null) {
+    res.status(400).json("No user to unfollow");
+    return;
+  }
   const client = await pool.connect();
   try {
-    const result = await client.query(`
+    const result = await client.query(
+      `
     DELETE FROM user_connections 
-    WHERE following_uid = $1 AND follower_uid = $2`,[following_uid,follower_uid]);
+    WHERE following_uid = $1 AND follower_uid = $2`,
+      [following_uid, follower_uid]
+    );
     if (result.rowCount == 0) {
       res.status(404).json("User not found to unfollow");
     } else {
@@ -303,6 +307,32 @@ exports.unfollow = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.status(500).json("Something went wrong deleting a user");
+  } finally {
+    client.release();
+  }
+};
+
+exports.follow = async (req, res, next) => {
+  const { following_uid, follower_uid } = req.query;
+  if (following_uid == null || follower_uid == null) {
+    res.status(400).json("No user to unfollow");
+    return;
+  }
+
+  const client = await pool.connect();
+  try {
+    const result = await client.query(`
+    INSERT INTO user_connections (following_uid, follower_uid) VALUES ($1, $2) RETURNING *`,
+      [following_uid, follower_uid]
+    );
+    if (result.rowCount == 0) {
+      res.status(404).json("User not found to follow");
+    } else {
+      res.status(201).json(result.rows[0]);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong following a user");
   } finally {
     client.release();
   }
