@@ -1,5 +1,6 @@
 const pool = require("../config/database");
 const {FOLLOW_PAGE_LIMIT} = require("../config/constants");
+const { query } = require("express");
 // api/users/create
 // api/users/{id}/delete
 // api/users/{id}/update
@@ -16,14 +17,15 @@ exports.create = async (req, res, next) => {
   const params = [first_name, last_name, username, email, password];
 
   const client = await pool.connect();
-
   try {
     const result = await client.query(query_str, params);
+    console.log("help");
     if (result.rowCount == 0) {
       res.status(500).json("Something went wrong creating a new user");
     }
     res.status(201).json(result.rows[0]);
   } catch (err) {
+    console.log(err);
     res.status(500).json("Something went wrong creating a new user");
   } finally {
     client.release();
@@ -41,9 +43,9 @@ exports.delete = async (req, res, next) => {
   try {
     const result = await client.query("DELETE FROM users WHERE uid=$1", [uid]);
     if (result.rowCount == 0) {
-      req.status(404).json("User not found to delete");
+      res.status(404).json("User not found to delete");
     } else {
-      req.status(204);
+      res.status(204);
     }
   } catch (err) {
     console.log(err);
@@ -282,26 +284,27 @@ exports.ratingsByID = async (req, res, next) => {
   }
 };
 
-// exports.unfollow = async (req, res, next) => {
-//   const { following_uid, follower_uid } = req.query;
-//   if (following_uid == null || parseInt(following_uid,10).toString()===following_uid || follower_uid == null || parseInt(follower_uid,10).toString()===follower_uid) {
-//     res.status(400).json("No user to unfollow");
-//     return;
-//   }
-//   const client = await pool.connect();
-//   try {
-//     const result = await client.query(`
-//     DELETE FROM user_connections 
-//     WHERE following_uid = $1 AND follower_uid = $2;`,[following_uid,follower_uid]);
-//     if (result.rowCount == 0) {
-//       res.status(404).json("User not found to unfollow");
-//     } else {
-//       res.status(204).end();
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json("Something went wrong deleting a user");
-//   } finally {
-//     client.release();
-//   }
-// };
+exports.unfollow = async (req, res, next) => {
+  const { following_uid, follower_uid } = req.query;
+  console.log(following_uid,follower_uid);
+  if (following_uid == null || parseInt(following_uid,10).toString()===following_uid || (follower_uid == null || parseInt(follower_uid,10).toString()===follower_uid)) {
+    res.status(400).json("No user to unfollow");
+    return;
+  }
+  const client = await pool.connect();
+  try {
+    const result = await client.query(`
+    DELETE FROM user_connections 
+    WHERE following_uid = $1 AND follower_uid = $2;`,[following_uid,follower_uid]);
+    if (result.rowCount == 0) {
+      res.status(404).json("User not found to unfollow");
+    } else {
+      res.status(204);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong deleting a user");
+  } finally {
+    client.release();
+  }
+};
