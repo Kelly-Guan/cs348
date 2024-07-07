@@ -93,8 +93,8 @@ WHERE
 SELECT m.title, u.username
 FROM watch_later wl
 JOIN movies m ON wl.mid = m.mid
-WHERE wl.uid = 2 -- Hudson's uid
-LIMIT 3;
+JOIN users u ON wl.uid = u.uid
+WHERE wl.uid = 2; -- Hudson's uid
 
 /* Should return uid and username of all accounts Lindsay follows */
 SELECT uc.following_uid, u.username

@@ -1,4 +1,3 @@
-INSERT 0 1
  count 
 -------
      1
@@ -48,12 +47,10 @@ DELETE 0
  E.T. the Extra-Terrestrial |    1 | Kelly
 (1 row)
 
-               title               | username 
------------------------------------+----------
- Cloudy with a Chance of Meatballs | hkoya
- Toy Story                         | hkoya
- E.T. the Extra-Terrestrial        | hkoya
-(3 rows)
+      title      | username 
+-----------------+----------
+ The Incredibles | hkoya
+(1 row)
 
  following_uid | username 
 ---------------+----------
