@@ -193,12 +193,15 @@ exports.watchedByID = async (req, res, next) => {
   }
   const client = await pool.connect();
   try{
-    const result = await client.query(`
+    const result = await client.query(
+      `
     SELECT m.*, w.date_watched
     FROM watched w
     JOIN movies m ON w.mid = m.mid
     WHERE w.uid = $1
-    LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
+    LIMIT $2 OFFSET $3;`,
+      [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
+    );
     if(result.rowCount === 0){
       res.status(404).json("user's watch later list not found");
     }else{
@@ -220,12 +223,15 @@ exports.watchLaterByID = async (req, res, next) => {
   }
   const client = await pool.connect();
   try{
-    const result = await client.query(`
+    const result = await client.query(
+      `
     SELECT m.title, u.username
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
     WHERE wl.uid = $1
-    LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
+    LIMIT $2 OFFSET $3;`,
+      [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
+    );
     if(result.rowCount === 0){
       res.status(404).json("user's watch later list not found");
     }else{
@@ -257,7 +263,7 @@ exports.ratingsByID = async (req, res, next) => {
     WHERE
     r.uid = $1 
     ORDER BY rv.upvotes
-    LIMIT $2 OFFSET $3`, [uid,FOLLOW_PAGE_LIMIT,offset]);
+    LIMIT $2 OFFSET $3`, [uid,FOLLOW_PAGE_LIMIT,FOLLOW_PAGE_LIMIT*offset]);
     if (result.rowCount === 0) {
       res.status(404).json("user's ratings not found");
     } else {
