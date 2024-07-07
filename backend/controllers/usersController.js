@@ -13,13 +13,12 @@ const { query } = require("express");
 exports.create = async (req, res, next) => {
   const { first_name, last_name, username, email, password } = req.body;
   const query_str =
-    "INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5)";
+    "INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *";
   const params = [first_name, last_name, username, email, password];
 
   const client = await pool.connect();
   try {
     const result = await client.query(query_str, params);
-    console.log("help");
     if (result.rowCount == 0) {
       res.status(500).json("Something went wrong creating a new user");
     }
