@@ -12,6 +12,7 @@ const usersController = require("../controllers/usersController");
 
 // basic crud
 router.post("/create", usersController.create);
+router.post("/follow", usersController.follow);
 router.put("/:uid/update", usersController.update);
 router.delete("/:uid/delete", usersController.delete);
 router.delete("/unfollow", usersController.unfollow);
