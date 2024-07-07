@@ -7,14 +7,16 @@ const usersController = require("../controllers/usersController");
 // api/users/{id}/update
 // api/users/{id}
 // api/users/{id}/favourites
-// api/users/{id}/following
-// api/users/{id}/followers
+// api/users/{id}/following?offset={}
+// api/users/{id}/followers?offset={}
 
+// basic crud
 router.post("/create", usersController.create);
 router.put("/:uid/update", usersController.update);
 router.delete("/:uid/delete", usersController.delete);
 router.delete("/unfollow", usersController.unfollow);
 
+// user related gets
 router.get("/:uid", usersController.byID);
 router.get("/:uid/followers", usersController.followersByID)
 router.get("/:uid/following", usersController.followingByID)

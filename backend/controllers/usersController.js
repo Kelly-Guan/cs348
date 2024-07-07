@@ -135,6 +135,7 @@ exports.favouritesByID = async (req, res, next) => {
 exports.followingByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
+  if (offset == null) offset = 0;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to find");
     return;
@@ -161,6 +162,7 @@ exports.followingByID = async (req, res, next) => {
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
+  if (offset == null) offset = 0;
   if (uid == null && parseInt(uid, 10).toString() === uid) {
     res.status(400).json("No specified user to find");
     return;
@@ -186,7 +188,8 @@ exports.followersByID = async (req, res, next) => {
 
 exports.watchedByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  const { offset } = req.query;
+  let { offset } = req.query;
+  if(offset == null) offset = 0;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
@@ -248,6 +251,7 @@ exports.watchLaterByID = async (req, res, next) => {
 exports.ratingsByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
+  if (offset == null) offset = 0;
   if (uid == null && parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
@@ -260,8 +264,7 @@ exports.ratingsByID = async (req, res, next) => {
     JOIN movies m ON r.mid = m.mid
     JOIN users u ON r.uid = u.uid
     LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
-    WHERE
-    r.uid = $1 
+    WHERE r.uid = $1 
     ORDER BY rv.upvotes
     LIMIT $2 OFFSET $3`, [uid,FOLLOW_PAGE_LIMIT,FOLLOW_PAGE_LIMIT*offset]);
     if (result.rowCount === 0) {
