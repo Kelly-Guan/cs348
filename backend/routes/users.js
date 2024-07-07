@@ -13,6 +13,7 @@ const usersController = require("../controllers/usersController");
 router.post("/create", usersController.create);
 router.put("/:uid/update", usersController.update);
 router.delete("/:uid/delete", usersController.delete);
+// router.delete("/:follower_uid/delete", usersController.unfollow);
 
 router.get("/:uid", usersController.byID);
 router.get("/:uid/followers", usersController.followersByID)

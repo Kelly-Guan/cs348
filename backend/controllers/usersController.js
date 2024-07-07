@@ -191,17 +191,13 @@ exports.watchedByID = async (req, res, next) => {
     res.status(400).json("No specified user to update");
     return;
   }
-<<<<<<< Updated upstream
-
-
-=======
   const client = await pool.connect();
   try{
     const result = await client.query(`
-    SELECT m.title, u.username
+    SELECT m.*, w.date_watched
     FROM watched w
     JOIN movies m ON w.mid = m.mid
-    JOIN users u ON u.uid = $1 
+    WHERE w.uid = $1
     LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
     if(result.rowCount === 0){
       res.status(404).json("user's watch later list not found");
@@ -214,7 +210,6 @@ exports.watchedByID = async (req, res, next) => {
   } finally {
     client.release();
   }  
->>>>>>> Stashed changes
 };
 exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
@@ -229,7 +224,7 @@ exports.watchLaterByID = async (req, res, next) => {
     SELECT m.title, u.username
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
-    JOIN users u ON u.uid = $1 
+    WHERE wl.uid = $1
     LIMIT $2 OFFSET $3;`,[uid,FOLLOW_PAGE_LIMIT,offset]);
     if(result.rowCount === 0){
       res.status(404).json("user's watch later list not found");
@@ -276,3 +271,27 @@ exports.ratingsByID = async (req, res, next) => {
   }
 };
 
+// exports.unfollow = async (req, res, next) => {
+//   const { following_uid } = req.query;
+//   const follower_uid = req.params["follower_uid"];
+//   if (following_uid == null && parseInt(following_uid,10).toString()===following_uid || follower_uid == null && parseInt(follower_uid,10).toString()===follower_uid) {
+//     res.status(400).json("No user to unfollow");
+//     return;
+//   }
+//   const client = await pool.connect();
+//   try {
+//     const result = await client.query(`
+//     DELETE FROM user_connections 
+//     WHERE following_uid = $1 AND follower_uid = $2;`,[following_uid,follower_uid]);
+//     if (result.rowCount == 0) {
+//       req.status(404).json("User not found to unfollow");
+//     } else {
+//       req.status(204);
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json("Something went wrong deleting a user");
+//   } finally {
+//     client.release();
+//   }
+// };

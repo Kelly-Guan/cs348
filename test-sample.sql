@@ -93,7 +93,7 @@ WHERE
 SELECT m.title, u.username
 FROM watch_later wl
 JOIN movies m ON wl.mid = m.mid
-JOIN users u ON u.uid = 2 -- Hudson's uid
+WHERE wl.uid = 2 -- Hudson's uid
 LIMIT 3;
 
 /* Should return uid and username of all accounts Lindsay follows */
