@@ -76,7 +76,19 @@ exports.popularMovies = async (req, res, next) => {
 // optional queries: genre, rating, runtime, title
 
 exports.search = async (req, res, next) => {
-
+  let template_params = [];
+  let template_count = 1;
+  const { title, genre, rating, runtime } = req.query;
+  var query_str = "SELECT * FROM movies WHERE 1=1"; // so that we can append without worrying about and
+  if(title != null) {
+    query_str += `AND title LIKE $${template_count++}`;
+    template_params.push(title);
+  }
+  if(genre != null) {
+    query_str += `AND genre=$2`
+    template_params.push(genre);
+  }
+  
 }
 
 exports.test = async (req, res, next) => {
