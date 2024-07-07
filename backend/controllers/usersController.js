@@ -44,7 +44,7 @@ exports.delete = async (req, res, next) => {
     if (result.rowCount == 0) {
       res.status(404).json("User not found to delete");
     } else {
-      res.status(204);
+      res.status(204).end();
     }
   } catch (err) {
     console.log(err);
@@ -294,11 +294,11 @@ exports.unfollow = async (req, res, next) => {
   try {
     const result = await client.query(`
     DELETE FROM user_connections 
-    WHERE following_uid = $1 AND follower_uid = $2;`,[following_uid,follower_uid]);
+    WHERE following_uid = $1 AND follower_uid = $2`,[following_uid,follower_uid]);
     if (result.rowCount == 0) {
       res.status(404).json("User not found to unfollow");
     } else {
-      res.status(204);
+      res.status(204).end();
     }
   } catch (err) {
     console.log(err);
