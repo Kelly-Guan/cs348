@@ -272,8 +272,7 @@ exports.ratingsByID = async (req, res, next) => {
 };
 
 // exports.unfollow = async (req, res, next) => {
-//   const { following_uid } = req.query;
-//   const follower_uid = req.params["follower_uid"];
+//   const { following_uid, follower_uid } = req.query;
 //   if (following_uid == null && parseInt(following_uid,10).toString()===following_uid || follower_uid == null && parseInt(follower_uid,10).toString()===follower_uid) {
 //     res.status(400).json("No user to unfollow");
 //     return;
@@ -284,9 +283,9 @@ exports.ratingsByID = async (req, res, next) => {
 //     DELETE FROM user_connections 
 //     WHERE following_uid = $1 AND follower_uid = $2;`,[following_uid,follower_uid]);
 //     if (result.rowCount == 0) {
-//       req.status(404).json("User not found to unfollow");
+//       res.status(404).json("User not found to unfollow");
 //     } else {
-//       req.status(204);
+//       res.status(204).end();
 //     }
 //   } catch (err) {
 //     console.log(err);
