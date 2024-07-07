@@ -32,7 +32,7 @@ exports.create = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to delete");
     return;
   }
@@ -55,7 +55,7 @@ exports.delete = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -82,7 +82,7 @@ exports.update = async (req, res, next) => {
 
 exports.byID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -105,7 +105,7 @@ exports.byID = async (req, res, next) => {
 
 exports.favouritesByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -136,7 +136,7 @@ exports.followingByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to find");
     return;
   }
@@ -159,11 +159,13 @@ exports.followingByID = async (req, res, next) => {
  }
 };
 
+
+
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null && parseInt(uid, 10).toString() === uid) {
+  if (uid == null || parseInt(uid, 10).toString() === uid) {
     res.status(400).json("No specified user to find");
     return;
   }
@@ -190,7 +192,7 @@ exports.watchedByID = async (req, res, next) => {
   const uid = req.params["uid"];
   let { offset } = req.query;
   if(offset == null) offset = 0;
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -220,7 +222,7 @@ exports.watchedByID = async (req, res, next) => {
 exports.watchLaterByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -252,7 +254,7 @@ exports.ratingsByID = async (req, res, next) => {
   const uid = req.params["uid"];
   const { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null && parseInt(uid,10).toString()===uid) {
+  if (uid == null || parseInt(uid,10).toString()===uid) {
     res.status(400).json("No specified user to update");
     return;
   }
@@ -282,7 +284,7 @@ exports.ratingsByID = async (req, res, next) => {
 
 // exports.unfollow = async (req, res, next) => {
 //   const { following_uid, follower_uid } = req.query;
-//   if (following_uid == null && parseInt(following_uid,10).toString()===following_uid || follower_uid == null && parseInt(follower_uid,10).toString()===follower_uid) {
+//   if (following_uid == null || parseInt(following_uid,10).toString()===following_uid || follower_uid == null || parseInt(follower_uid,10).toString()===follower_uid) {
 //     res.status(400).json("No user to unfollow");
 //     return;
 //   }
