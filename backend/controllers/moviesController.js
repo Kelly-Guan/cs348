@@ -1,4 +1,5 @@
 const pool = require("../config/database");
+const {SHRT_LENGTH, MEDM_LENGTH, LONG_LENGTH, MOVIE_PAGE_LIMIT} = require("../config/constants");
 
 exports.allMovies = async (req, res, next) => {
   const client = await pool.connect();
@@ -73,22 +74,52 @@ exports.popularMovies = async (req, res, next) => {
   }
 }
 
-// optional queries: genre, rating, runtime, title
 
+// optional queries: genre, rating, runtime, title
 exports.search = async (req, res, next) => {
   let template_params = [];
   let template_count = 1;
-  const { title, genre, rating, runtime } = req.query;
-  var query_str = "SELECT * FROM movies WHERE 1=1"; // so that we can append without worrying about and
+  const { title, genre, rating, runtime, offset } = req.query;
+  var query_str = "SELECT * FROM movies m";
+
+  if(genre != null) {
+    query_str += " JOIN genres g ON g.mid = m.mid"
+  }
+  query_str += " WHERE 1=1"; // so that we can append without worrying about and
   if(title != null) {
-    query_str += `AND title LIKE $${template_count++}`;
+    query_str += ` AND title ILIKE $${template_count++}`;
     template_params.push(title);
   }
   if(genre != null) {
-    query_str += `AND genre=$2`
+    query_str += ` AND genre=$${template_count++}`
     template_params.push(genre);
   }
-  
+  if(rating != null) {
+    let [low, high] = rating.split("-")
+    template_params.push(low);
+    template_params.push(high);
+    query_str += ` AND $${template_count++} <= (SELECT AVG(score) FROM ratings r WHERE r.mid = m.mid) AND (SELECT AVG(score) FROM ratings r WHERE r.mid = m.mid) <= $${template_count++}`;
+  }
+  // short, medium or long
+  if(runtime) {
+    if(runtime == "short") query_str += ` AND runtime <= ${SHRT_LENGTH}`
+    if(runtime == "medium") query_str += ` AND ${SHRT_LENGTH} <= runtime AND runtime <= ${MEDM_LENGTH}`
+    if(runtime == "long") query_str += ` AND ${LONG_LENGTH} <= runtime`;
+  }
+
+  query_str += `LIMIT ${MOVIE_PAGE_LIMIT} OFFSET${MOVIE_PAGE_LIMIT* (offset == null ? offset : 0)}`;
+ 
+  const client = await pool.connect();
+
+  try {
+    const result = await client.query(query_str, template_params);
+    res.json(result.rows);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Not so bueno search")
+  } finally {
+    client.release();
+  }
 }
 
 exports.test = async (req, res, next) => {
