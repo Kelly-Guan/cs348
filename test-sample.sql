@@ -152,13 +152,15 @@ FROM
 WHERE rv.downvotes>0 AND rv.upvotes/rv.downvotes >= 0.5;
 
 -- /* Should upvote the post*/
--- UPDATE
---   reviewer_votes
--- SET
---   upvotes = upvotes + 1
--- WHERE
---   uid = 3
---   AND mid = 3;
+INSERT INTO votes (voter_uid, reviewer_uid, mid, vote)
+VALUES (5, 5, 3, '1');
+
+/*Should remove existing review downvote*/
+DELETE FROM votes
+WHERE voter_uid = 5
+AND reviewer_uid = 2
+AND mid = 3;
+
 
 /* FEATURE R10 - Movies Page */
 
