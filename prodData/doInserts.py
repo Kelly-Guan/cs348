@@ -1,5 +1,6 @@
 import psycopg2
 import pandas as pd
+import math
 
 conn = psycopg2.connect(host="127.0.0.1",
                         user="postgres",
@@ -27,15 +28,31 @@ pairs = create_dict_from_file('pairs.txt')
 
 df = pd.read_csv("reallyCleanGenres.csv", low_memory=False)
 
-for index, row in df.iterrows():
-    cli = row['credit_link_id']
-    genre = row["genre"]
-    cursor.execute("INSERT INTO genres (mid, genre) VALUES(%s, %s)", [pairs[cli], genre])
+# for index, row in df.iterrows():
+#     cli = str(row[0])
+#     genre = row[1]
+#     if cli in pairs:
+#         # print("INSERT INTO genres (mid, genre) VALUES(%s, %s)", [pairs[cli], genre])
+#         try:
+#             cursor.execute("INSERT INTO genres (mid, genre) VALUES(%s, %s)", [pairs[cli], genre])
+#         except:
+#             continue
 
 df = pd.read_csv("reallyCleanCredits.csv", low_memory=False)
 for index, row in df.iterrows():
-    cli = row['credit_link_id']
-    name = row["name"]
-    role = row["character"]
-    character = row["character"]
-    cursor.execute("INSERT INTO movie_cast (mid, name, role, character) VALUES(%s, %s, %s, %s)", [pairs[cli], name, role, character])
+    cli = str(row[0])
+    name = row[1]
+    role = row[2]
+    character = row[3]
+    try: 
+        if(type(character) == float):
+            formatted = f"INSERT INTO movie_cast (mid, name, role, character) VALUES({pairs[cli]}, '{name}', '{role}', NULL);"
+        else:
+            formatted = f"INSERT INTO movie_cast (mid, name, role, character) VALUES({pairs[cli]}, '{name}', '{role}', '{character}');"
+        cursor.execute(formatted)
+    except Exception as e: 
+        print("error",e)
+        print(formatted)
+        # continue
+        quit()
+

@@ -11,12 +11,17 @@ done
 psql postgres://postgres:postgres@127.0.0.1:5432 -f master.sql
 rm master.sql
 
+rm cleanedMovies2.sql
+rm reallyCleanCredits.csv
+rm reallyCleanGenres.csv
+
+unzip Data.zip
 
 # INSERT MOVIES, GENRES, CREDITS
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies ADD credit_link_id INT;"
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -f cleanedMovies2.sql
-psql postgres://postgres:postgres@127.0.0.1:5432 -c "SELECT mid, temp_id FROM movies;" > pairs.txt
+psql postgres://postgres:postgres@127.0.0.1:5432 -c "SELECT mid, credit_link_id FROM movies;" > pairs.txt
 python3 doInserts.py
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COLUMN credit_link_id;"
