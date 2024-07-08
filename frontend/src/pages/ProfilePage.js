@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfileHeader from "../components/profileHeader";
 import profilePicFiller from "../assets/profilePic.jpg";
 import movieVert from "../assets/fillerVert.jpg";
-import ProfileMovieBtn from "../components/ui/profileMovieBtn";
+// import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function Profile() {
   useEffect(() => {
@@ -33,7 +33,7 @@ function Profile() {
             bioDescription="i love food and movies"
           />
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-2xl font-bold p-4">Recent Movies</h3>
           <div className="mb-20 w-full">
             <div className="grid gap-x-3 gap-y-10 grid-cols-3">
@@ -47,7 +47,7 @@ function Profile() {
                 />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
