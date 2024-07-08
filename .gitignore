@@ -26,3 +26,8 @@
 /prodData/cleanedCredits.csv
 /prodData/cleanedGenres.csv
 /prodData/cleanedMovies.csv
+
+/prodData/inserts/cleanedCredits.sql
+/prodData/inserts/cleanedGenres.sql
+/prodData/inserts/cleanedMovies.sql
+
