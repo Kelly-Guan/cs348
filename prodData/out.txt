@@ -1,0 +1,54 @@
+ mid |         name          | role  |        character        
+-----+-----------------------+-------+-------------------------
+   1 | Tom Hanks             | actor | Woody (voice)
+   1 | Tim Allen             | actor | Buzz Lightyear (voice)
+   1 | Don Rickles           | actor | Mr. Potato Head (voice)
+   1 | Jim Varney            | actor | Slinky Dog (voice)
+   1 | Wallace Shawn         | actor | Rex (voice)
+   1 | John Ratzenberger     | actor | Hamm (voice)
+   1 | Annie Potts           | actor | Bo Peep (voice)
+   1 | John Morris           | actor | Andy (voice)
+   1 | Erik von Detten       | actor | Sid (voice)
+   1 | Laurie Metcalf        | actor | Mrs. Davis (voice)
+   1 | R. Lee Ermey          | actor | Sergeant (voice)
+   1 | Sarah Freeman         | actor | Hannah (voice)
+   1 | Penn Jillette         | actor | TV Announcer (voice)
+   1 | John Lasseter         | crew  | 72
+   1 | Joss Whedon           | crew  | 72
+   1 | Andrew Stanton        | crew  | 72
+   1 | Joel Cohen            | crew  | 72
+   1 | Alec Sokolow          | crew  | 72
+   1 | Bonnie Arnold         | crew  | 72
+   1 | Ed Catmull            | crew  | 72
+   1 | Ralph Guggenheim      | crew  | 72
+   1 | Steve Jobs            | crew  | 72
+   1 | Lee Unkrich           | crew  | 72
+   1 | Ralph Eggleston       | crew  | 72
+   1 | Robert Gordon         | crew  | 72
+   1 | Mary Helen Leasman    | crew  | 72
+   1 | Kim Blanchette        | crew  | 72
+   1 | Marilyn McCoppen      | crew  | 72
+   1 | Randy Newman          | crew  | 72
+   1 | Dale E. Grahn         | crew  | 72
+   1 | Robin Cooper          | crew  | 72
+   1 | Pete Docter           | crew  | 72
+   1 | Joe Ranft             | crew  | 72
+   1 | Patsy Bouge           | crew  | 72
+   1 | Norm DeCarlo          | crew  | 72
+   1 | Ash Brannon           | crew  | 72
+   1 | Roman Figun           | crew  | 72
+   1 | Don Davis             | crew  | 72
+   1 | James Flamberg        | crew  | 72
+   1 | Mary Beth Smith       | crew  | 72
+   1 | Rick Mackay           | crew  | 72
+   1 | Susan Bradley         | crew  | 72
+   1 | William Reeves        | crew  | 72
+   1 | Gary Rydstrom         | crew  | 72
+   1 | Karen Robert Jackson  | crew  | 72
+   1 | Chris Montan          | crew  | 72
+   1 | Rich Quade            | crew  | 72
+   1 | Michael Berenstein    | crew  | 72
+   1 | Colin Brady           | crew  | 72
+   1 | Davey Crockett Feiten | crew  | 72
+(50 rows)
+
