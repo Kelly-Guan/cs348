@@ -21,7 +21,7 @@ unzip Data.zip
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies ADD credit_link_id INT;"
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -f cleanedMovies2.sql
-psql postgres://postgres:postgres@127.0.0.1:5432 -c "SELECT mid, credit_link_id FROM movies;" > pairs.txt
+psql postgres://postgres:postgres@127.0.0.1:5432 -c "SELECT mid, credit_link_id FROM movies ORDER BY mid ASC;" > pairs.txt
 python3 doInserts.py
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COLUMN credit_link_id;"
