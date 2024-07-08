@@ -44,209 +44,102 @@ function ExplorePage() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Comedy</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    {movies.map((m, i) => 
-                      <MovieButton 
-                      key={i}
-                      movieImg={m.poster_link} 
-                      movieImgVert={m.poster_link}
-                      movieTitle={m.title}
-                      movieTime={m.release_date}
-                      movieDescription={m.description}
-                      />
-                    )}
-
-
-
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Horror</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Drama</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Romance</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Action</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Sci-Fi</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-                <MovieButton 
-                    movieImg={movieFiller}
-                    movieImgVert={movieFillerVer}
-                    movieTitle="The GodFather"
-                    movieTime="2004 2h 17m"
-                    movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-                    movieCast= "Uma Thurman, David Carradine, Micheal, more"
-                    movieGenre="Martial Arts Move, Action, Adventure"
-                    alt="Movie Poster"
-                    />
-
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-                    <MovieButton movieImg={movieFiller} alt="Movie Poster" />
-
-            {/* {
-              movies.map((m, i) => <MovieButton key={i} className="min-w-[300px]" description={m.description} profileName={m.profileName} imageURL={m.posterlink} />)
-            } */}
+            {movies.map((m, i) => 
+              <MovieButton 
+              key={i}
+              movieImg={m.poster_link} 
+              movieImgVert={m.poster_link}
+              movieTitle={m.title}
+              movieTime={m.release_date}
+              movieDescription={m.description}
+              alt="Movie Poster"
+              />
+            )}
           </div>
         </div>
 

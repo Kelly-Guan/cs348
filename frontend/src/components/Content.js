@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Circle, ThumbsUp, ThumbsDown, MessageCircle, ChevronDown } from 'lucide-react';
+import {Circle, ThumbsUp, ThumbsDown, MessageCircle, ChevronDown } from 'lucide-react';
 import ProfileTitle from "./ui/profileTitle";
 
 
-function Content({ ProfilePic, profileName, timePosted, fullName, description, imageURL }) {
+function Content({ profilePic, profileName, timePosted, fullName, description, imageURL }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const truncatedDescription = showFullDescription
     ? description
-    : `${description.slice(0, 100)}...`;
+    : `${description.slice(0, 100)}`;
 
   const toggleDescriptionVisibility = () => {
     setShowFullDescription((prevState) => !prevState);
@@ -18,7 +18,7 @@ function Content({ ProfilePic, profileName, timePosted, fullName, description, i
     <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
       <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
       <div className="mt-4 mx-auto max-w-full">
-        <img src={imageURL} width={160} height={240}  alt="Movie" className="w-full object-cover" />
+        <img src={imageURL} alt="Movie" className="w-full h-auto max-w-96 object-cover" />
       </div>
       <div className="flex justify-between items-end mt-4">
         <div className="flex space-x-2">
