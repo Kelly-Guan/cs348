@@ -91,7 +91,7 @@ exports.search = async (req, res, next) => {
     template_params.push(title);
   }
   if(genre != null) {
-    query_str += ` AND genre=$${template_count++}`
+    query_str += ` AND genre='$${template_count++}'`
     template_params.push(genre);
   }
   if(rating != null) {
@@ -107,7 +107,7 @@ exports.search = async (req, res, next) => {
     if(runtime == "long") query_str += ` AND ${LONG_LENGTH} <= runtime`;
   }
 
-  query_str += `LIMIT ${MOVIE_PAGE_LIMIT} OFFSET${MOVIE_PAGE_LIMIT* (offset == null ? offset : 0)}`;
+  query_str += `LIMIT ${MOVIE_PAGE_LIMIT} OFFSET ${MOVIE_PAGE_LIMIT*(offset == null ? 0 : offset)}`;
  
   const client = await pool.connect();
 
