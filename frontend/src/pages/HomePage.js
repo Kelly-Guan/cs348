@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Content from "../components/Content";
 import GenreDropdown from "../components/genreDropDown";
-import movie from "../assets/movie.jpeg";
-
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
 function Home() {
@@ -44,7 +42,6 @@ function Home() {
             {ratings.map((r, i) => (
               <Content
                 key={i}
-                className="min-w-[300px]"
                 description={r.rating_text}
                 profileName={r.username}
                 imageURL={r.poster_link}
@@ -57,26 +54,15 @@ function Home() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Romance</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            <Content
-              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
-              profileName={"Hudson Koyanagi"}
-              imageURL={movie}
-            />
-            <Content
-              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
-              profileName={"Hudson Koyanagi"}
-              imageURL={movie}
-            />
-            <Content
-              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
-              profileName={"Hudson Koyanagi"}
-              imageURL={movie}
-            />
-            <Content
-              description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
-              profileName={"Hudson Koyanagi"}
-              imageURL={movie}
-            />
+            {ratings.map((r, i) => (
+              <Content
+                key={i}
+                description={r.rating_text}
+                profileName={r.username}
+                imageURL={r.poster_link}
+                timePosted={r.date_posted}
+              />
+            ))}
           </div>
         </div>
       </div>

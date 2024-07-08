@@ -29,13 +29,16 @@ function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movie
 
   return (
     <>
-      <button
-        className={`bg-white rounded-lg overflow-hidden ${
-          pageType === "search" ? "w-90" : "min-w-96"
-        }`}
-        onClick={() => setShowReadMoviePopup(true)}>
-        <img src={movieImg} width={200} height={300} alt={alt} />
-      </button>
+      <div className="max-w-full">      
+        <button
+          className={`bg-white rounded-lg overflow-hidden p-4${
+            pageType === "search" ? "w-96":"w-full h-auto max-w-80 object-cover"
+          }`}
+          onClick={() => setShowReadMoviePopup(true)}>
+          <img src={movieImg} alt={alt} />
+        </button>
+      </div>
+
 
       {showReadMoviePopup && (
         <ReadMovie

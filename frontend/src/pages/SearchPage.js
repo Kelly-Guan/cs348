@@ -6,10 +6,6 @@ import movieFillerVer from "../assets/fillerVert.jpg";
 
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
-
-
-
-
 function SearchPage() {
   const [movies, setMovies] = useState([]);
 
@@ -39,7 +35,7 @@ function SearchPage() {
           <SearchBar/>
         </div>
         <div className="mb-20 w-full">
-        <div className="grid gap-x-3 gap-y-10 grid-cols-4">
+        <div className="grid gap-x-3 gap-y-10 grid-cols-3">
             <MovieButton 
               movieImg={movieFiller}
               movieImgVert={movieFillerVer}
