@@ -108,3 +108,49 @@ exports.ratingsByMovie = async(req,res,next) => {
     client.release()
   }
 }
+
+exports.ratingsByScore = async(req,res,next) => {
+  const score = req.params["score"];
+  const client = await pool.connect();
+  try {
+    const result = await client.query(`
+    SELECT
+    r.*,
+    COALESCE(rv.upvotes, 0) AS upvotes,
+    COALESCE(rv.downvotes, 0) AS downvotes
+    FROM
+    ratings r
+    LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
+    WHERE r.score = $1;
+    `,[score]);
+    res.status(200).json({data: result.rows});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json("Something went wrong");
+  } finally {
+    client.release()
+  }
+}
+
+exports.ratingsByUser = async(req,res,next) => {
+  const user = req.params["user"];
+  const client = await pool.connect();
+  try {
+    const result = await client.query(`
+    SELECT
+    r.*,
+    COALESCE(rv.upvotes, 0) AS upvotes,
+    COALESCE(rv.downvotes, 0) AS downvotes
+    FROM
+    ratings r
+    LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
+    WHERE r.uid = $1;
+    `,[user]);
+    res.status(200).json({data: result.rows});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json("Something went wrong");
+  } finally {
+    client.release()
+  }
+}
