@@ -1,13 +1,15 @@
 const pool = require("../config/database");
 
 exports.allRatings = async (req,res,next) => {
+  const limit = req.params["limit"] == null ? 20 : req.params["limit"];
   const client = await pool.connect();
   try {
     const result = await client.query(`
       SELECT r.*, u.username, m.poster_link FROM ratings r
       JOIN users u ON r.uid = u.uid
       JOIN movies m ON r.mid = m.mid
-    `);
+      LIMIT $1
+    `, [limit]);
     res.status(200).json({data: result.rows});
   } catch (err) {
     console.error(err);
@@ -16,6 +18,7 @@ exports.allRatings = async (req,res,next) => {
     client.release()
   }
 }
+
 exports.ratingsByGenre = async(req,res,next) => {
   const genre = req.params["genre"];
   const client = await pool.connect();
