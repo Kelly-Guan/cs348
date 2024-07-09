@@ -14,6 +14,8 @@ rm master.sql
 rm cleanedMovies2.sql
 rm reallyCleanCredits.csv
 rm reallyCleanGenres.csv
+rm first-name-database.csv
+rm surname-database.csv
 
 unzip Data.zip
 unzip names.zip
@@ -32,3 +34,5 @@ rm pairs.txt
 rm cleanedMovies2.sql
 rm reallyCleanCredits.csv
 rm reallyCleanGenres.csv
+rm first-name-database.csv
+rm surname-database.csv
