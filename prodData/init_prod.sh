@@ -37,7 +37,4 @@ psql postgres://postgres:postgres@127.0.0.1:5432 -f ../schema/reviewer_votes.sql
 
 rm pairs.txt
 rm cleanedMovies2.sql
-rm reallyCleanCredits.csv
-rm reallyCleanGenres.csv
-rm first-name-database.csv
-rm surname-database.csv
+rm *.csv

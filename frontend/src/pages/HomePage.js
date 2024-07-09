@@ -73,8 +73,8 @@ function Home() {
                 key={i}
                 description={r.rating_text}
                 profileName={r.username}
-                imageURL={r.poster_link}
-                timePosted={r.date_posted}
+                imageURL={"https://image.tmdb.org/t/p/w500" + r.poster_link}
+                timePosted={r.date_posted.split("T")[0]}
               />
             ))}
           </div>
@@ -88,8 +88,8 @@ function Home() {
                 key={i}
                 description={r.rating_text}
                 profileName={r.username}
-                imageURL={r.poster_link}
-                timePosted={r.date_posted}
+                imageURL={"https://image.tmdb.org/t/p/w500" + r.poster_link}
+                timePosted={r.date_posted.split("T")[0]}
               />
             ))}
           </div>
