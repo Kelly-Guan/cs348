@@ -7,23 +7,52 @@ function Home() {
   const [selectedGenre, setSelectedGenre] = useState("Genres");
   const [ratings, setRatings] = useState([]);
 
+
+  const checkImageURL = async (url, defaultURL) => {
+    try {
+      const response = await fetch(url);
+      if (response.status === 200) {
+        return url;
+      } else {
+        return defaultURL;
+      }
+    } catch (error) {
+      return defaultURL;
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:3001/")
-      .then((res) => {
+    const fetchRatings = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/ratings/ratingsByFriends/107");
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
-        return res.json();
-      })
-      .then((data) => {
-        setRatings(data.data);
-      })
-      .catch((err) => {
+        const data = await res.json();
+
+        const updatedRatings = await Promise.all(
+          data.data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg'
+            )
+          }))
+        );
+
+        setRatings(updatedRatings);
+      } catch (err) {
         console.error("Fetch error:", err);
         setRatings([]);
-      });
+      }
+    };
+
+    fetchRatings();
   }, []);
 
+
+
+  
   const handleGenreSelect = (genre) => {
     setSelectedGenre(genre);
   };

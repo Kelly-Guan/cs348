@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import MovieButton from "../components/ui/movieButton";
+import MovieButton from "../components/ui/movieButton";
 import movieFiller from "../assets/littleWomen.jpg";
 import movieFillerVer from "../assets/fillerVert.jpg";
 import GenreDropdown from "../components/genreDropDown";
@@ -44,17 +44,17 @@ function ExplorePage() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Comedy</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {/* {movies.map((m, i) => 
+            {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              // movieImg={m.poster_link} 
+              // movieImgVert={m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )} */}
+            )}
           </div>
         </div>
 

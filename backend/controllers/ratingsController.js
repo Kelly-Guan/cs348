@@ -46,10 +46,12 @@ exports.ratingsByFriends = async(req,res,next) => {
   try {
     const result = await client.query(`
     SELECT r.*,
+    m.poster_link,
     COALESCE(rv.upvotes, 0) AS upvotes,
     COALESCE(rv.downvotes, 0) AS downvotes
     FROM ratings r
     LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
+    LEFT JOIN movies m on r.mid = m.mid
     WHERE r.uid IN (
     SELECT following_uid FROM user_connections
     WHERE follower_uid = $1);
