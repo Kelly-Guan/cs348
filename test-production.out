@@ -1,3 +1,4 @@
+INSERT 0 1
  count 
 -------
      1
@@ -13,8 +14,13 @@
  1111111
 (1 row)
 
-UPDATE 0
-DELETE 0
+UPDATE 1
+ uid | first_name | last_name | username |       email       | password 
+-----+------------+-----------+----------+-------------------+----------
+   6 | ben        | smith     | baconman | bensmith@gmail.ca | 1111111
+(1 row)
+
+DELETE 1
   mid  |              title              | release_date | runtime |                                                                                                                                                                                                                                                                                                                                                                                                                  description                                                                                                                                                                                                                                                                                                                                                                                                                  |           poster_link            | adult 
 -------+---------------------------------+--------------+---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------+-------
  26166 | Avatar 2                        | 2020-12-16   |       0 | A sequel to Avatar (2009).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | /wvpOVl37PR21mENpmZKVwrLUsRD.jpg | f
@@ -29,13 +35,25 @@ DELETE 0
  32707 | Pitch Perfect 3                 | 2017-12-21   |       0 | Sequel to Pitch Perfect 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | /A4bAz2rvc0vjitQ7sm0gyqgaehp.jpg | f
 (10 rows)
 
- mid | title | release_date | aggregate_rating 
------+-------+--------------+------------------
-(0 rows)
+  mid  |                 title                  | release_date |  aggregate_rating  
+-------+----------------------------------------+--------------+--------------------
+ 17417 | Edison Kinetoscopic Record of a Sneeze | 1894-01-09   | 2.3333333333333333
+ 18834 | Dickson Experimental Sound Film        | 1894-08-31   | 3.3333333333333333
+ 19792 | The Arrival of a Train at La Ciotat    | 1896-01-25   | 4.0000000000000000
+ 19065 | The Kiss                               | 1896-04-01   | 2.8333333333333333
+ 18738 | Ella Lola, a la Trilby                 | 1898-01-01   | 3.0000000000000000
+ 16134 | The Four Troublesome Heads             | 1898-01-01   | 2.5000000000000000
+ 18767 | Turkish Dance, Ella Lola               | 1898-09-30   | 2.6666666666666667
+ 16139 | The Human Pyramid                      | 1899-05-20   | 3.6666666666666667
+ 18783 | Boys Diving, Honolulu                  | 1901-01-01   | 2.0000000000000000
+  9895 | A Trip to the Moon                     | 1902-09-01   | 2.0000000000000000
+(10 rows)
 
- title | uid | mid | score | rating_text | date_posted | upvotes | downvotes | first_name 
--------+-----+-----+-------+-------------+-------------+---------+-----------+------------
-(0 rows)
+          title          | uid |  mid  | score |                    rating_text                    |     date_posted     | upvotes | downvotes | first_name 
+-------------------------+-----+-------+-------+---------------------------------------------------+---------------------+---------+-----------+------------
+ Where the Day Takes You | 100 |  7049 |     4 | An emotional rollercoaster from beginning to end. | 2024-11-23 14:32:12 |       1 |         0 | Michael
+ The Blot                | 100 | 18832 |     4 | An unforgettable experience.                      | 2024-08-22 23:21:26 |         |           | Michael
+(2 rows)
 
       title      | rank | first_name 
 -----------------+------+------------
@@ -44,9 +62,9 @@ DELETE 0
 
               title               | username 
 ----------------------------------+----------
+ The Adventures of the Electronic | hkoya
  Fateless                         | hkoya
  Jude the Obscure                 | hkoya
- The Adventures of the Electronic | hkoya
 (3 rows)
 
  following_uid |   username   
@@ -60,7 +78,115 @@ DELETE 0
    4 | Arjun      | Walia     | a24walia | a24walia@uwaterloo.ca | 10283ub
 (1 row)
 
- uid | mid | score | rating_text | date_posted 
------+-----+-------+-------------+-------------
-(0 rows)
+ uid |  mid  | score |                 rating_text                 |     date_posted     | upvotes | downvotes 
+-----+-------+-------+---------------------------------------------+---------------------+---------+-----------
+ 709 |  8686 |     3 | Too slow for my taste but beautifully shot. | 2024-12-04 05:15:31 |       0 |         1
+ 709 | 15848 |     3 | An epic tale with breathtaking visuals.     | 2024-05-11 05:11:54 |       0 |         1
+ 709 | 19448 |     1 | A messy and incoherent storyline.           | 2024-04-02 01:09:41 |       1 |         0
+(3 rows)
+
+ uid  |  mid  | score |                       rating_text                       |     date_posted     | upvotes | downvotes 
+------+-------+-------+---------------------------------------------------------+---------------------+---------+-----------
+ 2482 | 19626 |     4 | A heartwarming film with a positive message.            | 2024-06-15 21:20:16 |       0 |         1
+  635 |  6151 |     3 | A visually beautiful film with a strong emotional core. | 2024-05-12 12:28:52 |       1 |         0
+  139 |  2579 |     1 | A forgettable and tedious film.                         | 2024-06-08 20:51:12 |       1 |         0
+ 1021 |   425 |     3 | An exciting and action-packed film.                     | 2024-12-25 08:23:40 |       0 |         1
+ 2609 | 12836 |     4 | An exciting and thrilling ride.                         | 2024-10-25 04:10:54 |       0 |         1
+ 5765 | 17687 |     0 | The acting was cringe-worthy.                           | 2024-12-18 18:59:25 |       1 |         0
+ 2140 | 12365 |     4 | A gripping tale that kept me on the edge of my seat.    | 2024-01-05 17:52:49 |       1 |         0
+  816 |  6877 |     4 | Left me wanting more. Can't wait for the sequel.        | 2024-07-30 21:39:09 |       1 |         0
+ 1140 |  4689 |     3 | An emotional rollercoaster from beginning to end.       | 2024-04-02 10:47:34 |       1 |         0
+ 1443 |  9880 |     4 | A touching and emotional journey.                       | 2024-07-28 12:14:21 |       0 |         1
+(10 rows)
+
+  uid  |  mid  | score |                    rating_text                     |     date_posted     | upvotes | downvotes 
+-------+-------+-------+----------------------------------------------------+---------------------+---------+-----------
+   346 |  9388 |     3 | A disappointing film with a lackluster plot.       | 2024-04-11 23:16:28 |       1 |         1
+ 11472 | 15705 |     4 | An entertaining film with a lot of heart.          | 2024-11-20 19:21:10 |       1 |         1
+  5641 |  3464 |     4 | A visually stunning masterpiece.                   | 2024-09-12 00:37:17 |       1 |         1
+  9978 | 13384 |     4 | A touching story that will make you laugh and cry. | 2024-03-27 18:48:05 |       1 |         1
+  9578 |  6820 |     0 | A film that fails on every level.                  | 2024-11-01 06:23:46 |       1 |         1
+(5 rows)
+
+INSERT 0 1
+DELETE 0
+ mid |  avg_movie_rating  
+-----+--------------------
+  10 | 3.0000000000000000
+(1 row)
+
+ movie_ranking 
+---------------
+          5025
+(1 row)
+
+ score |                       rating_text                       | upvotes | downvotes |     date_posted     
+-------+---------------------------------------------------------+---------+-----------+---------------------
+     3 | An exciting and thrilling ride.                         |       0 |         1 | 2024-11-10 04:37:43
+     3 | A well-crafted story with excellent performances.       |       1 |         0 | 2024-02-24 12:35:33
+     4 | A visually beautiful film with a strong emotional core. |       0 |         1 | 2024-08-03 14:55:36
+     4 | A visually appealing film with a great soundtrack.      |       1 |         0 | 2024-03-11 14:24:47
+     1 | An amateurish effort that falls flat.                   |       1 |         0 | 2024-11-19 05:48:47
+(5 rows)
+
+ release_date |           poster_link            | runtime | adult 
+--------------+----------------------------------+---------+-------
+ 1995-11-16   | /5c0ovjT41KnYIHYuF4AWsTe3sKh.jpg |     130 | f
+(1 row)
+
+        name         | role 
+---------------------+------
+ Andrew Ackland-Snow | crew
+ Anthony Waye        | crew
+ Barbara Broccoli    | crew
+ Bill Pochetty       | crew
+ Bruce Feirstein     | crew
+ Charles Bodycomb    | crew
+ Charles Dwight Lee  | crew
+ Chris Corbould      | crew
+ David John          | crew
+ Debbie McWilliams   | crew
+(10 rows)
+
+        name         | role  |             character              
+---------------------+-------+------------------------------------
+ Alan Cumming        | actor | Boris Grishenko
+ Billy J. Mitchell   | actor | Admiral Chuck Farrell
+ Constantine Gregory | actor | Computer Store Manager
+ Desmond Llewelyn    | actor | Q
+ Famke Janssen       | actor | Xenia Onatopp
+ Gottfried John      | actor | General Arkady Grigorovich Ourumov
+ Izabella Scorupco   | actor | Natalya Fyodorovna Simonova
+ Joe Don Baker       | actor | Jack Wade
+ Judi Dench          | actor | M
+ Michael Kitchen     | actor | Bill Tanner
+(10 rows)
+
+            title            |           poster_link            
+-----------------------------+----------------------------------
+ Toy Story                   | /rhIRbceoE9lR4veEXuwCC2wARtG.jpg
+ Jumanji                     | /vzmL6fP7aPKNKPRTFnZmiUfciyV.jpg
+ Grumpier Old Men            | /6ksm1sjKMFLbO7UY2i6G1ju9SML.jpg
+ Waiting to Exhale           | /16XOMpEaLWkrcPqSQqhTmeJuqQl.jpg
+ Father of the Bride Part II | /e64sOI48hQXyru7naBFyssKFxVd.jpg
+ Heat                        | /zMyfPUelumio3tiDKPffaUpsQTD.jpg
+ Sabrina                     | /jQh15y5YB7bWz1NtffNZmRw0s9D.jpg
+ Tom and Huck                | /sGO5Qa55p7wTu7FJcX4H4xIVKvS.jpg
+ Sudden Death                | /eoWvKD60lT95Ss1MYNgVExpo5iU.jpg
+ GoldenEye                   | /5c0ovjT41KnYIHYuF4AWsTe3sKh.jpg
+(10 rows)
+
+ uid |   username   
+-----+--------------
+   1 | akyjia
+   2 | hkoya
+   3 | kgguan
+ 100 | m0kumar
+ 105 | a5khan
+ 119 | k19fernandez
+ 126 | d26khan
+ 140 | e40jackson
+ 154 | l54kaya
+ 160 | l60king
+(10 rows)
 
