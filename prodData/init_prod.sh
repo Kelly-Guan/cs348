@@ -27,6 +27,7 @@ psql postgres://postgres:postgres@127.0.0.1:5432 -c "SELECT mid, credit_link_id 
 python3 genreInserts.py
 python3 creditInserts.py
 python3 generateUsers.py
+python3 generateRatings.py
 python3 populateReviews.py
 python3 populateVotes.py
 python3 populateUserConnections.py
