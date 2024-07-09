@@ -27,6 +27,6 @@ python3 creditInserts.py
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COLUMN credit_link_id;"
 
 rm pairs.txt
-rm cleanMovies2.sql
+rm cleanedMovies2.sql
 rm reallyCleanCredits.csv
 rm reallyCleanGenres.csv

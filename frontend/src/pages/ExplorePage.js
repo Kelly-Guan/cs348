@@ -12,7 +12,7 @@ function ExplorePage() {
     const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/movies/allMovies")
+    fetch("http://localhost:3001/api/movies/search?genre=Action")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
