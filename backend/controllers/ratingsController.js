@@ -85,3 +85,26 @@ exports.ratingsByRatio = async(req,res,next) => {
     client.release()
   }
 }
+
+exports.ratingsByMovie = async(req,res,next) => {
+  const mid = req.params["mid"];
+  const client = await pool.connect();
+  try {
+    const result = await client.query(`
+    SELECT
+    r.*,
+    COALESCE(rv.upvotes, 0) AS upvotes,
+    COALESCE(rv.downvotes, 0) AS downvotes
+    FROM
+    ratings r
+    LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
+    WHERE r.mid = $1;
+    `,[mid]);
+    res.status(200).json({data: result.rows});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json("Something went wrong");
+  } finally {
+    client.release()
+  }
+}
