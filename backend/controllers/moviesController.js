@@ -91,7 +91,7 @@ exports.search = async (req, res, next) => {
     template_params.push(title);
   }
   if(genre != null) {
-    query_str += ` AND genre='$${template_count++}'`
+    query_str += ` AND genre=$${template_count++}`
     template_params.push(genre);
   }
   if(rating != null) {
