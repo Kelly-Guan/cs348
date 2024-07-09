@@ -63,8 +63,8 @@ exports.ratingsByFriends = async(req,res,next) => {
   }
 }
 
-exports.ratingsByScore = async(req,res,next) => {
-  const score = req.params["score"];
+exports.ratingsByRatio = async(req,res,next) => {
+  const score = req.params["ratio"];
   const client = await pool.connect();
   try {
     const result = await client.query(`
@@ -76,7 +76,7 @@ exports.ratingsByScore = async(req,res,next) => {
     ratings r
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
     WHERE rv.downvotes>0 AND rv.upvotes/rv.downvotes >= $1;
-    `,[score]);
+    `,[ratio]);
     res.status(200).json({data: result.rows});
   } catch (err) {
     console.error(err);

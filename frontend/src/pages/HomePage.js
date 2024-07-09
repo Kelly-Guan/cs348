@@ -8,7 +8,7 @@ function Home() {
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/ratings/allRatings")
+    fetch("http://localhost:3001/")
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);

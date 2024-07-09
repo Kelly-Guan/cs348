@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MovieButton from "../components/ui/movieButton";
+// import MovieButton from "../components/ui/movieButton";
 import movieFiller from "../assets/littleWomen.jpg";
 import movieFillerVer from "../assets/fillerVert.jpg";
 import GenreDropdown from "../components/genreDropDown";
@@ -44,7 +44,7 @@ function ExplorePage() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Comedy</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -54,14 +54,14 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Horror</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -71,14 +71,14 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Drama</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -88,14 +88,14 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Romance</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -105,14 +105,14 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Action</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -122,14 +122,14 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Sci-Fi</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {movies.map((m, i) => 
+            {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
               movieImg={m.poster_link} 
@@ -139,7 +139,7 @@ function ExplorePage() {
               movieDescription={m.description}
               alt="Movie Poster"
               />
-            )}
+            )} */}
           </div>
         </div>
 
