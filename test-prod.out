@@ -1,0 +1,66 @@
+ count 
+-------
+     1
+(1 row)
+
+ count 
+-------
+     0
+(1 row)
+
+ password 
+----------
+ 1111111
+(1 row)
+
+UPDATE 0
+DELETE 0
+  mid  |              title              | release_date | runtime |                                                                                                                                                                                                                                                                                                                                                                                                                  description                                                                                                                                                                                                                                                                                                                                                                                                                  |           poster_link            | adult 
+-------+---------------------------------+--------------+---------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------+-------
+ 26166 | Avatar 2                        | 2020-12-16   |       0 | A sequel to Avatar (2009).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | /wvpOVl37PR21mENpmZKVwrLUsRD.jpg | f
+ 37899 | The Other Side of the Wind      | 2018-12-31   |       0 | Orson Welles' unfinished masterpiece, restored and assembled based on Welles' own notes. During the last 15 years of his life, Welles, who died in 1985, worked obsessively on the film, which chronicles a temperamental film director—much like him—who is battling with the Hollywood establishment to finish an iconoclastic work.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | /wtSpgCw6MmSxGYysaa17f0a9U4y.jpg | f
+ 29887 | Bad Boys for Life               | 2018-11-07   |       0 | The continuing adventures of Miami detectives Mike Lowrey and Marcus Burnett. Plot unknown.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | /2GwwyfykFAf3jKXFWMkBiLgTi3k.jpg | f
+ 37173 | Mary Shelley                    | 2018-04-25   |       0 | The love affair between poet Percy Shelley and 18 years old Mary Wollstonecraft, which resulted in Mary Shelley writing Frankenstein.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | /AnHutc9eDDrVXvlmYFohEougTHq.jpg | f
+ 43268 | Mobile Homes                    | 2018-04-04   |     105 | In forgotten towns along the American border, a young mother drifts from one motel to the next with her intoxicating boyfriend and her 8-year-old son. The makeshift family scrapes by, living one hustle at a time, until the discovery of a mobile home community offers an alternative life.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | /of72rtl3j0C9yJMlSJZHXnaByz8.jpg | f
+ 32696 | Iron Sky: The Coming Race       | 2018-03-01   |       0 | Twenty years after the events of Iron Sky, the former Nazi Moonbase has become the last refuge of mankind. Earth was devastated by a nuclear war, but buried deep under the wasteland lies a power that could save the last of humanity - or destroy it once and for all. The truth behind the creation of mankind will be revealed when an old enemy leads our heroes on an adventure into the Hollow Earth. To save humanity they must fight the Vril, an ancient shapeshifting reptilian race and their army of dinosaurs.                                                                                                                                                                                                                                                                                                                 | /dJTn8jUruV3llF1sGxSakd3hC63.jpg | f
+ 32695 | Sly Cooper                      | 2017-12-31   |       0 | Sly Cooper is a kinetic and comedic heist film that tells the story of Sly Cooper, an orphaned raccoon thief, along with his childhood friends and partners in crime, Bentley Turtle and Murray Hippo. In the film, Sly learns of his birth family's secret legacy; that he comes from a long line of talented and international thieves. Endowed with this knowledge, Sly and his friends are catapulted into a global adventure as they race to reassemble pieces of an ancient book holding The Cooper Clan's family secrets before it can fall into the hands of Clockwerk -- an evil Russian metallic owl bent on ending the Cooper family line. From romantic Parisian backdrops to the lush mountains of China, gritty film noir meets bright, colorful graphic novels in this origin story of the world's greatest thief-turned-hero. | /rw36cctUD5kPCNCxFYsQ7F205B8.jpg | f
+ 30016 | The King's Daughter             | 2017-12-30   |       0 | King Louis XIV's quest for immortality leads him to capture and steal a mermaid's life force, a move that is further complicated by his illegitimate daughter's discovery of the creature.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | /xBLskcmADJYJrDw3O04XdMvrE2m.jpg | f
+ 43046 | How to Talk to Girls at Parties | 2017-12-27   |     102 | A couple of British 1970s teen-aged boys, Enn and Vic, go to a party to meet girls, only to find that the girls are very different from the boys' expectations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | /tyCt5dQ2yhfEtWcP3KqMgtFk7s0.jpg | f
+ 32707 | Pitch Perfect 3                 | 2017-12-21   |       0 | Sequel to Pitch Perfect 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | /A4bAz2rvc0vjitQ7sm0gyqgaehp.jpg | f
+(10 rows)
+
+ mid | title | release_date | aggregate_rating 
+-----+-------+--------------+------------------
+(0 rows)
+
+ title | uid | mid | score | rating_text | date_posted | upvotes | downvotes | first_name 
+-------+-----+-----+-------+-------------+-------------+---------+-----------+------------
+(0 rows)
+
+      title      | rank | first_name 
+-----------------+------+------------
+ B.F.'s Daughter |    3 | Kelly
+(1 row)
+
+              title               | username 
+----------------------------------+----------
+ Fateless                         | hkoya
+ Jude the Obscure                 | hkoya
+ The Adventures of the Electronic | hkoya
+(3 rows)
+
+ following_uid |   username   
+---------------+--------------
+         12373 | p12273dimech
+(1 row)
+
+DELETE 0
+ uid | first_name | last_name | username |         email         | password 
+-----+------------+-----------+----------+-----------------------+----------
+   4 | Arjun      | Walia     | a24walia | a24walia@uwaterloo.ca | 10283ub
+(1 row)
+
+ uid | mid | score | rating_text | date_posted 
+-----+-----+-------+-------------+-------------
+(0 rows)
+
