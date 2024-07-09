@@ -21,7 +21,7 @@ function ExplorePage() {
       })
       .then((data) => {
         console.log(data);
-        setMovies(data.data);
+        setMovies(data);
       })
       .catch((err) => {
         console.error("Fetch error:", err);
@@ -47,8 +47,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
@@ -64,8 +64,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
@@ -81,8 +81,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
@@ -98,8 +98,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
@@ -115,8 +115,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
@@ -132,8 +132,8 @@ function ExplorePage() {
             {/* {movies.map((m, i) => 
               <MovieButton 
               key={i}
-              movieImg={m.poster_link} 
-              movieImgVert={m.poster_link}
+              movieImg={"https://image.tmdb.org/t/p/w500" + m.poster_link} 
+              movieImgVert={"https://image.tmdb.org/t/p/w500" + m.poster_link}
               movieTitle={m.title}
               movieTime={m.release_date}
               movieDescription={m.description}
