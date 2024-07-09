@@ -17,8 +17,7 @@ rm reallyCleanGenres.csv
 rm first-name-database.csv
 rm surname-database.csv
 
-unzip Data.zip
-unzip names.zip
+unzip ProdData.zip
 
 # INSERT MOVIES, GENRES, CREDITS
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies ADD credit_link_id INT;"
@@ -39,4 +38,5 @@ psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COL
 psql postgres://postgres:postgres@127.0.0.1:5432 -f ../schema/reviewer_votes.sql
 
 rm pairs.txt
+rm *.csv
 rm cleanedMovies2.sql
