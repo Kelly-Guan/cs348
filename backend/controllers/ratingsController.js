@@ -1,7 +1,7 @@
 const pool = require("../config/database");
 
 exports.allRatings = async (req,res,next) => {
-  const limit = req.params["limit"] == null ? 20 : req.params["limit"];
+  const limit = req.params["limit"] ?? 20;
   const client = await pool.connect();
   try {
     const result = await client.query(`
@@ -10,7 +10,7 @@ exports.allRatings = async (req,res,next) => {
       JOIN movies m ON r.mid = m.mid
       LIMIT $1
     `, [limit]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -20,21 +20,29 @@ exports.allRatings = async (req,res,next) => {
 }
 
 exports.ratingsByGenre = async(req,res,next) => {
+  
   const genre = req.params["genre"];
+  const limit = req.query["limit"] ?? 20;
+
   const client = await pool.connect();
   try {
     const result = await client.query(`
     SELECT r.*,
+    m.poster_link,
+    m.title,
+    u.username,
     COALESCE(rv.upvotes, 0) AS upvotes,
     COALESCE(rv.downvotes, 0) AS downvotes
     FROM
     ratings r
     JOIN movies m ON r.mid = m.mid
     JOIN genres g ON m.mid = g.mid
+    JOIN users u ON r.uid = u.uid
     LEFT JOIN reviewer_votes rv ON r.uid = rv.uid AND r.mid = rv.mid
     WHERE g.genre = $1
-    `,[genre]);
-    res.status(200).json({data: result.rows});
+    LIMIT $2
+    `,[genre, limit]);
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -59,7 +67,7 @@ exports.ratingsByFriends = async(req,res,next) => {
     SELECT following_uid FROM user_connections
     WHERE follower_uid = $1);
     `,[follower_uid]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -82,7 +90,7 @@ exports.ratingsByRatio = async(req,res,next) => {
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
     WHERE rv.downvotes>0 AND rv.upvotes/rv.downvotes >= $1;
     `,[ratio]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -105,7 +113,7 @@ exports.ratingsByMovie = async(req,res,next) => {
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
     WHERE r.mid = $1;
     `,[mid]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -128,7 +136,7 @@ exports.ratingsByScore = async(req,res,next) => {
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
     WHERE r.score = $1;
     `,[score]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");
@@ -151,7 +159,7 @@ exports.ratingsByUser = async(req,res,next) => {
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
     WHERE r.uid = $1;
     `,[user]);
-    res.status(200).json({data: result.rows});
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json("Something went wrong");

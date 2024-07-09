@@ -3,7 +3,7 @@ import {Circle, ThumbsUp, ThumbsDown, MessageCircle, ChevronDown } from 'lucide-
 import ProfileTitle from "./ui/profileTitle";
 
 
-function Content({ profilePic, profileName, timePosted, fullName, description, imageURL }) {
+function Content({ profilePic, profileName, timePosted, fullName, description, imageURL, title }) {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const truncatedDescription = showFullDescription
@@ -20,7 +20,11 @@ function Content({ profilePic, profileName, timePosted, fullName, description, i
       <div className="mt-4 mx-auto max-w-full">
         <img src={imageURL} alt="Movie" className="w-full h-auto max-w-96 object-cover" />
       </div>
+
       <div className="flex justify-between items-end mt-4">
+        <div>
+          <p>{title}</p>
+        </div>
         <div className="flex space-x-2">
           <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
             <ThumbsUp className="w-5 h-5" />
@@ -31,6 +35,7 @@ function Content({ profilePic, profileName, timePosted, fullName, description, i
           <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
             <MessageCircle className="w-5 h-5" />
           </button>
+
         </div>
       </div>
       <div className="mt-4">
