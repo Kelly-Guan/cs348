@@ -1,4 +1,3 @@
-import psycopg2
 import pandas as pd
 import random
 from datetime import datetime, timedelta
@@ -17,7 +16,7 @@ pos = pd.read_csv("movie_reviews.csv")
 neg = pd.read_csv("negative_movie_reviews.csv")
 
 with open("generated_reviews.csv", "w") as file:
-    # Write the header
+
     file.write("uid,mid,score,rating_text,date_posted\n")
 
     for index in range(100, 13880):
@@ -29,17 +28,17 @@ with open("generated_reviews.csv", "w") as file:
         for i in range(index % 7):
             mid = random.randrange(1, 20000)
             score = random.randrange(3, 5)
-            rating_text = pos.iloc[random.randint(0, len(pos) - 1), 0]
+            rating_text = pos.iloc[random.randint(0, len(pos) - 1), 0].replace('"','').replace("'","''")
             date_posted = generate_random_timestamp(start_date, end_date)
 
-            formatted = f"{uid},{mid},{score},{rating_text},{date_posted}\n"
+            formatted = f"{uid},{mid},{score},'{rating_text}',{date_posted}\n"
             file.write(formatted)
 
         for i in range(index % 4):
             mid = random.randrange(1, 20000)
             score = random.randrange(0, 2)
-            rating_text = neg.iloc[random.randint(0, len(neg) - 1), 0]
+            rating_text = neg.iloc[random.randint(0, len(neg) - 1), 0].replace('"','').replace("'","''")
             date_posted = generate_random_timestamp(start_date, end_date)
 
-            formatted = f"{uid},{mid},{score},{rating_text},{date_posted}\n"
+            formatted = f"{uid},{mid},{score},'{rating_text}',{date_posted}\n"
             file.write(formatted)
