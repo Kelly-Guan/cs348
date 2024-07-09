@@ -4,9 +4,10 @@ const ratingsController = require("../controllers/ratingsController");
 
 router.get("/allRatings", ratingsController.allRatings);
 router.get("/ratingsByGenre/:genre", ratingsController.ratingsByGenre);
+router.get("/ratingsByRatio/:ratio", ratingsController.ratingsByRatio);
+router.get("/ratingsByMovie/:mid", ratingsController.ratingsByMovie);
 
-//below needs fix
+//needs fix
 router.get("/ratingsByFriends/:follower_uid", ratingsController.ratingsByFriends);
-router.get("/ratingsByScore/:score", ratingsController.ratingsByScore);
 
 module.exports = router;

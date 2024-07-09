@@ -30,6 +30,7 @@ python3 creditInserts.py
 python3 generateUsers.py
 python3 populateReviews.py
 python3 populateVotes.py
+python3 populateUserConnections.py
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COLUMN credit_link_id;"
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -f ../schema/reviewer_votes.sql
