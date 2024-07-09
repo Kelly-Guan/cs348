@@ -159,3 +159,28 @@ exports.ratingsByUser = async(req,res,next) => {
     client.release()
   }
 }
+
+exports.addReview = async (req, res, next) => {
+  const { uid, mid, score, rating_text, date_posted } = req.body;
+
+  // Validate input data
+  // if (typeof uid !== 'number' || typeof mid !== 'number' || typeof score !== 'number' || score < 0 || score > 5 || typeof rating_text !== 'string' || !date_posted) {
+  //   return res.status(400).json({ error: 'Invalid input data' });
+  // }
+
+  const client = await pool.connect();
+  try {
+    const query = `
+      INSERT INTO ratings (uid, mid, score, rating_text, date_posted)
+      VALUES ($1, $2, $3, $4, $5)
+      ON CONFLICT (uid, mid) DO NOTHING;`;
+    const values = [uid, mid, score, rating_text, date_posted];
+    await client.query(query, values);
+    res.status(200).json({ message: 'Review added successfully' });
+  } catch (err) {
+    console.error('Error inserting review:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    client.release();
+  }
+};
