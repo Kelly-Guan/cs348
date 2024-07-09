@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router();
 const ratingsController = require("../controllers/ratingsController");
 
+router.post('/add-review', ratingsController.addReview);
+
 router.get("/allRatings", ratingsController.allRatings);
 router.get("/ratingsByGenre/:genre", ratingsController.ratingsByGenre);
 router.get("/ratingsByRatio/:ratio", ratingsController.ratingsByRatio);
