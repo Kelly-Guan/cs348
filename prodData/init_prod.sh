@@ -31,10 +31,12 @@ python3 generateUsers.py
 python3 populateReviews.py
 python3 populateVotes.py
 python3 populateUserConnections.py
+python3 populateWatched.py
+python3 populateWatchLater.py
+python3 populateFavourites.py
 psql postgres://postgres:postgres@127.0.0.1:5432 -c "ALTER TABLE movies DROP COLUMN credit_link_id;"
 
 psql postgres://postgres:postgres@127.0.0.1:5432 -f ../schema/reviewer_votes.sql
 
 rm pairs.txt
 rm cleanedMovies2.sql
-rm *.csv
