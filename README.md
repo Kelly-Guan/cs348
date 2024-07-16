@@ -27,7 +27,7 @@ Production Data:
 
 3) Run ```cd ../backend && npm i```
 4) Run ```cd ../frontend && npm i```
-
+ 
 
 ## Running the App
 1) Ensure the Docker container is running in the desktop app or cli
