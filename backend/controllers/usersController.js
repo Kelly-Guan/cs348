@@ -231,6 +231,7 @@ exports.watchLaterByID = async (req, res, next) => {
     SELECT m.title, u.username
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
+    JOIN users u ON  wl.uid = u.uid
     WHERE wl.uid = $1
     LIMIT $2 OFFSET $3;`,
       [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
@@ -277,7 +278,7 @@ exports.ratingsByID = async (req, res, next) => {
     }
   } catch (err) {
     console.log(err);
-    res.send(500).json("Something went wrong retreiving user's ratings");
+    // res.send(500).json("Something went wrong retreiving user's ratings");
   } finally {
     client.release();
   }
