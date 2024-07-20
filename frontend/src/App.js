@@ -9,12 +9,10 @@ import Layout from './Layout';
 import Explore from './pages/ExplorePage';
 import Home from './pages/HomePage';
 // import Landing from './pages/LandingPage';
-// import LogIn from './pages/LogInPage';
 import Search from './pages/SearchPage';
 import Profile from './pages/ProfilePage';
 // import Create from './pages/CreatePage';
-
-
+import Login from './pages/LoginPage';
 
 function App() {
   return (
@@ -25,6 +23,7 @@ function App() {
           <Route exact path="/search" element={<Search/>}/>
           <Route exact path="/explore" element={<Explore/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
+          <Route exact path="/login" element={<Login/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>
