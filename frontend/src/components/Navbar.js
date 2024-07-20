@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Home, Search, Compass, PlusCircle, User, LogOut } from "lucide-react";
+import { Home, Search, Compass, PlusCircle, User, LogOut, LogIn } from "lucide-react";
 import NavBarButtons from "./ui/navBarButtons";
 import SearchMovieReview from "./searchMovieReview";
+import Cookies from "js-cookie";
 
 function NavBar() {
   const [showSearchMovieReviewPopup, setShowSearchMovieReviewPopup] = useState(false);
@@ -35,12 +36,24 @@ function NavBar() {
           </button>
         </div>
         <div className="flex flex-col items-start">
-          <Link to="/profile" className="mb-4 ml-2">
-            <NavBarButtons Icon={User} label="Profile" />
-          </Link>
-          <Link to="/logout" className="mb-4 ml-2">
-            <NavBarButtons Icon={LogOut} label="Log Out" />
-          </Link>
+          {Cookies.get("signedInUser") !== undefined ? (
+            <Link to="/profile" className="mb-4 ml-2">
+              <NavBarButtons Icon={User} label="Profile" />
+            </Link>
+          ) : (
+            <></>
+          )}
+          {Cookies.get("signedInUser") !== undefined ? (
+             
+            <Link to="/logout" className="mb-4 ml-2">
+              <NavBarButtons Icon={LogOut} label="Log Out" />
+            </Link>
+          ) : (<Link to="/signup" className="mb-4 ml-2">
+              <NavBarButtons Icon={LogIn} label="Sign In" />
+            </Link>
+          )
+        }
+
         </div>
       </div>
       {showSearchMovieReviewPopup && (

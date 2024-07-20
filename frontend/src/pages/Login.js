@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
+
 function Login() {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,6 +16,8 @@ function Login() {
       [name]: value,
     }));
   };
+
+  const nav = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +38,9 @@ function Login() {
       const result = await response.json();
       console.log("Success:", result);
       Cookies.set("signedInUser",result);
+      nav("/");
+      window.location.reload();
+
     } catch (error) {
       console.error("Error:", error);
     }
