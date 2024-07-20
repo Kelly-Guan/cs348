@@ -167,6 +167,24 @@ exports.ratingsByUser = async(req,res,next) => {
     client.release()
   }
 }
+exports.recentRatings = async (req, res, next) => {
+  const client = await pool.connect();
+  try {
+    const query_str = `
+    SELECT * FROM ratings
+    ORDER BY date_posted DESC LIMIT 10;`;
+    const result = await client.query(query_str);
+    res.status(200).json({data: result.rows});
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Something went wrong");
+  } finally {
+    client.release();
+  }
+}
+
+
+
 
 exports.addReview = async (req, res, next) => {
   const { uid, mid, score, rating_text, date_posted } = req.body;
