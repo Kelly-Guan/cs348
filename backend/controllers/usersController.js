@@ -7,14 +7,13 @@ const saltRounds = 10;
 // Assume all valid inputs(checked on the frontend)
 exports.create = async (req, res, next) => {
   const { first_name, last_name, username, email, password } = req.body;
-  var p_hash;
-  bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
-    p_hash = hash;
-  });
+
+
+  const hash = await bcrypt.hash(password, saltRounds)
   
   const query_str =
     "INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-  const params = [first_name, last_name, username, email, p_hash];
+  const params = [first_name, last_name, username, email, hash];
 
   const client = await pool.connect();
   try {
@@ -340,5 +339,22 @@ exports.follow = async (req, res, next) => {
 
 exports.auth = async (req, res, next) => {
   const {username, password} = req.body;
-  
+  const client = await pool.connect();
+  try {
+    const result = await client.query("SELECT password FROM users WHERE username=$1 OR email=$1", [username]);
+    if(result.rowCount != 1) {
+      res.status(404).json("user not found");
+    } else {
+      var is_password_correct = await bcrypt.compare(password, result.rows[0].password)
+
+      if(is_password_correct) {res.status(200).json("");}
+      else {res.status(404).json("");}
+    }
+  } catch (err) {
+
+  } finally {
+    client.release();
+  }
 };
+
+
