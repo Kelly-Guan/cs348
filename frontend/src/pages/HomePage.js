@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Content from "../components/Content";
 import GenreDropdown from "../components/genreDropDown";
+import Content from "../components/Content";
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
 function Home() {
   const [selectedGenre, setSelectedGenre] = useState("Genres");
-  const [actionRatings, setActionRatings] = useState([]);
-  const [romanceRatings, setRomanceRatings] = useState([]);
-  const [comedyRatings, setComedyRatings] = useState([]);
+  const [recentReleases, setRecentReleases] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
 
   const checkImageURL = async (url, defaultURL) => {
     try {
@@ -23,65 +22,74 @@ function Home() {
   };
 
   useEffect(() => {
-    const fetchRatings = async () => {
+    const fetchRecentReleases = async () => {
       try {
-        const action_res = await fetch(
-          "http://localhost:3001/api/ratings/ratingsByGenre/Action"
-        );
-        const romance_res = await fetch(
-          "http://localhost:3001/api/ratings/ratingsByGenre/Romance"
-        );
-        const comedy_res = await fetch(
-          "http://localhost:3001/api/ratings/ratingsByGenre/Comedy"
+        const recentReleasesRes = await fetch(
+          "http://localhost:3001/api/movies/recentReleases"
         );
 
-        if (!action_res.ok || !romance_res.ok || !comedy_res.ok) {
-          throw new Error(`HTTP error! Status: retreiving ratings`);
+        if (!recentReleasesRes.ok) {
+          throw new Error(`HTTP error! Status: ${recentReleasesRes.status}`);
         }
-        const action_data = await action_res.json();
-        const romance_data = await romance_res.json();
-        const comedy_data = await comedy_res.json();
 
-        const updated_action = await Promise.all(
-          action_data.map(async (r) => ({
-            ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
-          }))
-        );
-        const updated_romance = await Promise.all(
-          romance_data.map(async (r) => ({
-            ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
-          }))
-        );
-        const updated_comedy = await Promise.all(
-          comedy_data.map(async (r) => ({
-            ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
-          }))
-        );
+        const recentReleasesResponse = await recentReleasesRes.json();
+        console.log('Recent Releases Data:', recentReleasesResponse); // Debugging log
 
-        setActionRatings(updated_action);
-        setComedyRatings(updated_comedy);
-        setRomanceRatings(updated_romance);
+        if (Array.isArray(recentReleasesResponse.data)) {
+          const updatedRecentReleases = await Promise.all(
+            recentReleasesResponse.data.map(async (r) => ({
+              ...r,
+              poster_link: await checkImageURL(
+                `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+                "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+              ),
+            }))
+          );
+
+          setRecentReleases(updatedRecentReleases);
+        } else {
+          console.error("Expected an array but got:", recentReleasesResponse.data);
+          setRecentReleases([]);
+        }
       } catch (err) {
         console.error("Fetch error:", err);
-        setActionRatings([]);
-        setComedyRatings([]);
-        setRomanceRatings([]);
+        setRecentReleases([]);
       }
     };
 
-    fetchRatings();
+    const fetchPopularMovies = async () => {
+      try {
+        const popularMoviesRes = await fetch(
+          "http://localhost:3001/api/movies/popularMovies"
+        );
+
+        if (!popularMoviesRes.ok) {
+          throw new Error(`HTTP error! Status: ${popularMoviesRes.status}`);
+        }
+
+        const popularMoviesResponse = await popularMoviesRes.json();
+        console.log('Popular Movies Data:', popularMoviesResponse); // Debugging log
+
+        const updatedPopularMovies = await Promise.all(
+          popularMoviesResponse.data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+            ),
+          }))
+        );
+
+        setPopularMovies(updatedPopularMovies);
+
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setPopularMovies([]);
+      }
+    };
+
+    fetchRecentReleases();
+    fetchPopularMovies();
   }, []);
 
   const handleGenreSelect = (genre) => {
@@ -97,49 +105,23 @@ function Home() {
         </div>
 
         <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Action</h3>
+          <h3 className="text-2xl font-bold mb-4">Recent Releases</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {actionRatings.map((r, i) => (
+            {recentReleases.map((r, i) => (
               <Content
                 key={i}
                 title={r.title}
-                description={r.rating_text}
-                profileName={r.username}
-                imageURL={"https://image.tmdb.org/t/p/w500" + r.poster_link}
-                timePosted={r.date_posted.split("T")[0]}
-              />
-            ))}
+                description={r.description}
+                imageURL={r.poster_link}
+              />))}
           </div>
         </div>
 
         <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Comedy</h3>
+          <h3 className="text-2xl font-bold mb-4">Popular Movies</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {comedyRatings.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.rating_text}
-                profileName={r.username}
-                imageURL={"https://image.tmdb.org/t/p/w500" + r.poster_link}
-                timePosted={r.date_posted.split("T")[0]}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Romance</h3>
-          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {romanceRatings.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.rating_text}
-                profileName={r.username}
-                imageURL={"https://image.tmdb.org/t/p/w500" + r.poster_link}
-                timePosted={r.date_posted.split("T")[0]}
-              />
+            {popularMovies.map((r, i) => (
+              <h1 key={i}>{r.title}</h1>
             ))}
           </div>
         </div>
