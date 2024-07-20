@@ -71,7 +71,7 @@ function Profile() {
 
     const fetchWatched = async(signedInUser) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/favourites`);
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watched`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -85,15 +85,39 @@ function Profile() {
             ),
           }))
         );
-        setFavourites(updatedData);
+        setWatched(updatedData);
       } catch (err) {
         console.error("Fetch error:", err);
-        setFavourites([]);
+        setWatched([]);
+      }
+    };
+    const fetchWatchLater = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watch_later`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+            ),
+          }))
+        );
+        setWatchLater(updatedData);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setWatchLater([]);
       }
     };
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
+    fetchWatched(currUser);
+    fetchWatchLater(currUser);
     console.log(Cookies.get("signedInUser"));
   });
 
@@ -152,7 +176,7 @@ function Profile() {
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
+              {watchLater.map((r, i) => (
                 <Content
                   key={i}
                   title={r.title}
@@ -167,14 +191,13 @@ function Profile() {
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Watched</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
+              {watched.map((r, i) => (
                 <Content
                   key={i}
                   title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
+                  description={r.description}
                   imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
+                  timePosted={r.date_watched}
                 />
               ))}
             </div>

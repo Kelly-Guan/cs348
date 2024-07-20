@@ -234,7 +234,7 @@ exports.watchLaterByID = async (req, res, next) => {
     JOIN users u ON  wl.uid = u.uid
     WHERE wl.uid = $1
     LIMIT $2 OFFSET $3;`,
-      [uid, FOLLOW_PAGE_LIMIT, FOLLOW_PAGE_LIMIT * offset]
+      [uid,3,0]
     );
     if (result.rowCount === 0) {
       res.status(404).json("user's watch later list not found");
