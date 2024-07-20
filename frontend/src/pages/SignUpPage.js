@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
 function SignUp() {
   const [formData, setFormData] = useState({
     first_name: "",
@@ -16,6 +18,8 @@ function SignUp() {
       [name]: value,
     }));
   };
+
+  const nav = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,8 +39,11 @@ function SignUp() {
 
       const result = await response.json();
       console.log("Success:", result);
-      Cookies.set('signedInUser', result.uid, { expires: 7, path: '/' });
-      console.log(Cookies.get('signedInUser'));
+      Cookies.set("signedInUser", result.uid, { expires: 7, path: "/" });
+      console.log(Cookies.get("signedInUser"));
+      
+      nav("/");
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
@@ -123,6 +130,13 @@ function SignUp() {
           />
         </div>
       </form>
+      <div className="flex justify-center mt-4">
+        <a
+          href="/login"
+          className="p-2 bg-blue-500 text-white font-semibold rounded-md cursor-pointer hover:bg-blue-600">
+          Login
+        </a>
+      </div>
     </div>
   );
 }
