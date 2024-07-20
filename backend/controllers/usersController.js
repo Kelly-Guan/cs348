@@ -1,20 +1,20 @@
 const pool = require("../config/database");
 const { FOLLOW_PAGE_LIMIT } = require("../config/constants");
 const { query } = require("express");
-// api/users/create
-// api/users/{id}/delete
-// api/users/{id}/update
-// api/users/{id}
-// api/users/{id}/favourites?
-// api/users/{id}/following?
-// api/users/{id}/followers?
+const bcrypt = require("bcrypt")
+const saltRounds = 10;
 
 // Assume all valid inputs(checked on the frontend)
 exports.create = async (req, res, next) => {
   const { first_name, last_name, username, email, password } = req.body;
+  var p_hash;
+  bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
+    p_hash = hash;
+  });
+  
   const query_str =
     "INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *";
-  const params = [first_name, last_name, username, email, password];
+  const params = [first_name, last_name, username, email, p_hash];
 
   const client = await pool.connect();
   try {

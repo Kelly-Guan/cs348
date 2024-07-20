@@ -4,7 +4,7 @@ const {SHRT_LENGTH, MEDM_LENGTH, LONG_LENGTH, MOVIE_PAGE_LIMIT} = require("../co
 exports.allMovies = async (req, res, next) => {
   const client = await pool.connect();
   try {
-    const result = await client.query("SELECT * FROM Movies");
+    const result = await client.query("SELECT * FROM Movies LIMIT 10");
     res.status(200).json({data: result.rows});
   } catch (err) {
     console.error(err);

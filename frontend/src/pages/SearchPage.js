@@ -32,22 +32,36 @@ function SearchPage() {
       <div className=" overflow-hidden w-full flex flex-col justify-start">
         <div className="flex flex-row justify-between items-center mb-8">
           <h3 className="text-4xl font-bold">Search</h3>
-          <SearchBar/>
+          <SearchBar />
         </div>
         <div className="mb-20 w-full">
-        <div className="grid gap-x-3 gap-y-10 grid-cols-3">
-            <MovieButton 
+          <div className="grid gap-x-3 gap-y-10 grid-cols-3">
+            <MovieButton
               movieImg={movieFiller}
               movieImgVert={movieFillerVer}
               movieTitle="The GodFather"
               movieTime="2004 2h 17m"
               movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
-              movieCast= "Uma Thurman, David Carradine, Micheal, more"
+              movieCast="Uma Thurman, David Carradine, Micheal, more"
               movieGenre="Martial Arts Move, Action, Adventure"
               alt="Movie Poster"
-              pageType = 'search'
-             />
-
+              pageType="search"
+            />
+            {/* {movies.map((m, i) => (
+              <MovieButton
+                movieImg={m.poster_link}
+                movieImgVert={m.poster_link}
+                movieTitle={m.title}
+                movieTime="2004 2h 17m"
+                movieDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pellentesque diam volutpat commodo sed egestas. Consequat..."
+                movieCast="Uma Thurman, David Carradine, Micheal, more"
+                movieGenre=
+                alt="Movie Poster"
+                pageType="search"
+              />
+            ))} */}
+{/* 
+            {/* <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
@@ -81,8 +95,7 @@ function SearchPage() {
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
             <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
-            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" />
+            <MovieButton movieImg={movieFiller} pageType = 'search' alt="Movie Poster" /> */} */}
           </div>
         </div>
       </div>
