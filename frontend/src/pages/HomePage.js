@@ -7,6 +7,7 @@ function Home() {
   const [selectedGenre, setSelectedGenre] = useState("Genres");
   const [recentReleases, setRecentReleases] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [recentRatings,setRecentRatings] = useState([]);
 
   const checkImageURL = async (url, defaultURL) => {
     try {
@@ -33,9 +34,6 @@ function Home() {
         }
 
         const recentReleasesResponse = await recentReleasesRes.json();
-        console.log('Recent Releases Data:', recentReleasesResponse); // Debugging log
-
-        if (Array.isArray(recentReleasesResponse.data)) {
           const updatedRecentReleases = await Promise.all(
             recentReleasesResponse.data.map(async (r) => ({
               ...r,
@@ -46,11 +44,7 @@ function Home() {
             }))
           );
 
-          setRecentReleases(updatedRecentReleases);
-        } else {
-          console.error("Expected an array but got:", recentReleasesResponse.data);
-          setRecentReleases([]);
-        }
+        setRecentReleases(updatedRecentReleases);
       } catch (err) {
         console.error("Fetch error:", err);
         setRecentReleases([]);
@@ -68,8 +62,6 @@ function Home() {
         }
 
         const popularMoviesResponse = await popularMoviesRes.json();
-        console.log('Popular Movies Data:', popularMoviesResponse); // Debugging log
-
         const updatedPopularMovies = await Promise.all(
           popularMoviesResponse.data.map(async (r) => ({
             ...r,
@@ -88,8 +80,37 @@ function Home() {
       }
     };
 
+    const fetchRecentRatings = async () => {
+      try {
+        const recentRatingsRes = await fetch(
+          "http://localhost:3001/api/ratings/recentRatings"
+        );
+
+        if (!recentRatingsRes.ok) {
+          throw new Error(`HTTP error! Status: ${recentRatingsRes.status}`);
+        }
+        // console.log("recent ratings running");
+        const recentRatingsResponse = await recentRatingsRes.json();
+          const updatedRecentRatings = await Promise.all(
+            recentRatingsResponse.data.map(async (r) => ({
+              ...r,
+              poster_link: await checkImageURL(
+                `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+                "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+              ),
+            }))
+          );
+        setRecentRatings(recentRatingsResponse.data);
+        console.log(recentRatingsResponse.data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setRecentReleases([]);
+      }
+    };
+
     fetchRecentReleases();
     fetchPopularMovies();
+    fetchRecentRatings();
   }, []);
 
   const handleGenreSelect = (genre) => {
@@ -116,7 +137,17 @@ function Home() {
               />))}
           </div>
         </div>
-
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Recent Ratings</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {recentRatings.map((r, i) => (
+              <Content
+              key={i}
+              description={r.rating_text}
+              imageURL={r.poster_link}
+            />))}
+          </div>
+        </div>
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Popular Movies</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
@@ -125,8 +156,23 @@ function Home() {
             ))}
           </div>
         </div>
+
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {recentReleases.map((r, i) => (
+              <Content
+                key={i}
+                title={r.title}
+                description={r.description}
+                imageURL={r.poster_link}
+              />))}
+          </div>
+        </div>
       </div>
     </div>
+    
+    
   );
 }
 
