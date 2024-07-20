@@ -6,6 +6,7 @@ const saltRounds = 10;
 
 // Assume all valid inputs(checked on the frontend)
 exports.create = async (req, res, next) => {
+  console.log(req.body);
   const { first_name, last_name, username, email, password } = req.body;
 
   const hash = await bcrypt.hash(password, saltRounds);
