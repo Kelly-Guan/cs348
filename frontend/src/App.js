@@ -12,7 +12,7 @@ import Home from './pages/HomePage';
 import Search from './pages/SearchPage';
 import Profile from './pages/ProfilePage';
 // import Create from './pages/CreatePage';
-import Login from './pages/LoginPage';
+import SignUp from './pages/SignUpPage';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/search" element={<Search/>}/>
           <Route exact path="/explore" element={<Explore/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
-          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/login" element={<SignUp/>}/>
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Login() {
+function SignUp() {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -125,4 +125,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
