@@ -354,6 +354,7 @@ exports.auth = async (req, res, next) => {
         res.status(200).json(result.rows[0].uid);
       } else {
         res.status(404).json("Wrong password");
+        console.log("password failed")
       }
     }
   } catch (err) {

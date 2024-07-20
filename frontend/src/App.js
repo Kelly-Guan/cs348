@@ -11,19 +11,22 @@ import Home from './pages/HomePage';
 // import Landing from './pages/LandingPage';
 import Search from './pages/SearchPage';
 import Profile from './pages/ProfilePage';
+
 // import Create from './pages/CreatePage';
 import SignUp from './pages/SignUpPage';
+import Login from './pages/Login';
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path="/search" element={<Search/>}/>
-          <Route exact path="/explore" element={<Explore/>}/>
-          <Route exact path="/profile" element={<Profile/>}/>
-          <Route exact path="/login" element={<SignUp/>}/>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/search" element={<Search />} />
+          <Route exact path="/explore" element={<Explore />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/login" element={<Login />} />
         </Routes>
       </Layout>
     </BrowserRouter>
