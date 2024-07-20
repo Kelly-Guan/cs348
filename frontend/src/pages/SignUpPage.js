@@ -37,7 +37,6 @@ function SignUp() {
       console.log("Success:", result);
       Cookies.set('signedInUser', result.uid, { expires: 7, path: '/' });
       console.log(Cookies.get('signedInUser'));
-      //create cookie here
     } catch (error) {
       console.error("Error:", error);
     }

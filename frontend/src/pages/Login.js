@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Cookies from "js-cookie";
 function Login() {
   const [formData, setFormData] = useState({
     username: "",
@@ -32,6 +32,7 @@ function Login() {
 
       const result = await response.json();
       console.log("Success:", result);
+      Cookies.set("signedInUser",result);
     } catch (error) {
       console.error("Error:", error);
     }

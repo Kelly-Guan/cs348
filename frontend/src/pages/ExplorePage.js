@@ -79,7 +79,7 @@ function ExplorePage() {
     if (selectedGenre !== "Genres") {
       fetchRatings(selectedGenre);
     }
-    fetchFriendRatings(105);
+    fetchFriendRatings(Cookies.get("signedInUser"));
   }, [selectedGenre]);
 
   const handleGenreSelect = (genre) => {
