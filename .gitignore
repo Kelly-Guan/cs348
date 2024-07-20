@@ -7,7 +7,6 @@
 /frontend
 # testing
 /frontend/coverage
-/frontend
 # production
 /frontend/build
 
