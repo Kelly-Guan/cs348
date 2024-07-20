@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Content from "../components/Content";
+import Cookies from "js-cookie";
 import GenreDropdown from "../components/genreDropDown";
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
@@ -25,6 +26,7 @@ function ExplorePage() {
 
   useEffect(() =>{
     console.log(searchQuery);
+    // console.log(Cookies.get("signedInUser"));
   },[searchQuery]);
 
   useEffect(() => {

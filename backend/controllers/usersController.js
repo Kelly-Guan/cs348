@@ -342,7 +342,7 @@ exports.auth = async (req, res, next) => {
   const { username, password } = req.body;
   const client = await pool.connect();
   try {
-    const result = await client.query("SELECT password FROM users WHERE username=$1 OR email=$1", [
+    const result = await client.query("SELECT uid,password FROM users WHERE username=$1 OR email=$1", [
       username,
     ]);
     if (result.rowCount != 1) {
@@ -351,7 +351,7 @@ exports.auth = async (req, res, next) => {
       var is_password_correct = await bcrypt.compare(password, result.rows[0].password);
 
       if (is_password_correct) {
-        res.status(200).json("Correct user");
+        res.status(200).json(result.rows[0].uid);
       } else {
         res.status(404).json("Wrong password");
       }
@@ -362,3 +362,4 @@ exports.auth = async (req, res, next) => {
     client.release();
   }
 };
+

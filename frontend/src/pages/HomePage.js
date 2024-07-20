@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GenreDropdown from "../components/genreDropDown";
 import Content from "../components/Content";
+import Cookies from "js-cookie";
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
 
 function Home() {
