@@ -1,16 +1,15 @@
 const pool = require("../config/database");
 const { FOLLOW_PAGE_LIMIT } = require("../config/constants");
 const { query } = require("express");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 // Assume all valid inputs(checked on the frontend)
 exports.create = async (req, res, next) => {
   const { first_name, last_name, username, email, password } = req.body;
 
+  const hash = await bcrypt.hash(password, saltRounds);
 
-  const hash = await bcrypt.hash(password, saltRounds)
-  
   const query_str =
     "INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *";
   const params = [first_name, last_name, username, email, hash];
@@ -320,7 +319,8 @@ exports.follow = async (req, res, next) => {
 
   const client = await pool.connect();
   try {
-    const result = await client.query(`
+    const result = await client.query(
+      `
     INSERT INTO user_connections (following_uid, follower_uid) VALUES ($1, $2) RETURNING *`,
       [following_uid, follower_uid]
     );
@@ -338,23 +338,26 @@ exports.follow = async (req, res, next) => {
 };
 
 exports.auth = async (req, res, next) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   const client = await pool.connect();
   try {
-    const result = await client.query("SELECT password FROM users WHERE username=$1 OR email=$1", [username]);
-    if(result.rowCount != 1) {
+    const result = await client.query("SELECT password FROM users WHERE username=$1 OR email=$1", [
+      username,
+    ]);
+    if (result.rowCount != 1) {
       res.status(404).json("user not found");
     } else {
-      var is_password_correct = await bcrypt.compare(password, result.rows[0].password)
+      var is_password_correct = await bcrypt.compare(password, result.rows[0].password);
 
-      if(is_password_correct) {res.status(200).json("");}
-      else {res.status(404).json("");}
+      if (is_password_correct) {
+        res.status(200).json("Correct user");
+      } else {
+        res.status(404).json("Wrong password");
+      }
     }
   } catch (err) {
-
+    res.status(500).json("Something went wrong with auth");
   } finally {
     client.release();
   }
 };
-
-
