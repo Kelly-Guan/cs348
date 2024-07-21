@@ -25,6 +25,9 @@ router.get("/:uid/favourites", usersController.favouritesByID);
 router.get("/:uid/watched", usersController.watchedByID);
 router.get("/:uid/watch_later", usersController.watchLaterByID);
 router.get("/:uid/ratings", usersController.ratingsByID);
+router.get("/:uid/similarTaste", usersController.similarTasteByID);
+router.get("/:uid/recommendedForYou", usersController.recommendedByID);
+
 
 router.post("/auth", usersController.auth);
 
