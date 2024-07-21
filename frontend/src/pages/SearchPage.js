@@ -5,7 +5,7 @@ import movieFiller from "../assets/littleWomen.jpg";
 import movieFillerVer from "../assets/fillerVert.jpg";
 import GenreDropdown from "../components/genreDropDown";
 
-const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Sci-Fi"]; // Add more genres as needed
+const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Science Fiction"]; // Add more genres as needed
 const runtimes = ["short", "medium", "long"];
 const ratings = [1, 2, 3, 4, 5];
 
