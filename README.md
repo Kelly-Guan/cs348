@@ -37,3 +37,7 @@ Production Data:
 ## Misc
 
 Dataset: https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset 
+
+
+# Frontend todos:
+- Movie button/pop up breaks with no image
