@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Search } from 'lucide-react';
 
-function SearchBar() {
+function SearchBar({onReturn}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
+  const handleEnter = (event) => {
+    if(event.key === 'Enter'){
+      onReturn(searchTerm);
+    }
+  }
 
   return (
     <div className="flex items-center rounded-md border-2 border-gray-100">
@@ -17,6 +23,7 @@ function SearchBar() {
         placeholder="game of throne"
         value={searchTerm}
         onChange={handleChange}
+        onKeyDown={handleEnter}
       />
     </div>
   );

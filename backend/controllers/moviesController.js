@@ -37,6 +37,58 @@ exports.movie = async (req, res, next) => {
   }
 }
 
+exports.movieGenre = async (req, res, next) => {
+  const mid = req.params["mid"];
+  if(mid == null) {
+    res.status(400).json("No movie specified");
+    return;
+  }
+  const client = await pool.connect();
+  try {
+    const result = await client.query("SELECT genre FROM Genres WHERE mid=$1", [mid]);
+    if(result.rowCount == 0) {
+      res.status(404).json("Movie not found");
+    } else {
+      let resp = []
+      result.rows.forEach((r) => {
+        resp.push(r.genre)
+      })
+      res.status(200).json(resp);
+    }
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Invalid movie id");
+  } finally {
+    client.release();
+  }
+}
+
+exports.movieCast = async (req, res, next) => {
+  const mid = req.params["mid"];
+  if(mid == null) {
+    res.status(400).json("No movie specified");
+    return;
+  }
+  const client = await pool.connect();
+  try {
+    const result = await client.query("SELECT name FROM movie_cast WHERE mid=$1", [mid]);
+    if(result.rowCount == 0) {
+      res.status(404).json("Movie not found");
+    } else {
+      let resp = []
+      result.rows.forEach((r) => {
+        resp.push(r.name)
+      })
+      res.status(200).json(resp);
+    }
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Invalid movie id");
+  } finally {
+    client.release();
+  }
+}
+
 exports.recentReleases = async (req, res, next) => {
   const client = await pool.connect();
   try {
@@ -107,7 +159,7 @@ exports.search = async (req, res, next) => {
     if(runtime == "long") query_str += ` AND ${LONG_LENGTH} <= runtime`;
   }
 
-  query_str += `LIMIT ${MOVIE_PAGE_LIMIT} OFFSET ${MOVIE_PAGE_LIMIT*(offset == null || isNaN(offset) ? 0 : offset)}`;
+  query_str += ` LIMIT ${MOVIE_PAGE_LIMIT} OFFSET ${MOVIE_PAGE_LIMIT*(offset == null || isNaN(offset) ? 0 : offset)}`;
  
   const client = await pool.connect();
 

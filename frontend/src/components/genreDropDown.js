@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const GenreDropdown = ({ genres, onSelect }) => {
+const GenreDropdown = ({ name, genres, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState('Genres');
+  const [selectedGenre, setSelectedGenre] = useState(name);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
