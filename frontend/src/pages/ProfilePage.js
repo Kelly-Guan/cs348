@@ -11,6 +11,8 @@ function Profile() {
   const [favourites,setFavourites] = useState([]);
   const [watched,setWatched] = useState([]);
   const [watchLater, setWatchLater] = useState([]);
+  const [followers,setFollowers] = useState([]);
+  const [following,setFollowing] = useState([]);
   const checkImageURL = async (url, defaultURL) => {
     try {
       const response = await fetch(url);
@@ -113,11 +115,57 @@ function Profile() {
         setWatchLater([]);
       }
     };
+    const fetchFollowers = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/followers`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+            ),
+          }))
+        );
+        setFollowers(updatedData);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setWatchLater([]);
+      }
+    };
+    const fetchFollowing = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/following`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+            ),
+          }))
+        );
+        setFollowing(updatedData);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setWatchLater([]);
+      }
+    };
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
     fetchWatched(currUser);
     fetchWatchLater(currUser);
+    fetchFollowers(currUser);
+    fetchFollowing(currUser);
     console.log(Cookies.get("signedInUser"));
   });
 
@@ -177,14 +225,7 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {watchLater.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
+                <h1>{r.title}</h1>
               ))}
             </div>
           </div>
@@ -203,32 +244,18 @@ function Profile() {
             </div>
           </div>
           <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Follower</h3>
+            <h3 className="text-2xl font-bold mb-4">Followers</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
+              {followers.map((r, i) => (
+              <h1>r.username</h1>
               ))}
             </div>
           </div>
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Following</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
+            {following.map((r, i) => (
+              <h1>r.username</h1>
               ))}
             </div>
           </div>

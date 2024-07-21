@@ -26,7 +26,7 @@ function ExplorePage() {
 
   useEffect(() =>{
     console.log(searchQuery);
-    // console.log(Cookies.get("signedInUser"));
+    console.log(Cookies.get("signedInUser"));
   },[searchQuery]);
 
   useEffect(() => {

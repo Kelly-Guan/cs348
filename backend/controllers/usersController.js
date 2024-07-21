@@ -161,7 +161,7 @@ exports.followingByID = async (req, res, next) => {
 
 exports.followersByID = async (req, res, next) => {
   const uid = req.params["uid"];
-  const { offset } = req.query;
+  let { offset } = req.query;
   if (offset == null) offset = 0;
   if (uid == null) {
     res.status(400).json("No specified user to find");
@@ -228,14 +228,11 @@ exports.watchLaterByID = async (req, res, next) => {
   try {
     const result = await client.query(
       `
-    SELECT m.title, u.username
+    SELECT m.title, u.username,m.poster_link
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
     JOIN users u ON  wl.uid = u.uid
-    WHERE wl.uid = $1
-    LIMIT $2 OFFSET $3;`,
-      [uid,3,0]
-    );
+    WHERE wl.uid = $1`,[uid]);
     if (result.rowCount === 0) {
       res.status(404).json("user's watch later list not found");
     } else {
