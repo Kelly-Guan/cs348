@@ -40,4 +40,11 @@ Dataset: https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset
 
 
 # Frontend todos:
+
 - Movie button/pop up breaks with no image
+- Functionality for Creating Reviews, up/down voting reviews, unfollowing and following users
+- Search functionality for both users and films
+- The screen that comes up for when you search for a user/film and its possible results
+- "Other Users Page" - looks identical to "Your profile", invoked when you click on a user profile
+- All ui elements for the all other functionalities, i.e the 'Content' Component. As for some features we just display mids
+- Explore Page
