@@ -9,7 +9,7 @@ function Home() {
   const [recentReleases, setRecentReleases] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [recentRatings,setRecentRatings] = useState([]);
-
+  const [recommendedMovies,setRecommendedMovies] = useState([]);
   const checkImageURL = async (url, defaultURL) => {
     try {
       const response = await fetch(url);
@@ -108,10 +108,33 @@ function Home() {
         setRecentReleases([]);
       }
     };
-
+    const fetchRecommendedForYou = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/recommendedForYou`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        // const updatedData = await Promise.all(
+        //   data.map(async (r) => ({
+        //     ...r,
+        //     poster_link: await checkImageURL(
+        //       `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+        //       "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+        //     ),
+        //   }))
+        // );
+        setRecommendedMovies(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setRecommendedMovies([]);
+      }
+    };
+    const currUser = Cookies.get("signedInUser");
     fetchRecentReleases();
     fetchPopularMovies();
     fetchRecentRatings();
+    fetchRecommendedForYou(currUser);
   }, []);
 
   const handleGenreSelect = (genre) => {
@@ -161,13 +184,8 @@ function Home() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {recentReleases.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.description}
-                imageURL={r.poster_link}
-              />))}
+            {recommendedMovies.map((r, i) => (
+              <h1>{r.mid}</h1>))}
           </div>
         </div>
       </div>

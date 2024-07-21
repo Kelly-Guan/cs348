@@ -13,6 +13,7 @@ function Profile() {
   const [watchLater, setWatchLater] = useState([]);
   const [followers,setFollowers] = useState([]);
   const [following,setFollowing] = useState([]);
+  const [similarUsers,setSimilarUsers] = useState([]);
   const checkImageURL = async (url, defaultURL) => {
     try {
       const response = await fetch(url);
@@ -159,6 +160,19 @@ function Profile() {
         setWatchLater([]);
       }
     };
+    const fetchSimilarTaste = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/similarTaste`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        setSimilarUsers(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setSimilarUsers([]);
+      }
+    };
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
@@ -166,6 +180,7 @@ function Profile() {
     fetchWatchLater(currUser);
     fetchFollowers(currUser);
     fetchFollowing(currUser);
+    fetchSimilarTaste(currUser);
     console.log(Cookies.get("signedInUser"));
   });
 
@@ -192,21 +207,14 @@ function Profile() {
               ))}
             </div>
           </div>
-          {/* <div className="mb-20">
+          <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
+              {similarUsers.map((r, i) => (
+                <h1>{r.uid}</h1>
               ))}
             </div>
-          </div> */}
+          </div>
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
