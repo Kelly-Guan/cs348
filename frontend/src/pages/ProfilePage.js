@@ -182,7 +182,7 @@ function Profile() {
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
     console.log(Cookies.get("signedInUser"));
-  });
+  }, []);
 
   return (
     <div className="w-5/6 ml-auto p-12">
