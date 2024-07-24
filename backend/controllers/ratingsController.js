@@ -171,8 +171,9 @@ exports.recentRatings = async (req, res, next) => {
   const client = await pool.connect();
   try {
     const query_str = `
-    SELECT * FROM ratings
-    ORDER BY date_posted DESC LIMIT 10;`;
+    SELECT r.*, m.* FROM ratings r
+    JOIN movies m on m.mid = r.mid
+    ORDER BY r.date_posted DESC LIMIT 10;`;
     const result = await client.query(query_str);
     res.status(200).json({data: result.rows});
   } catch(err) {

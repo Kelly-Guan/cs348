@@ -26,6 +26,7 @@ function Profile() {
       return defaultURL;
     }
   };
+  
   useEffect(() => {
     const fetchRatings = async(signedInUser) => {
       try {
