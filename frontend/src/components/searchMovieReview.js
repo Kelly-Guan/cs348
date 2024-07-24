@@ -9,8 +9,28 @@ function SearchReviewPopUp({ onClose }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
   const [showSearchReviewPopup, setShowSearchReviewPopup] = useState(true);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const [search, setSearch] = useState([]);
 
   useEffect(() => {
+
+    const queryParams = new URLSearchParams({title: search})
+    fetch(`http://localhost:3001/api/movies/search?${queryParams}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setMovies(data);
+      }).catch((err) => {
+        console.error("Fetch error:", err);
+        setMovies([]);
+      });
+
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -19,9 +39,14 @@ function SearchReviewPopUp({ onClose }) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [search]);
 
-  const handleOpenCreateReviewPopup = () => {
+  const selectSearch = (search) =>{
+    setSearch(search);
+  }
+
+  const handleOpenCreateReviewPopup = (movie) => {
+    setSelectedMovie(movie);
     setShowSearchReviewPopup(false);
     setShowCreateReviewPopup(true);
   };
@@ -64,70 +89,37 @@ function SearchReviewPopUp({ onClose }) {
             </div>
 
             <div className="w-2/3 px-5">
-              <SearchBar />
+              <SearchBar onReturn={selectSearch}/>
             </div>
 
             <div
               className="grid grid-cols-4 gap-4 overflow-y-auto no-scrollbar mt-8"
               style={{ maxHeight: `${containerHeight}px` }}
             >
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
-              <SearchMovieBtn 
-                movieImgVert={movieFillerVer} 
-                alt="Movie" 
-                movieTitle="Sample Movie" 
-                onClick={handleOpenCreateReviewPopup} 
-              />
+              {movies.length === 0 ? (
+                <></>
+              ) : (
+                movies.map((m) => (
+                  <SearchMovieBtn 
+                    key={m.mid}
+                    mid={m.mid}
+                    movieImgVert={m.poster_link} 
+                    alt={m.title} 
+                    movieTitle={m.title} 
+                    onClick={() => handleOpenCreateReviewPopup(m)} 
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {showCreateReviewPopup && (
+      {showCreateReviewPopup && selectedMovie && (
         <CreateNewReview 
-          movieImgVert={movieFillerVer}
-          movieTitle="The Little Women"
+          mid = {selectedMovie.mid}
+          movieImgVert={selectedMovie.poster_link}
+          movieTitle={selectedMovie.title}
           onClose={handleCloseCreateReviewPopup} 
           onSubmit={handleSubmitReview} // Pass the handleSubmitReview to close both popups
         />

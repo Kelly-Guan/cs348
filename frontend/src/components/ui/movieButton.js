@@ -3,7 +3,7 @@ import ReadMovie from '../readMovie';
 import CreateNewReview from '../createNewReview';
 
 
-function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movieDescription, movieCast, movieGenre,pageType }) {
+function MovieButton({ mid, movieImg, movieImgVert, alt, movieTitle, movieTime, movieDescription, movieCast, movieGenre,pageType }) {
   const [showReadMoviePopup, setShowReadMoviePopup] = useState(false); 
   const [showReviewPopup, setShowReviewPopup] = useState(false);
 
@@ -54,6 +54,7 @@ function MovieButton({ movieImg, movieImgVert, alt, movieTitle, movieTime, movie
       )}
       {showReviewPopup && (
         <CreateNewReview
+          mid = {mid}
           movieImgVert={movieImgVert}
           movieTitle={movieTitle}
           onClose={handleCloseReviewPopup}

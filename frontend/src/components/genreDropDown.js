@@ -9,9 +9,9 @@ const GenreDropdown = ({ name, genres, onSelect }) => {
   };
 
   const handleSelect = (genre) => {
-    setSelectedGenre(genre);
+    setSelectedGenre(genre === 'None' ? '' : genre);
     setIsOpen(false);
-    onSelect(genre);
+    onSelect(genre === 'None' ? '' : genre);
   };
 
   return (
@@ -22,7 +22,7 @@ const GenreDropdown = ({ name, genres, onSelect }) => {
           className="inline-flex justify-center w-full rounded-md shadow-sm px-4 py-2 bg-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-300 focus:outline-none"
           onClick={toggleDropdown}
         >
-          {selectedGenre}
+          {selectedGenre || name}
           <svg
             className="ml-2 -mr-1 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +42,12 @@ const GenreDropdown = ({ name, genres, onSelect }) => {
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            {/* <button
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+              onClick={() => handleSelect('None')}
+            >
+              None
+            </button> */}
             {genres.map((genre) => (
               <button
                 key={genre}
@@ -51,6 +57,12 @@ const GenreDropdown = ({ name, genres, onSelect }) => {
                 {genre}
               </button>
             ))}
+            <button
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+              onClick={() => handleSelect('None')}
+            >
+              None
+            </button>
           </div>
         </div>
       )}

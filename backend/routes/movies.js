@@ -11,4 +11,6 @@ router.get("/popularMovies", movieController.popularMovies);
 router.get("/search", movieController.search);
 router.get("/moviesLikeThis/:mid", movieController.moviesLikeThis);
 
+router.get("/watchedByFriends", movieController.watchedByFriends);
+
 module.exports = router;

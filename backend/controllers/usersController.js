@@ -495,10 +495,8 @@ exports.recommendedByID = async (req, res, next) => {
         ORDER BY SUM(genre_fav_count) DESC
         LIMIT 10)
     )
-    SELECT *
-    FROM good_recs
-    ORDER BY myscore DESC
-    LIMIT 10;`,
+
+      SELECT * FROM movies m WHERE m.mid IN (SELECT mid FROM good_recs) LIMIT 10`,
       [uid]
     );
     if (result.rowCount === 0) {

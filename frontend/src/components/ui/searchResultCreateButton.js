@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CreateNewReview from '../createNewReview';
 
 
-function SearchMovieBtn({movieImgVert, alt, movieTitle, onClick}) {
+function SearchMovieBtn({mid, movieImgVert, alt, movieTitle, onClick}) {
   const [showReviewPopup, setShowReviewPopup] = useState(false);
 
   // const handleOpenReviewPopup = () => {
@@ -27,6 +27,7 @@ function SearchMovieBtn({movieImgVert, alt, movieTitle, onClick}) {
 
       {showReviewPopup && (
         <CreateNewReview
+          mid = {mid}
           movieImgVert={movieImgVert}
           movieTitle={movieTitle}
           onClose={handleCloseReviewPopup}
