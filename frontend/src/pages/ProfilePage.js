@@ -5,6 +5,7 @@ import profilePicFiller from "../assets/profilePic.jpg";
 import Content from "../components/Content";
 import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
+import { posterLinkToImgURL } from "../utils";
 // import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function Profile() {
@@ -40,10 +41,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setRatings(updatedData);
@@ -62,10 +60,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFavourites(updatedData);
@@ -85,10 +80,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setWatched(updatedData);
@@ -107,13 +99,11 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setWatchLater(updatedData);
+        console.log(updatedData);
       } catch (err) {
         console.error("Fetch error:", err);
         setWatchLater([]);
@@ -129,10 +119,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFollowers(updatedData);
@@ -151,10 +138,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFollowing(updatedData);
@@ -257,9 +241,12 @@ function Profile() {
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {watchLater.map((r, i) => (
-                <h1>{r.title}</h1>
-              ))}
+              {/* {watchLater.map((r, i) => (
+                <Content
+                key={i}
+                title={r.title}
+                imageURL={r.poster_link}
+              />              ))} */}
             </div>
           </div>
           {/* <div className="mb-20">
@@ -276,7 +263,7 @@ function Profile() {
               ))}
             </div>
           </div> */}
-          <div className="mb-20">
+          {/* <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Followers</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {followers.map((r, i) => (
@@ -291,7 +278,7 @@ function Profile() {
               <h1>{r.username}</h1>
               ))}
             </div>
-          </div>
+          </div> */}
       </div>
     </div>
   );
