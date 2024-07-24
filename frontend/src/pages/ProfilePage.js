@@ -188,10 +188,17 @@ function Profile() {
   return (
     <div className="w-5/6 ml-auto p-12">
       <div className="flex flex-col justify-start">
-        <div className="w-1/4 flex flex-row items-center mb-8">
-          <h3 className="text-4xl font-bold pr-10 ">{Cookies.get("signedInUser")}</h3>
-          {/* <GenreDropdown genres={genres} onSelect={handleGenreSelect} /> */}
-        </div>
+        <div className="flex justify-center mb-10">
+            <ProfileHeader
+              profilePic={profilePicFiller}
+              profileName={Cookies.get("signedInUser")}
+              username="Kelly Guan"
+              numPosts={ratings.length}
+              numFollowers={followers.length}
+              numFollowing={following.length}
+              bioDescription="i love food and movies"
+            />
+          </div>
 
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
@@ -212,7 +219,14 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {similarUsers.map((r, i) => (
-                <h1>{r.uid}</h1>
+                <Content
+                  key={i}
+                  title={r.title}
+                  description={r.rating_text}
+                  profileName={r.username}
+                  imageURL={r.poster_link}
+                  timePosted={r.date_posted.split("T")[0]}
+                />
               ))}
             </div>
           </div>
@@ -234,7 +248,14 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {watchLater.map((r, i) => (
-                <h1>{r.title}</h1>
+                <Content
+                  key={i}
+                  title={r.title}
+                  description={r.rating_text}
+                  profileName={r.username}
+                  imageURL={r.poster_link}
+                  timePosted={r.date_posted.split("T")[0]}
+                />
               ))}
             </div>
           </div>
@@ -256,7 +277,14 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Followers</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {followers.map((r, i) => (
-              <h1>r.username</h1>
+                <Content
+                  key={i}
+                  title={r.title}
+                  description={r.rating_text}
+                  profileName={r.username}
+                  imageURL={r.poster_link}
+                  timePosted={r.date_posted.split("T")[0]}
+                />
               ))}
             </div>
           </div>
@@ -264,7 +292,14 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Following</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {following.map((r, i) => (
-              <h1>r.username</h1>
+              <Content
+                key={i}
+                title={r.title}
+                description={r.rating_text}
+                profileName={r.username}
+                imageURL={r.poster_link}
+                timePosted={r.date_posted.split("T")[0]}
+              />
               ))}
             </div>
           </div>

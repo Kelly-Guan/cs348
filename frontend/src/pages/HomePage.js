@@ -11,6 +11,9 @@ function Home() {
   const [popularMovies, setPopularMovies] = useState([]);
   const [recentRatings, setRecentRatings] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
+  const [following,setFollowing] = useState([]);
+  const [watchLater, setWatchLater] = useState([]);
+  
   const checkImageURL = async (url, defaultURL) => {
     try {
       const response = await fetch(url);
@@ -141,6 +144,29 @@ function Home() {
       }
     };
 
+    const fetchFollowing = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/following`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await checkImageURL(
+              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
+              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+            ),
+          }))
+        );
+        setFollowing(updatedData);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setWatchLater([]);
+      }
+    };
+
     const currUser = Cookies.get("signedInUser");
     fetchRecentReleases();
     fetchPopularMovies();
@@ -204,6 +230,20 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recommendedMovies.map((r, i) => (
+              <Content
+                key={i}
+                title={r.title}
+                description={r.description}
+                imageURL={r.poster_link}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Friends Watching</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {following.map((r, i) => (
               <Content
                 key={i}
                 title={r.title}
