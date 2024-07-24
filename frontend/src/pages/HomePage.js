@@ -25,37 +25,6 @@ function Home() {
   };
 
   useEffect(() => {
-
-    // const fetcher = async(api_url, setter) => {
-    //   try {
-    //     const results = await fetch("http://localhost:3001/api/movies/recentReleases",{credentials:'include'});
-    //     if (!results.ok) {
-    //       throw new Error(`HTTP error! Status: ${results.status}`);
-    //     }
-
-    //     const json_response = await results.json();
-    //     const updated_response = await Promise.all(
-    //       json_response.data.map(async (r) => ({
-    //         ...r,
-    //         poster_link: await posterLinkToImgURL(r.poster_link),
-    //       }))
-    //     );
-
-    //     setter(updated_response);
-    //     console.log(updated_response);
-    //   } catch (err) {
-    //     console.error("Failed on: ", api_url)
-    //     console.error("Fetch error:", err);
-    //     setRecentReleases([]);
-    //   }
-    // }
-    // const currUser = Cookies.get("signedInUser");
-    // fetcher("http://localhost:3001/api/movies/recentReleases", setRecentReleases);
-    // fetcher("http://localhost:3001/api/ratings/recentRatings", setRecentRatings);
-    // fetcher("http://localhost:3001/api/movies/popularMovies", setPopularMovies);
-    
-    // fetcher(`http://localhost:3001/api/users/${currUser}/recommendedForYou`, setRecommendedMovies);
-
     const fetchRecentReleases = async () => {
       try {
         const recentReleasesRes = await fetch("http://localhost:3001/api/movies/recentReleases");

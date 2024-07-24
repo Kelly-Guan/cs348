@@ -256,7 +256,7 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Followers</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {followers.map((r, i) => (
-              <h1>r.username</h1>
+              <h1>{r.username}</h1>
               ))}
             </div>
           </div>
@@ -264,7 +264,7 @@ function Profile() {
             <h3 className="text-2xl font-bold mb-4">Following</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {following.map((r, i) => (
-              <h1>r.username</h1>
+              <h1>{r.username}</h1>
               ))}
             </div>
           </div>
