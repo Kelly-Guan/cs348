@@ -16,7 +16,12 @@ function Content({ profilePic, profileName, timePosted, fullName, description, i
 
   return (
     <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
-      <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
+      {profileName === undefined ? (
+        <></>
+      ) : (
+        <ProfileTitle ProfilePic={Circle} profileName={profileName} timePosted={timePosted} />
+      )}
+
       <div className="mt-4 mx-auto max-w-full">
         <img src={imageURL} alt="Movie" className="w-full h-auto max-w-96 object-cover" />
       </div>
@@ -35,7 +40,6 @@ function Content({ profilePic, profileName, timePosted, fullName, description, i
           <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
             <MessageCircle className="w-5 h-5" />
           </button>
-
         </div>
       </div>
       <div className="mt-4">

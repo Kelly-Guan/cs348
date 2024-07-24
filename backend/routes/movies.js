@@ -10,4 +10,6 @@ router.get("/recentReleases", movieController.recentReleases);
 router.get("/popularMovies", movieController.popularMovies);
 router.get("/search", movieController.search);
 
+router.get("/watchedByFriends", movieController.watchedByFriends);
+
 module.exports = router;

@@ -1,10 +1,19 @@
 const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan")
+const cookieParser = require("cookie-parser");
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(morgan("combined"));
+app.use(cookieParser());
 
 const moviesRoutes = require("./routes/movies");
 const ratingsRoutes = require("./routes/ratings");
