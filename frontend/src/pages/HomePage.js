@@ -146,7 +146,7 @@ function Home() {
       <div className="flex flex-col justify-start">
         <div className="w-1/4 flex flex-row items-center mb-8">
           <h3 className="text-4xl font-bold pr-10 ">Home</h3>
-          <GenreDropdown genres={genres} onSelect={handleGenreSelect} />
+          <GenreDropdown name = "Genre" genres={genres} onSelect={handleGenreSelect} />
         </div>
 
         <div className="mb-20">
