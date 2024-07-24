@@ -211,3 +211,23 @@ exports.addReview = async (req, res, next) => {
     client.release();
   }
 };
+
+exports.vote = async (req, res, next) => {
+  const { voter_uid, reviewer_uid, mid, vote } = req.body;
+
+  const client = await pool.connect();
+  try {
+    const query = `
+      INSERT INTO votes (voter_uid, reviewer_uid, mid, vote)
+      VALUES ($1, $2, $3, $4)
+      ON CONFLICT (uid, mid) DO NOTHING;`;
+    const values = [voter_uid, reviewer_uid, mid, vote];
+    await client.query(query, values);
+    res.status(200).json({ message: 'Vote added successfully' });
+  } catch (err) {
+    console.error('Error inserting review:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    client.release();
+  }
+};

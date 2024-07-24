@@ -3,6 +3,8 @@ import ReadMovie from '../readMovie';
 import CreateNewReview from '../createNewReview';
 
 
+
+
 function MovieButton({ mid, movieImg, movieImgVert, alt, movieTitle, movieTime, movieDescription, movieCast, movieGenre,pageType }) {
   const [showReadMoviePopup, setShowReadMoviePopup] = useState(false); 
   const [showReviewPopup, setShowReviewPopup] = useState(false);
@@ -29,20 +31,28 @@ function MovieButton({ mid, movieImg, movieImgVert, alt, movieTitle, movieTime, 
 
   return (
     <>
-      <div className="max-w-full">      
+      <div className="max-w-full">
         <button
           className={`bg-white rounded-lg overflow-hidden p-4${
-            pageType === "search" ? "w-96":"w-full h-auto max-w-80 object-cover"
+            pageType === "search" ? "w-96" : "w-full h-auto max-w-80 object-cover"
           }`}
-          onClick={() => setShowReadMoviePopup(true)}>
-          <img src={movieImg} alt={alt} />
+          onClick={() => {
+            setShowReadMoviePopup(true) 
+            console.log(movieImg)
+          }}>
+          <img
+            src={
+              movieImg
+            }
+            alt={alt}
+          />
         </button>
       </div>
-
 
       {showReadMoviePopup && (
         <ReadMovie
           movieImg={movieImg}
+          movieImgVert={movieImg}
           movieTitle={movieTitle}
           movieTime={movieTime}
           movieDescription={movieDescription}
@@ -54,8 +64,9 @@ function MovieButton({ mid, movieImg, movieImgVert, alt, movieTitle, movieTime, 
       )}
       {showReviewPopup && (
         <CreateNewReview
-          mid = {mid}
-          movieImgVert={movieImgVert}
+          mid={mid}
+          movieImg={movieImg}
+          movieImgVert={movieImg}
           movieTitle={movieTitle}
           onClose={handleCloseReviewPopup}
           onSubmit={handleSubmitReview}
