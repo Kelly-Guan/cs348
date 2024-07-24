@@ -37,9 +37,9 @@ function Content({ profilePic, profileName, timePosted, fullName, description, i
           <button className="flex items-center space-x-1 text-gray-500 hover:text-red-500">
             <ThumbsDown className="w-5 h-5" />
           </button>
-          <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
+          {/* <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500">
             <MessageCircle className="w-5 h-5" />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="mt-4">
