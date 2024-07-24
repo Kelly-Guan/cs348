@@ -14,6 +14,7 @@ function ExplorePage() {
   const [friendsRatings, setFriendsRatings] = useState([]);
   const [genreRatings, setGenreRatings] = useState([]);
   const [movieName, setMovieName] = useState("");
+  const [moviePoster,setMoviePoster] = useState("");
 
   const selectSearch = (search) => {
     setSearch(search);
@@ -85,6 +86,7 @@ function ExplorePage() {
           if (data.length > 0) {
             const movie = data[0]; // Assuming one movie result
             setMovieName(movie.title);
+            setMoviePoster(movie.poster_link);
   
             // Fetch ratings for the movie using its ID
             fetch(`http://localhost:3001/api/ratings/ratingsByMovie/${movie.mid}`)
@@ -99,7 +101,7 @@ function ExplorePage() {
                 const updatedData = await Promise.all(
                   ratingsData.map(async (r) => ({
                     ...r,
-                    poster_link: await posterLinkToImgURL(r.poster_link),
+                    poster_link: await posterLinkToImgURL(moviePoster),
                   }))
                 );
                 setRatings(updatedData); // Set ratings in the state
