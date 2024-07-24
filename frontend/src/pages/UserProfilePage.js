@@ -4,9 +4,12 @@ import profilePicFiller from "../assets/profilePic.jpg";
 import Content from "../components/Content";
 import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
+import { useParams } from 'react-router-dom';
 // import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function UserProfilePage() {
+  const { uid } = useParams();
+  const [user, setUser] = useState([]);
   const [ratings,setRatings] = useState([]);
   const [favourites,setFavourites] = useState([]);
   const [watched,setWatched] = useState([]);
@@ -28,31 +31,37 @@ function UserProfilePage() {
   };
   
   useEffect(() => {
-    const fetchRatings = async(signedInUser) => {
+    const fetchUser = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/ratings/ratingsByUser/${signedInUser}`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-        const updatedData = await Promise.all(
-          data.map(async (r) => ({
-            ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
-          }))
-        );
-        setRatings(updatedData);
+        setUser(data);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setUser([]);
+      }
+    };
+
+    const fetchRatings = async(uid) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/ratings/ratingsByUser/${uid}`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        setRatings(data);
       } catch (err) {
         console.error("Fetch error:", err);
         setRatings([]);
       }
     };
-    const fetchFavourites = async(signedInUser) => {
+    
+    const fetchFavourites = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/favourites`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/favourites`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -73,9 +82,9 @@ function UserProfilePage() {
       }
     };
 
-    const fetchWatched = async(signedInUser) => {
+    const fetchWatched = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watched`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/watched`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -95,9 +104,9 @@ function UserProfilePage() {
         setWatched([]);
       }
     };
-    const fetchWatchLater = async(signedInUser) => {
+    const fetchWatchLater = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watch_later`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/watch_later`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -117,9 +126,9 @@ function UserProfilePage() {
         setWatchLater([]);
       }
     };
-    const fetchFollowers = async(signedInUser) => {
+    const fetchFollowers = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/followers`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/followers`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -139,9 +148,9 @@ function UserProfilePage() {
         setWatchLater([]);
       }
     };
-    const fetchFollowing = async(signedInUser) => {
+    const fetchFollowing = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/following`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/following`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -161,9 +170,9 @@ function UserProfilePage() {
         setWatchLater([]);
       }
     };
-    const fetchSimilarTaste = async(signedInUser) => {
+    const fetchSimilarTaste = async(uid) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/similarTaste`);
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/similarTaste`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -174,7 +183,8 @@ function UserProfilePage() {
         setSimilarUsers([]);
       }
     };
-    const currUser = Cookies.get("signedInUser");
+    const currUser = uid;
+    fetchUser(currUser);
     fetchRatings(currUser);
     fetchFavourites(currUser);
     fetchWatched(currUser);
@@ -182,7 +192,7 @@ function UserProfilePage() {
     fetchFollowers(currUser);
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
-    console.log(Cookies.get("signedInUser"));
+    console.log(user);
   }, []);
 
   return (
@@ -191,8 +201,8 @@ function UserProfilePage() {
         <div className="flex justify-center mb-10">
             <OtherProfileHeader
               profilePic={profilePicFiller}
-              profileName={Cookies.get("signedInUser")}
-              username="Arjun Walia"
+              profileName={uid}
+              username={user.username}
               numPosts={ratings.length}
               numFollowers={followers.length}
               numFollowing={following.length}

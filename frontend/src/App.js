@@ -16,7 +16,7 @@ import Profile from "./pages/ProfilePage";
 import SignUp from "./pages/SignUpPage";
 import Login from "./pages/Login";
 import LogOut from "./pages/LogOut";
-import OtherProfilePage from "./pages/UserProfilePage";
+import User from "./pages/UserProfilePage";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/logout" element={<LogOut />} />
-          <Route exact path="/otherProfilePage" element={<OtherProfilePage />} />
+          <Route exact path="/user/:uid" element={<User />} />
         </Routes>
       </Layout>
     </BrowserRouter>
