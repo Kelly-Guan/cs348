@@ -3,6 +3,7 @@ const router = express.Router();
 const ratingsController = require("../controllers/ratingsController");
 
 router.post('/add-review', ratingsController.addReview);
+router.post('/vote', ratingsController.vote);
 
 router.get("/allRatings", ratingsController.allRatings);
 router.get("/recentRatings", ratingsController.recentRatings);

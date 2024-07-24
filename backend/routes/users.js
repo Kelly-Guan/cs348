@@ -27,7 +27,7 @@ router.get("/:uid/watch_later", usersController.watchLaterByID);
 router.get("/:uid/ratings", usersController.ratingsByID);
 router.get("/:uid/similarTaste", usersController.similarTasteByID);
 router.get("/:uid/recommendedForYou", usersController.recommendedByID);
-
+router.get("/:uid/search", usersController.search);
 
 router.post("/auth", usersController.auth);
 

@@ -511,3 +511,21 @@ exports.recommendedByID = async (req, res, next) => {
     client.release();
   }
 };
+
+//uid from username
+exports.search = async (req, res, next) => {
+  const {username} = req.body;
+  const client = await pool.connect();
+
+  try{
+    const query = `
+      SELECT uid, username 
+      FROM users
+      WHERE username = ${username};
+    `;
+  }catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong finding movies your firend likes");
+  } finally{client.release()}
+}
+
