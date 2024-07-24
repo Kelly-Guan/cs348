@@ -180,44 +180,45 @@ exports.test = async (req, res, next) => {
 
 //TODO: Needs Fixing
 
-// exports.moviesLikeThis = async (req, res, next) => {
-//   const client = await pool.connect();
-//   try {
-//     const query_str = `
-//     WITH similar_films AS (
-//       -- number of favourites that 32162 shares with another
-//       (SELECT f2.mid, COUNT(*) AS myscore
-//       FROM favourites f1, favourites f2
-//       WHERE f1.uid = f2.uid
-//           AND f1.mid = 11163
-//           AND f2.mid != 11163
-//       GROUP BY f2.mid
-//       ORDER BY myscore DESC
-//       LIMIT 10)
-//       UNION
-//       -- similar genres
-//       (SELECT g.mid, COUNT(*) AS myscore
-//       FROM genres g
-//       WHERE g.genre IN
-//           (SELECT genre
-//           FROM genres
-//           WHERE mid = 22547)
-//           AND g.mid != 22547
-//       GROUP BY g.mid
-//       ORDER BY myscore DESC
-//       LIMIT 3)
-//   )
-//   SELECT *
-//   FROM similar_films
-//   ORDER BY myscore DESC
-//   LIMIT 10;
-//   `;
-//     const result = await client.query(query_str);
-//     res.status(200).json({data: result.rows});
-//   } catch(err) {
-//     console.error(err);
-//     res.status(404).json("Something went wrong");
-//   } finally {
-//     client.release();
-//   }
-// }
+exports.moviesLikeThis = async (req, res, next) => {
+  const client = await pool.connect();
+  const mid = req.params["mid"];
+  try {
+    const query_str = `
+    WITH similar_films AS (
+      -- number of favourites that $1 shares with another
+      (SELECT f2.mid, COUNT(*) AS myscore
+      FROM favourites f1, favourites f2
+      WHERE f1.uid = f2.uid
+          AND f1.mid = $1
+          AND f2.mid != $1
+      GROUP BY f2.mid
+      ORDER BY myscore DESC
+      LIMIT 10)
+      UNION
+      -- similar genres
+      (SELECT g.mid, COUNT(*) AS myscore
+      FROM genres g
+      WHERE g.genre IN
+          (SELECT genre
+          FROM genres
+          WHERE mid = $1)
+          AND g.mid != $1
+      GROUP BY g.mid
+      ORDER BY myscore DESC
+      LIMIT 3)
+  )
+  SELECT *
+  FROM similar_films
+  ORDER BY myscore DESC
+  LIMIT 10;
+  `;
+    const result = await client.query(query_str,[mid]);
+    res.status(200).json({data: result.rows});
+  } catch(err) {
+    console.error(err);
+    res.status(404).json("Something went wrong");
+  } finally {
+    client.release();
+  }
+}
