@@ -20,7 +20,7 @@ function SearchBar({onReturn}) {
       <input
         type="text"
         className="w-full px-4 py-2 rounded-md focus:outline-none"
-        placeholder="game of throne"
+        placeholder="Movie"
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleEnter}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Content from "../components/Content";
 import Cookies from "js-cookie";
 import GenreDropdown from "../components/genreDropDown";
+import SearchBar from "../components/ui/searchBar";
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Science Fiction"]; // Add more genres as needed
 
 function ExplorePage() {
@@ -100,19 +101,7 @@ function ExplorePage() {
         </div>
 
         <div className="w-1/4 flex flex-row items-center mb-8">
-          <input
-            type="text"
-            className="border p-2 rounded"
-            value={movieSearch}
-            onChange={(e) => setMovieSearch(e.target.value)}
-            placeholder="Search for a movie..."
-          />
-          <button
-            className="bg-blue-500 text-white p-2 rounded ml-2"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
+          <SearchBar onReturn={movieSearch} />
         </div>
 
         <div className="mb-20">
