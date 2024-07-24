@@ -15,7 +15,9 @@ function SearchReviewPopUp({ onClose }) {
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/movies/search?=${search}`)
+
+    const queryParams = new URLSearchParams({title: search})
+    fetch(`http://localhost:3001/api/movies/search?${queryParams}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
