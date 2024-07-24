@@ -201,7 +201,7 @@ function UserProfilePage() {
           </div>
 
           <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
+            <h3 className="text-2xl font-bold mb-4">Their Ratings</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {ratings.map((r, i) => (
                 <Content
@@ -212,94 +212,6 @@ function UserProfilePage() {
                   imageURL={r.poster_link}
                   timePosted={r.date_posted.split("T")[0]}
                 />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {similarUsers.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {favourites.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.description}
-                  imageURL={r.poster_link}
-                  timePosted={r.release_date}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {watchLater.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Watched</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {watched.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.description}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_watched}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Followers</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {followers.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Following</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {following.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.rating_text}
-                profileName={r.username}
-                imageURL={r.poster_link}
-                timePosted={r.date_posted.split("T")[0]}
-              />
               ))}
             </div>
           </div>
