@@ -128,15 +128,12 @@ function Home() {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-        // const updatedData = await Promise.all(
-        //   data.map(async (r) => ({
-        //     ...r,
-        //     poster_link: await checkImageURL(
-        //       `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-        //       "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-        //     ),
-        //   }))
-        // );
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await posterLinkToImgURL(r.poster_link),
+          }))
+        );
         setRecommendedMovies(data);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -160,7 +157,7 @@ function Home() {
       <div className="flex flex-col justify-start">
         <div className="w-1/4 flex flex-row items-center mb-8">
           <h3 className="text-4xl font-bold pr-10 ">Home</h3>
-          <GenreDropdown name = "Genre" genres={genres} onSelect={handleGenreSelect} />
+          <GenreDropdown name="Genre" genres={genres} onSelect={handleGenreSelect} />
         </div>
 
         <div className="mb-20">
@@ -207,7 +204,12 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recommendedMovies.map((r, i) => (
-              <h1>{r.mid}</h1>
+              <Content
+                key={i}
+                title={r.title}
+                description={r.description}
+                imageURL={r.poster_link}
+              />
             ))}
           </div>
         </div>
