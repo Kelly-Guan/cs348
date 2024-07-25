@@ -29,62 +29,61 @@ function SearchPage() {
   };
 
   useEffect(() => {
-    let tempMovies = [];
-    let query = new URLSearchParams();
-    if (search) query.append("title", search);
-    if (genre) query.append("genre", genre);
-    if(rating) query.append('rating', rating);
-    if (runtime) query.append("runtime", runtime);
-    // query.append("offset", 50);
+    const fetchMovies = async () => {
+      let query = new URLSearchParams();
+      if (search) query.append("title", search);
+      if (genre) query.append("genre", genre);
+      if (rating) query.append('rating', rating);
+      if (runtime) query.append("runtime", runtime);
 
-    const do_thing = async (link) => {
-      let val = await posterLinkToImgURL(link);
-      return val;
-    }
-
-    fetch(`http://localhost:3001/api/movies/search?${query.toString()}`)
-      .then((res) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/movies/search?${query.toString()}`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
-        return res.json();
-      })
-      .then((data) => {
-        tempMovies = data;
-        for(let i = 0; i < data.length; i++) {
-          tempMovies[i].poster_link = do_thing(tempMovies[i].poster_link);
-          tempMovies[i].cast = []
-          tempMovies[i].genres = []
-        }
-        const fetchGenres = async () => {
-          for (let i = 0; i < tempMovies.length; i++) {
+        const data = await res.json();
+        let tempMovies = data;
+
+        // Process each movie to fetch its poster link and other details
+        const moviesWithDetails = await Promise.all(
+          tempMovies.map(async (movie) => {
+            const poster_link = await posterLinkToImgURL(movie.poster_link);
+
             try {
-              const response = await fetch(
-                `http://localhost:3001/api/movies/movieGenre/${tempMovies[i].mid}`
-              );
-              const respons2 = await fetch(
-                `http://localhost:3001/api/movies/movieCast/${tempMovies[i].mid}`
-              );
-              const data = await response.json();
-              const dat2 = await respons2.json();
+              const [genreRes, castRes] = await Promise.all([
+                fetch(`http://localhost:3001/api/movies/movieGenre/${movie.mid}`),
+                fetch(`http://localhost:3001/api/movies/movieCast/${movie.mid}`)
+              ]);
 
-              tempMovies[i].genres = data;
-              tempMovies[i].cast = dat2;
-              setMovies(tempMovies);
-              console.log(tempMovies)
+              const genres = await genreRes.json();
+              const cast = await castRes.json();
 
+              return {
+                ...movie,
+                poster_link,
+                genres,
+                cast
+              };
             } catch (error) {
-              console.error("Error fetching movie genres:", error);
+              console.error("Error fetching movie genres or cast:", error);
+              return {
+                ...movie,
+                poster_link,
+                genres: [],
+                cast: []
+              };
             }
-          }
-        };
-        fetchGenres();
-        console.log(movies);
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
+          })
+        );
+
+        setMovies(moviesWithDetails);
+      } catch (error) {
+        console.error("Fetch error:", error);
         setMovies([]);
-      });
+      }
+    };
+
+    fetchMovies();
   }, [search, genre, rating, runtime]);
 
   return (

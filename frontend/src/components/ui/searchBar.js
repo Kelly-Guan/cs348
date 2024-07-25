@@ -3,7 +3,7 @@ import { Search } from 'lucide-react';
 
 function SearchBar({onReturn, name}) {
   if(name == null){
-    name = "Movie";
+    name = "Movie Search";
   }
   
   const [searchTerm, setSearchTerm] = useState("");

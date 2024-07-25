@@ -27,12 +27,19 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
     <div
       className="popup-overlay fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
       onClick={handleClickOutside}>
-      <div className="popup-content bg-white rounded-lg relative flex flex-col w-full max-w-3xl">
-        <img
-          className="relative top-0 object-cover rounded mb-4"
-          src={movieImg}
-          alt={movieTitle}
-        />
+      <div className="popup-content bg-white rounded-lg relative flex flex-col w-2/5 p-8">
+       
+        <div className="flex">
+          <div className="w-1/2 px-5">
+            <img
+            className="relative top-0 object-cover rounded mb-4"
+            src={movieImg}
+            alt={movieTitle}
+          />
+          </div>
+        </div>
+        
+        
 
         <div className=" w-full flex justify-between items-center absolute top-0 p-8">
           <h2 className="text-6xl font-bold mb-4 text-white">{movieTitle}</h2>

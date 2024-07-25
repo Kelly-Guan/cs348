@@ -130,7 +130,7 @@ function ExplorePage() {
           <GenreDropdown name="Genre" genres={genres} onSelect={handleGenreSelect} />
         </div>
 
-        <div className="w-1/4 flex flex-row items-center mb-8">
+        <div className="w-1/2 flex flex-row items-center mb-8">
           <SearchBar onReturn={selectSearch} />
           <ProfileSearch />
         </div>

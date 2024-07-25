@@ -8,7 +8,7 @@ function SearchBar({ name }) {
   const navigate = useNavigate();
 
   if (name == null) {
-    name = "Username";
+    name = "Search User";
   }
 
   const handleChange = (e) => {
