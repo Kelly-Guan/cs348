@@ -162,16 +162,16 @@ function Profile() {
     };
     const fetchUserName = async(signedInUser) => {
       try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/search`);
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-        // console.log(data);
-        setUserName(data[0].username);
+         console.log(data);
+        setUserName(data.username);
       } catch (err) {
         console.error("Fetch error:", err);
-        setWatchLater([]);
+        setUserName([]);
       }
     };
     const currUser = Cookies.get("signedInUser");
