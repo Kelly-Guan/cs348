@@ -89,21 +89,24 @@ function SearchPage() {
  
   return (
     <div className="w-5/6 ml-auto p-12">
-      <div className="relative overflow-hidden w-full flex flex-col justify-start">
-        <div className="flex flex-row justify-between items-center mb-8">
+      <div className="relative w-full flex flex-col justify-start ">
+        <div className="w-full flex flex-row items-center mb-8">
           <h3 className="text-4xl font-bold">Search</h3>
-          <div className="relative z-10">
-            <GenreDropdown name="Genre" genres={genres} onSelect={selectGenre} />
+        
+          <div className="flex flex-row items-center justify-between">
+            <div className="mr-2 z-10">
+              <GenreDropdown name="Genre" genres={genres} onSelect={selectGenre} />
+            </div>
+            <div className="mr-2 z-10">
+              <GenreDropdown name="Runtime" genres={runtimes} onSelect={selectRuntime} />
+            </div>
+            <div className="mr-2 z-10">
+              <GenreDropdown name="Rating" genres={ratings} onSelect={selectRating} />
+            </div>
+            <SearchBar onReturn={selectSearch} />
           </div>
-          <div className="relative z-10">
-            <GenreDropdown name="Runtime" genres={runtimes} onSelect={selectRuntime} />
           </div>
-          <div className="relative z-10">
-            <GenreDropdown name="Rating" genres={ratings} onSelect={selectRating} />
-          </div>
-          <SearchBar onReturn={selectSearch} />
-        </div>
-        <div className="mb-20 w-full">
+          
           <div className="grid gap-x-3 gap-y-10 grid-cols-3">
             {movies.map((m) => (
               <MovieButton
@@ -120,7 +123,6 @@ function SearchPage() {
               />
             ))}
           </div>
-        </div>
       </div>
     </div>
   );
