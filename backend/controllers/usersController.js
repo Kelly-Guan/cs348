@@ -228,10 +228,11 @@ exports.watchLaterByID = async (req, res, next) => {
   try {
     const result = await client.query(
       `
-    SELECT m.title, u.username,m.poster_link
+    SELECT m.*, u.*
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
     JOIN users u ON  wl.uid = u.uid
+    JOIN ratings r ON wl.uid = u.uid AND wl.mid = m.mid 
     WHERE wl.uid = $1`,
       [uid]
     );
@@ -572,3 +573,4 @@ exports.hasVotedOn = async (req, res, next) => {
     client.release();
   }
 };
+ 

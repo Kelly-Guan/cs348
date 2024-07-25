@@ -6,32 +6,20 @@ import Content from "../components/Content";
 import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
 import { posterLinkToImgURL } from "../utils";
+import MovieCard from "../components/MovieCard";
 // import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function Profile() {
-  const [ratings,setRatings] = useState([]);
-  const [favourites,setFavourites] = useState([]);
-  const [watched,setWatched] = useState([]);
+  const [ratings, setRatings] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [watchLater, setWatchLater] = useState([]);
-  const [followers,setFollowers] = useState([]);
-  const [following,setFollowing] = useState([]);
-  const [similarUsers,setSimilarUsers] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [similarUsers, setSimilarUsers] = useState([]);
   const [userName, setUserName] = useState([]);
-  const checkImageURL = async (url, defaultURL) => {
-    try {
-      const response = await fetch(url);
-      if (response.status === 200) {
-        return url;
-      } else {
-        return defaultURL;
-      }
-    } catch (error) {
-      return defaultURL;
-    }
-  };
-  
+
   useEffect(() => {
-    const fetchRatings = async(signedInUser) => {
+    const fetchRatings = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/ratings/ratingsByUser/${signedInUser}`);
         if (!res.ok) {
@@ -50,7 +38,7 @@ function Profile() {
         setRatings([]);
       }
     };
-    const fetchFavourites = async(signedInUser) => {
+    const fetchFavourites = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/favourites`);
         if (!res.ok) {
@@ -70,26 +58,7 @@ function Profile() {
       }
     };
 
-    const fetchWatched = async(signedInUser) => {
-      try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watched`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        const data = await res.json();
-        const updatedData = await Promise.all(
-          data.map(async (r) => ({
-            ...r,
-            poster_link: await posterLinkToImgURL(r.poster_link),
-          }))
-        );
-        setWatched(updatedData);
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setWatched([]);
-      }
-    };
-    const fetchWatchLater = async(signedInUser) => {
+    const fetchWatchLater = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watch_later`);
         if (!res.ok) {
@@ -109,7 +78,7 @@ function Profile() {
         setWatchLater([]);
       }
     };
-    const fetchFollowers = async(signedInUser) => {
+    const fetchFollowers = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/followers`);
         if (!res.ok) {
@@ -128,7 +97,7 @@ function Profile() {
         setWatchLater([]);
       }
     };
-    const fetchFollowing = async(signedInUser) => {
+    const fetchFollowing = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/following`);
         if (!res.ok) {
@@ -147,7 +116,7 @@ function Profile() {
         setWatchLater([]);
       }
     };
-    const fetchSimilarTaste = async(signedInUser) => {
+    const fetchSimilarTaste = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/similarTaste`);
         if (!res.ok) {
@@ -160,14 +129,14 @@ function Profile() {
         setSimilarUsers([]);
       }
     };
-    const fetchUserName = async(signedInUser) => {
+    const fetchUserName = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-         console.log(data);
+        console.log(data);
         setUserName(data.username);
       } catch (err) {
         console.error("Fetch error:", err);
@@ -177,7 +146,7 @@ function Profile() {
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
-    fetchWatched(currUser);
+
     fetchWatchLater(currUser);
     fetchFollowers(currUser);
     fetchFollowing(currUser);
@@ -192,93 +161,60 @@ function Profile() {
       <div className="flex flex-col justify-start">
         <div className="w-1/4 flex flex-row items-center mb-8">
           <ProfileHeader
-                profilePic={profilePicFiller}
-                profileName={Cookies.get("signedInUser")}
-                username={userName}
-                numPosts={ratings.length}
-                numFollowers={followers.length}
-                numFollowing={following.length}
-                bioDescription="i love food and movies"
-              />
+            profilePic={profilePicFiller}
+            profileName={Cookies.get("signedInUser")}
+            username={userName}
+            numPosts={ratings.length}
+            numFollowers={followers.length}
+            numFollowing={following.length}
+            bioDescription="i love food and movies"
+          />
         </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {ratings.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.rating_text}
-                  profileName={r.username}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_posted.split("T")[0]}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {similarUsers.map((r, i) => (
-                <h1>{r.uid}</h1>
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {favourites.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.description}
-                  imageURL={r.poster_link}
-                  timePosted={r.release_date}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {/* {watchLater.map((r, i) => (
-                <Content
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {ratings.map((r, i) => (
+              <Content
                 key={i}
                 title={r.title}
+                description={r.rating_text}
+                profileName={r.username}
                 imageURL={r.poster_link}
-              />              ))} */}
-            </div>
+                timePosted={r.date_posted.split("T")[0]}
+              />
+            ))}
           </div>
-          {/* <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Watched</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {watched.map((r, i) => (
-                <Content
-                  key={i}
-                  title={r.title}
-                  description={r.description}
-                  imageURL={r.poster_link}
-                  timePosted={r.date_watched}
-                />
-              ))}
-            </div>
-          </div> */}
-          {/* <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Followers</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {followers.map((r, i) => (
-              <h1>{r.username}</h1>
-              ))}
-            </div>
+        </div>
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {similarUsers.map((r, i) => (
+              <h1>{r.uid}</h1>
+            ))}
           </div>
-          <div className="mb-20">
-            <h3 className="text-2xl font-bold mb-4">Following</h3>
-            <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {following.map((r, i) => (
-              <h1>{r.username}</h1>
-              ))}
-            </div>
-          </div> */}
+        </div>
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {favourites.map((r, i) => (
+              <Content
+                key={i}
+                title={r.title}
+                description={r.description}
+                imageURL={r.poster_link}
+                timePosted={r.release_date}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {watchLater.map((r, i) => (
+              <MovieCard key={r.mid} movieInfo={r} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
