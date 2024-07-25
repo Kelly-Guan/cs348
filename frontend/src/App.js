@@ -30,11 +30,7 @@ function App() {
           <Route exact path="/test" element={<Test />} />
           <Route exact path="/user/:uid" element={<User />} />
           <Route path="/movies/:mid" element={<MovieDetailPage />} />
-
           <Route exact path="/test" element={<Test />} />
-
-          <Route exact path="/user/:uid" element={<User />} />
-
         </Routes>
       </Layout>
     </BrowserRouter>
