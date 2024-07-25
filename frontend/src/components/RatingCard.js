@@ -87,9 +87,7 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
             credentials: "include",
           }
         );
-
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
         const data = await response.json();
         console.log(data);
         if (data.vote != null) {
@@ -106,7 +104,7 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
       }
     };
     getHasVoted();
-  }, []);
+  }, [isSignedIn, mid, reviewer_uid]);
 
   return (
     <div className="max-w-md min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
