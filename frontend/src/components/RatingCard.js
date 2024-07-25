@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ThumbsUp, ThumbsDown, ChevronDown } from "lucide-react";
 import ProfileTitle from "./ui/profileTitle";
 import Cookies from "js-cookie";
-import {Star } from "lucide-react";
-
+import { Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
+  const navigate = useNavigate();
   const reviewer_uid = ratingInfo.uid;
   const { mid, score, rating_text, date_posted } = ratingInfo;
   const { title, release_date, runtime, description, poster_link } = movieInfo;
@@ -25,7 +26,6 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
   const [isDownvoted, setIsDownvoted] = useState(false);
 
   const upvoteOnClick = async () => {
-    console.log("downvoting")
     if (!isSignedIn) return;
     try {
       const response = await fetch(
@@ -91,7 +91,6 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
         );
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
-        console.log(data);
         if (data.vote != null) {
           if (data.vote) {
             setIsUpvoted(true);
@@ -108,8 +107,12 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
     getHasVoted();
   }, [isSignedIn, mid, reviewer_uid]);
 
+
   return (
-    <div className="max-w-md min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
+    <div
+      className="max-w-md min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100 cursor-pointer"
+      onClick={() => navigate(`/movies/${ratingInfo.mid}`)}
+    >
       {username && <ProfileTitle profileName={username} timePosted={date_posted.split("T")[0]} />}
 
       <div className="mt-4 mx-auto max-w-full">
@@ -127,7 +130,11 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
               isUpvoted ? "text-blue-500" : "text-gray-500"
             }`}
             aria-label="Like"
-            onClick={upvoteOnClick}>
+            onClick={(e) => {
+              e.stopPropagation();
+              upvoteOnClick();
+            }}
+          >
             <ThumbsUp className="w-5 h-5" />
           </button>
 
@@ -136,7 +143,11 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
               isDownvoted ? "text-red-500" : "text-gray-500"
             }`}
             aria-label="Dislike"
-            onClick={downvoteOnClick}>
+            onClick={(e) => {
+              e.stopPropagation();
+              downvoteOnClick();
+            }}
+          >
             <ThumbsDown className="w-5 h-5" />
           </button>
         </div>
@@ -144,13 +155,10 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
 
       <div className="mt-4">
         <div className="flex">
-          <div className="font-bold text-lg mr-2 ">{title}</div>
+          <div className="font-bold text-lg mr-2">{title}</div>
           <div className="flex">
             {Array.from({ length: score }).map((_, index) => (
-              <Star
-                key={index}
-                className="text-yellow-500"
-              />
+              <Star key={index} className="text-yellow-500" />
             ))}
           </div>
         </div>
@@ -160,8 +168,12 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
           {rating_text.length > 100 && (
             <button
               className="text-blue-500 hover:text-blue-700 ml-2"
-              onClick={toggleDescriptionVisibility}
-              aria-label="Toggle description visibility">
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleDescriptionVisibility();
+              }}
+              aria-label="Toggle description visibility"
+            >
               <ChevronDown
                 className={`w-4 h-4 inline-block transition-transform ${
                   showFullDescription ? "rotate-180" : ""
