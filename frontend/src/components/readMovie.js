@@ -29,13 +29,13 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
       onClick={handleClickOutside}>
       <div className="popup-content bg-white rounded-lg relative flex flex-row w-full max-w-3xl">
         <img
-          className="w-96 relative top-0 object-cover rounded mb-4"
+          className="w-96 relative top-0 object-cover rounded"
           src={movieImg}
           alt={movieTitle}
         />
 
         <div className=" w-full flex justify-between items-center absolute top-0 p-8">
-          <h2 className="text-6xl font-bold mb-4 text-black">{movieTitle}</h2>
+          <h2 className="text-6xl font-bold mb-4 text-white">{movieTitle}</h2>
           <button className="text-black" onClick={onClose}>
             {" "}
             <X size={40} />{" "}
