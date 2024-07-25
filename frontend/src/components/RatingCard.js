@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { ThumbsUp, ThumbsDown, ChevronDown } from "lucide-react";
 import ProfileTitle from "./ui/profileTitle";
 import Cookies from "js-cookie";
+import {Star } from "lucide-react";
+
 
 function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
   const reviewer_uid = ratingInfo.uid;
@@ -141,7 +143,18 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
       </div>
 
       <div className="mt-4">
-        <div className="font-bold text-lg">{title}</div>
+        <div className="flex">
+          <div className="font-bold text-lg mr-2 ">{title}</div>
+          <div className="flex">
+            {Array.from({ length: score }).map((_, index) => (
+              <Star
+                key={index}
+                className="text-yellow-500"
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="text-gray-600 mt-2">
           {truncatedDescription}
           {rating_text.length > 100 && (
