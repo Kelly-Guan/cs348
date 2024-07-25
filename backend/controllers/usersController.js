@@ -543,13 +543,13 @@ exports.search = async (req, res, next) => {
 // users/hasVotedOn?mid=...&reviewer_uid=...
 exports.hasVotedOn = async (req,res,next) => {
   const mid = req.query["mid"];
-  const reviewer_uid = req.query["voter_uid"];
+  const reviewer_uid = req.query["reviewer_uid"];
   const voter_uid = req.cookies.signedInUser;
-
-  
+  console.log(mid, reviewer_uid, voter_uid)
 
   if (mid == undefined || voter_uid == undefined || reviewer_uid == undefined) {
     res.status(400).json("didnt pass the correct params");
+    return;
   }
 
   const client = await pool.connect();
@@ -561,7 +561,7 @@ exports.hasVotedOn = async (req,res,next) => {
     if(result.rowCount == 0) {
       res.status(200).json({voted:null});
     } else {
-      res.status(200).json({vote : result.rows[0]});
+      res.status(200).json({vote : result.rows[0].vote});
     }
   } catch (err) {
     console.log(err);

@@ -38,6 +38,9 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
 
   useEffect(() => {
     if (!isSignedIn) return;
+
+
+
   }, []);
 
   return (
