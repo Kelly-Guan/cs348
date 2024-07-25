@@ -3,6 +3,7 @@ import GenreDropdown from "../components/genreDropDown";
 import Content from "../components/Content";
 import Cookies from "js-cookie";
 import { posterLinkToImgURL } from "../utils";
+import MovieCard from "../components/MovieCard";
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Science Fiction"]; // Add more genres as needed
 
 function Home() {
@@ -133,12 +134,13 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recent Releases</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recentReleases.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.description}
-                imageURL={r.poster_link}
-              />
+              // <Content
+              //   key={i}
+              //   title={r.title}
+              //   description={r.description}
+              //   imageURL={r.poster_link}
+              // />
+              <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
         </div>
@@ -159,12 +161,7 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Popular Movies</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {popularMovies.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.description}
-                imageURL={r.poster_link}
-              />
+              <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
         </div>

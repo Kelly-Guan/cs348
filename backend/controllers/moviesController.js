@@ -109,10 +109,10 @@ exports.popularMovies = async (req, res, next) => {
   const client = await pool.connect();
   try {
     const query_str = `
-    SELECT m.mid, m.title, m.release_date, m.description, m.poster_link, AVG(r.score) AS aggregate_rating
+    SELECT m.mid, m.title, m.release_date, m.runtime, m.description, m.poster_link,  AVG(r.score) AS aggregate_rating
     FROM movies m
     JOIN ratings r ON m.mid = r.mid
-    GROUP BY m.mid, m.title, m.release_date, m.description, m.poster_link
+    GROUP BY m.mid, m.title, m.release_date, m.description, m.poster_link, m.runtime
     ORDER BY m.release_date, aggregate_rating DESC
     LIMIT 10;
   `;

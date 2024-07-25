@@ -17,6 +17,11 @@ router.put("/:uid/update", usersController.update);
 router.delete("/:uid/delete", usersController.delete);
 router.delete("/unfollow", usersController.unfollow);
 
+
+router.get("/hasVotedOn", usersController.hasVotedOn);
+
+router.post("/auth", usersController.auth);
+
 // user related gets
 router.get("/:uid", usersController.byID);
 router.get("/:uid/followers", usersController.followersByID);
@@ -29,7 +34,7 @@ router.get("/:uid/similarTaste", usersController.similarTasteByID);
 router.get("/:uid/recommendedForYou", usersController.recommendedByID);
 router.get("/:uid/search", usersController.search);
 
-router.post("/auth", usersController.auth);
+
 
 
 module.exports = router;

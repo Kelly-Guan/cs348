@@ -97,7 +97,7 @@ exports.byID = async (req, res, next) => {
     }
   } catch (err) {
     console.log(err);
-    res.send(500).json("Something went wrong retreiving user");
+    res.status(500).json("Something went wrong retreiving user");
   } finally {
     client.release();
   }
@@ -529,3 +529,34 @@ exports.search = async (req, res, next) => {
   } finally{client.release()}
 }
 
+
+// users/hasVotedOn?mid=...&reviewer_uid=...
+exports.hasVotedOn = async (req,res,next) => {
+  const mid = req.query["mid"];
+  const reviewer_uid = req.query["voter_uid"];
+  const voter_uid = req.cookies.signedInUser;
+
+  
+
+  if (mid == undefined || voter_uid == undefined || reviewer_uid == undefined) {
+    res.status(400).json("didnt pass the correct params");
+  }
+
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+      "SELECT * FROM votes WHERE voter_uid = $1 AND mid = $2 AND reviewer_uid = $3",
+      [voter_uid, mid, reviewer_uid]
+    );
+    if(result.rowCount == 0) {
+      res.status(200).json({voted:null});
+    } else {
+      res.status(200).json({vote : result.rows[0]});
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("something went wrong");
+  } finally {
+    client.release();
+  }
+}
