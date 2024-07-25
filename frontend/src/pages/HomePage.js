@@ -132,7 +132,7 @@ function Home() {
         </div>
 
         <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Recent Releases</h3>
+          <h3 className="text-2xl font-bold mb-4">Recent Releases we Think you'll like! </h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recentReleases.map((r, i) => (
               <MovieCard key={r.mid} movieInfo={r} />
@@ -140,7 +140,7 @@ function Home() {
           </div>
         </div>
         <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Recent Ratings</h3>
+          <h3 className="text-2xl font-bold mb-4">Check out what your Friends have been watching</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recentRatings.map((r, i) => (
               <RatingCard
@@ -172,14 +172,14 @@ function Home() {
           </div>
         </div>
 
-        <div className="mb-20">
+        {/* <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recommendedMovies.map((r, i) => (
               <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

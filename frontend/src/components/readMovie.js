@@ -27,31 +27,24 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
     <div
       className="popup-overlay fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
       onClick={handleClickOutside}>
-      <div className="popup-content bg-white rounded-lg relative flex flex-col w-2/5 p-8">
-       
-        <div className="flex">
-          <div className="w-1/2 px-5">
-            <img
-            className="relative top-0 object-cover rounded mb-4"
-            src={movieImg}
-            alt={movieTitle}
-          />
-          </div>
-        </div>
-        
-        
+      <div className="popup-content bg-white rounded-lg relative flex flex-row w-full max-w-3xl">
+        <img
+          className="w-96 relative top-0 object-cover rounded mb-4"
+          src={movieImg}
+          alt={movieTitle}
+        />
 
         <div className=" w-full flex justify-between items-center absolute top-0 p-8">
-          <h2 className="text-6xl font-bold mb-4 text-white">{movieTitle}</h2>
-          <button className="text-white" onClick={onClose}>
+          <h2 className="text-6xl font-bold mb-4 text-black">{movieTitle}</h2>
+          <button className="text-black" onClick={onClose}>
             {" "}
             <X size={40} />{" "}
           </button>
         </div>
 
-        <div className="mt-8 w-full flex justify-start px-8">
-          <div className="w-5/6">
-            <div className="text-gray-600 mb-2">{movieTime}</div>
+        <div className="mt-8 w-full flex flex-col justify-start px-8">
+          <div className="w-5/6 mb-8">
+            <div className="text-gray-600 mb-2">{movieTime} mins</div>
             <div className="text-gray-500">{movieDescription}</div>
           </div>
 
@@ -63,14 +56,18 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
               <strong>Genre:</strong> {movieGenre}
             </div>
           </div>
+
+          <button
+            className="bg-pink-500 text-white py-2 px-4 rounded self-end relative m-10 b-0"
+            onClick={onAddReview}>
+            {" "}
+            Add Review
+          </button>
         </div>
 
-        <button
-          className="bg-pink-500 text-white py-2 px-4 rounded self-end m-10"
-          onClick={onAddReview}>
-          {" "}
-          Add Review
-        </button>
+        
+
+        
       </div>
     </div>
   );

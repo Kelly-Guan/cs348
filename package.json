@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "connection-string": "^4.4.0",
+    "js-cookie": "^3.0.5",
     "pg-promise": "^11.6.0"
   }
 }
