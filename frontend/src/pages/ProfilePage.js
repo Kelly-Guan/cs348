@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ProfileHeader from "../components/profileHeader";
+import OtherProfileHeader from "../components/userProfileHeader";
 import profilePicFiller from "../assets/profilePic.jpg";
 import Content from "../components/Content";
 import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
+import { posterLinkToImgURL } from "../utils";
 // import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function Profile() {
@@ -14,6 +16,7 @@ function Profile() {
   const [followers,setFollowers] = useState([]);
   const [following,setFollowing] = useState([]);
   const [similarUsers,setSimilarUsers] = useState([]);
+  const [userName, setUserName] = useState([]);
   const checkImageURL = async (url, defaultURL) => {
     try {
       const response = await fetch(url);
@@ -38,10 +41,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setRatings(updatedData);
@@ -60,10 +60,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFavourites(updatedData);
@@ -83,10 +80,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setWatched(updatedData);
@@ -105,13 +99,11 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setWatchLater(updatedData);
+        console.log(updatedData);
       } catch (err) {
         console.error("Fetch error:", err);
         setWatchLater([]);
@@ -127,10 +119,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFollowers(updatedData);
@@ -149,10 +138,7 @@ function Profile() {
         const updatedData = await Promise.all(
           data.map(async (r) => ({
             ...r,
-            poster_link: await checkImageURL(
-              `https://image.tmdb.org/t/p/w500${r.poster_link}`,
-              "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
-            ),
+            poster_link: await posterLinkToImgURL(r.poster_link),
           }))
         );
         setFollowing(updatedData);
@@ -174,6 +160,20 @@ function Profile() {
         setSimilarUsers([]);
       }
     };
+    const fetchUserName = async(signedInUser) => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/search`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        const data = await res.json();
+        // console.log(data);
+        setUserName(data[0].username);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setWatchLater([]);
+      }
+    };
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
@@ -182,17 +182,25 @@ function Profile() {
     fetchFollowers(currUser);
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
+    fetchUserName(currUser);
     console.log(Cookies.get("signedInUser"));
+    console.log(userName);
   }, []);
 
   return (
     <div className="w-5/6 ml-auto p-12">
       <div className="flex flex-col justify-start">
         <div className="w-1/4 flex flex-row items-center mb-8">
-          <h3 className="text-4xl font-bold pr-10 ">{Cookies.get("signedInUser")}</h3>
-          {/* <GenreDropdown genres={genres} onSelect={handleGenreSelect} /> */}
+          <ProfileHeader
+                profilePic={profilePicFiller}
+                profileName={Cookies.get("signedInUser")}
+                username={userName}
+                numPosts={ratings.length}
+                numFollowers={followers.length}
+                numFollowing={following.length}
+                bioDescription="i love food and movies"
+              />
         </div>
-
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
@@ -233,12 +241,15 @@ function Profile() {
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {watchLater.map((r, i) => (
-                <h1>{r.title}</h1>
-              ))}
+              {/* {watchLater.map((r, i) => (
+                <Content
+                key={i}
+                title={r.title}
+                imageURL={r.poster_link}
+              />              ))} */}
             </div>
           </div>
-          <div className="mb-20">
+          {/* <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Watched</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {watched.map((r, i) => (
@@ -251,8 +262,8 @@ function Profile() {
                 />
               ))}
             </div>
-          </div>
-          <div className="mb-20">
+          </div> */}
+          {/* <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Followers</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
               {followers.map((r, i) => (
@@ -267,7 +278,7 @@ function Profile() {
               <h1>{r.username}</h1>
               ))}
             </div>
-          </div>
+          </div> */}
       </div>
     </div>
   );

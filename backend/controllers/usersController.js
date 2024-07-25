@@ -511,23 +511,33 @@ exports.recommendedByID = async (req, res, next) => {
     client.release();
   }
 };
-
-//uid from username
 exports.search = async (req, res, next) => {
-  const {username} = req.body;
+  const uid = req.params["uid"];
+  let { offset } = req.query;
+  if (offset == null) offset = 0;
+  if (uid == null) {
+    res.status(400).json("No specified user to update");
+    return;
+  }
   const client = await pool.connect();
-
-  try{
-    const query = `
-      SELECT uid, username 
+  try {
+    const result = await client.query(
+      `SELECT username 
       FROM users
-      WHERE username = ${username};
-    `;
-  }catch (err) {
+      WHERE uid = $1`,
+      [uid]);
+    if (result.rowCount === 0) {
+      res.status(404).json("userid not found");
+    } else {
+      res.status(200).json(result.rows);
+    }
+  } catch (err) {
     console.log(err);
-    res.status(500).json("Something went wrong finding movies your firend likes");
-  } finally{client.release()}
-}
+    res.status(500).json("Something went wrong");
+  } finally {
+    client.release();
+  }
+};
 
 
 // users/hasVotedOn?mid=...&reviewer_uid=...
