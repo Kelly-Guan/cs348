@@ -146,14 +146,11 @@ function Profile() {
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
-
     fetchWatchLater(currUser);
     fetchFollowers(currUser);
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
     fetchUserName(currUser);
-    console.log(Cookies.get("signedInUser"));
-    console.log(userName);
   }, []);
 
   return (
