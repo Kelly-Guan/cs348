@@ -1,11 +1,11 @@
-// UserProfilePage.js
 import React, { useState, useEffect } from "react";
 import OtherProfileHeader from "../components/userProfileHeader";
 import profilePicFiller from "../assets/profilePic.jpg";
-import Content from "../components/Content";
 import Cookies from "js-cookie";
 import { useParams } from 'react-router-dom';
 import RatingCard from "../components/RatingCard";
+import { posterLinkToImgURL } from "../utils";
+import MovieCard from "../components/MovieCard";
 
 function UserProfilePage() {
   const { uid } = useParams(); // Profile being viewed
@@ -15,6 +15,7 @@ function UserProfilePage() {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false); // Track follow state
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,15 +43,40 @@ function UserProfilePage() {
         const res = await fetch(`http://localhost:3001/api/ratings/ratingsByUser/${uid}`);
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
         const data = await res.json();
-        setRatings(data);
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await posterLinkToImgURL(r.poster_link),
+          }))
+        );
+        setRatings(updatedData);
       } catch (err) {
         console.error("Fetch error:", err);
         setRatings([]);
       }
     };
 
+    const fetchFavourites = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/users/${uid}/favourites`);
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        const data = await res.json();
+        const updatedData = await Promise.all(
+          data.map(async (r) => ({
+            ...r,
+            poster_link: await posterLinkToImgURL(r.poster_link),
+          }))
+        );
+        setFavourites(updatedData);
+      } catch (err) {
+        console.error("Fetch error:", err);
+        setFavourites([]);
+      }
+    };
+
     fetchUserData();
     fetchRatings();
+    fetchFavourites();
   }, [uid, currUser]);
 
   const handleFollow = async () => {
@@ -90,6 +116,7 @@ function UserProfilePage() {
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {ratings.map((r, i) => (
               <RatingCard
+                key={i}
                 ratingInfo={{
                   uid: r.uid,
                   mid: r.mid,
@@ -105,6 +132,24 @@ function UserProfilePage() {
                   poster_link: r.poster_link,
                 }}
                 username={r.username}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Their Favourites</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {favourites.map((f, i) => (
+              <MovieCard
+                key={i}
+                movieInfo={{
+                  mid: f.mid,
+                  title: f.title,
+                  release_date: f.release_date,
+                  runtime: f.runtime,
+                  description: f.description,
+                  poster_link: f.poster_link,
+                }}
               />
             ))}
           </div>
