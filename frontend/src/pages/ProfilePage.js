@@ -197,7 +197,7 @@ function Profile() {
   return (
     <div className="w-5/6 ml-auto p-12">
       <div className="flex flex-col justify-start">
-        <div className="w-1/4 flex flex-row items-center mb-8">
+        <div className="flex justify-center  mb-8">
           <ProfileHeader
             profilePic={profilePicFiller}
             profileName={Cookies.get("signedInUser")}

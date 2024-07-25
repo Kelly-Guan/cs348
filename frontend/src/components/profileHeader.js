@@ -5,11 +5,7 @@ import { Settings, ChevronDown} from 'lucide-react';
 function ProfileHeader({profilePic, profileName, username, numPosts, numFollowers, numFollowing, bioDescription}) {
   return (
     <>
-    <div className="flex justify-between items-center w-3/5">
-        <div>
-            <img src={profilePic}></img>
-        </div>
-
+    <div className="flex justify-around items-center w-3/5">
         <div>
             <div className="flex items-center">
                 <div className="p-2"><h3 className="text-4xl font-bold pr-10 ">{username}</h3></div>
@@ -24,7 +20,6 @@ function ProfileHeader({profilePic, profileName, username, numPosts, numFollower
             </div>
 
             <div>
-                <div className="p-2"><strong>{profileName}</strong></div>
                 <div className="p-2">{bioDescription}</div>
             </div>
         </div>
@@ -32,6 +27,8 @@ function ProfileHeader({profilePic, profileName, username, numPosts, numFollower
     </div>
     </>
   );
+
+  
 }
 
 export default ProfileHeader;
