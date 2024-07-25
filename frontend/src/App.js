@@ -26,11 +26,11 @@ function App() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/logout" element={<LogOut />} />
-<<<<<<< HEAD
+
           <Route exact path="/test" element={<Test />} />
-=======
+
           <Route exact path="/user/:uid" element={<User />} />
->>>>>>> 8bff25fb7a998d65d9fd60bed437890a27b615be
+
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -38,3 +38,11 @@ function App() {
 }
 
 export default App;
+
+/*
+INSERT INTO ratings (uid,mid,score,rating_text,date_posted) VALUES
+(1,1,5,'This movie is awesome!','2024-06-12 13:23:00');
+
+INSERT INTO votes (voter_uid, reviewer_uid, mid, vote) VALUES
+(141, 1, 5, true);
+*/
