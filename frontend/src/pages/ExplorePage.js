@@ -132,7 +132,9 @@ function ExplorePage() {
         </div>
 
         <div className="w-1/2 flex flex-row items-center mb-8">
-          <SearchBar onReturn={selectSearch} />
+          <div className="mr-8">
+            <SearchBar onReturn={selectSearch}/>
+          </div>
           <ProfileSearch />
         </div>
 
@@ -189,7 +191,7 @@ function ExplorePage() {
         {ratings.length > 0 ? (
           <div>
             <h3 className="text-2xl font-bold mb-4">Ratings for {movieName}</h3>
-            <div className="flex flex-col space-y-4">
+            <div className="grid gap-x-3 gap-y-2 grid-cols-2">
               {ratings.map((r, index) => (
                 <RatingCard
                   ratingInfo={{

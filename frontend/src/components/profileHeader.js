@@ -9,7 +9,7 @@ function ProfileHeader({profilePic, profileName, username, numPosts, numFollower
         <div>
             <div className="flex items-center">
                 <div className="p-2"><h3 className="text-4xl font-bold pr-10 ">{username}</h3></div>
-                <div><button className="p-2 px-4 bg-pink-400 rounded-sm"><strong>Edit Profile</strong></button></div>
+                <div><button className="p-2 px-4 bg-pink-400 rounded-sm text-white"><strong>Edit Profile</strong></button></div>
                 <div><button className="p-4"><Settings/></button></div>
             </div>
 

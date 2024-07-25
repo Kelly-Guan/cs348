@@ -209,6 +209,22 @@ function Profile() {
           />
         </div>
         <div className="mb-20">
+          <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
+          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
+            {favourites.map((r, i) => (
+              <MovieCard
+                movieInfo={{
+                  title: r.title,
+                  release_date: r.release_date,
+                  runtime: r.runtime,
+                  description: r.description,
+                  poster_link: r.poster_link,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Your Ratings</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {ratings.map((r, i) => (
@@ -239,28 +255,13 @@ function Profile() {
               <button
                 key={i}
                 onClick={() => navigate(`/user/${user.uid}`)}
-                className="bg-blue-500 text-white px-4 py-2 rounded">
+                className="bg-pink-500 text-white px-4 py-2 rounded">
                 {similarUserNames[i]}
               </button>
             ))}
           </div>
         </div>
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
-          <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {favourites.map((r, i) => (
-              <MovieCard
-                movieInfo={{
-                  title: r.title,
-                  release_date: r.release_date,
-                  runtime: r.runtime,
-                  description: r.description,
-                  poster_link: r.poster_link,
-                }}
-              />
-            ))}
-          </div>
-        </div>
+
         {/* <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
