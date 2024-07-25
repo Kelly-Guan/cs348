@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import SearchBar from "../components/ui/searchBar";
 import GenreDropdown from "../components/genreDropDown";
 import { posterLinkToImgURL } from "../utils";
+import  ProfileSearch  from "../components/profileSearch"
 
 const genres = ["Comedy", "Horror", "Drama", "Romance", "Action", "Science Fiction"]; // Add more genres as needed
 
@@ -131,6 +132,7 @@ function ExplorePage() {
 
         <div className="w-1/4 flex flex-row items-center mb-8">
           <SearchBar onReturn={selectSearch} />
+          <ProfileSearch />
         </div>
 
         <div className="mb-20">

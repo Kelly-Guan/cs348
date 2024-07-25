@@ -512,20 +512,20 @@ exports.recommendedByID = async (req, res, next) => {
   }
 };
 exports.search = async (req, res, next) => {
-  const uid = req.params["uid"];
+  const username = req.params["username"];
   let { offset } = req.query;
   if (offset == null) offset = 0;
-  if (uid == null) {
+  if (username == null) {
     res.status(400).json("No specified user to update");
     return;
   }
   const client = await pool.connect();
   try {
     const result = await client.query(
-      `SELECT username 
+      `SELECT uid 
       FROM users
-      WHERE uid = $1`,
-      [uid]);
+      WHERE username = $1`,
+      [username]);
     if (result.rowCount === 0) {
       res.status(404).json("userid not found");
     } else {
