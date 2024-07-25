@@ -29,21 +29,22 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
       onClick={handleClickOutside}>
       <div className="popup-content bg-white rounded-lg relative flex flex-row w-full max-w-3xl">
         <img
-          className="w-96 relative top-0 object-cover rounded"
+          className="w-2/4 relative top-0 object-cover rounded"
           src={movieImg}
           alt={movieTitle}
         />
 
-        <div className=" w-full flex justify-between items-center absolute top-0 p-8">
-          <h2 className="text-6xl font-bold mb-4 text-white">{movieTitle}</h2>
+        <div className="w-full flex justify-between items-center absolute top-0 p-4">
+          <h2 className="text-3xl w-2/4 font-bold text-black">{movieTitle}</h2>
           <button className="text-black" onClick={onClose}>
             {" "}
             <X size={40} />{" "}
           </button>
         </div>
 
-        <div className="mt-8 w-full flex flex-col justify-start px-8">
-          <div className="w-5/6 mb-8">
+
+        <div className="mt-10 w-2/4 flex flex-col justify-start px-8">
+          <div className="mb-8">
             <div className="text-gray-600 mb-2">{movieTime} mins</div>
             <div className="text-gray-500">{movieDescription}</div>
           </div>
@@ -52,7 +53,7 @@ function ReadMovie({ movieImg,  movieTitle, movieTime, movieDescription, movieCa
             <div className="text-gray-600 mb-2">
               <strong>Cast:</strong> {movieCast}
             </div>
-            <div className="text-gray-600">
+            <div className="text-gray-600 mb-2">
               <strong>Genre:</strong> {movieGenre}
             </div>
           </div>
