@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react";
 import { Settings, ChevronDown} from 'lucide-react';
 
 
-function ProfileHeader({profilePic, profileName, username, numPosts, numFollowers, numFollowing, bioDescription}) {
+function ProfileHeader({username, numPosts, numFollowers, numFollowing, bioDescription}) {
   return (
     <>
     <div className="flex justify-around items-center w-3/5">

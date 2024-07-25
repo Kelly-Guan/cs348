@@ -15,7 +15,8 @@ function MovieCard(props) {
   };
 
   return (
-    <Link to={`/movies/${mid}`} className="no-underline">
+    // <Link to={`/movies/${mid}`} className="no-underline">
+    <>
       <div className="max-w-md min-w-96 bg-white rounded-lg shadow-md p-6 overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300 cursor-pointer">
         <div className="flex justify-center">
           <img
@@ -62,7 +63,7 @@ function MovieCard(props) {
           </div>
         </div>
       </div>
-    </Link>
+      </>
   );
 }
 
