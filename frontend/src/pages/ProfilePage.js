@@ -6,9 +6,11 @@ import Content from "../components/Content";
 import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
 import { posterLinkToImgURL } from "../utils";
+import { useNavigate } from "react-router-dom";
 // import ProfileMovieBtn from "../components/ui/profileMovieBtn";
 
 function Profile() {
+  const navigate = useNavigate(); // Use navigate for programmatic navigation
   const [ratings,setRatings] = useState([]);
   const [favourites,setFavourites] = useState([]);
   const [watched,setWatched] = useState([]);
@@ -16,6 +18,7 @@ function Profile() {
   const [followers,setFollowers] = useState([]);
   const [following,setFollowing] = useState([]);
   const [similarUsers,setSimilarUsers] = useState([]);
+  const [similarUserNames,setSimilarUserNames] = useState([]);
   const [userName, setUserName] = useState([]);
   const checkImageURL = async (url, defaultURL) => {
     try {
@@ -30,6 +33,34 @@ function Profile() {
     }
   };
   
+  const fetchUserNameByUid = async (uid) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/users/${uid}`);
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+      const data = await res.json();
+      return data.username;
+    } catch (err) {
+      console.error("Fetch error:", err);
+      return "Unknown User"; // Default value if there's an error
+    }
+  };
+
+  useEffect(() => {
+    const fetchSimilarUserNames = async () => {
+      try {
+        const usernames = await Promise.all(similarUsers.map(user => fetchUserNameByUid(user.uid)));
+        setSimilarUserNames(usernames);
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
+
+    if (similarUsers.length > 0) {
+      fetchSimilarUserNames();
+    }
+  }, [similarUsers]);
+
+
   useEffect(() => {
     const fetchRatings = async(signedInUser) => {
       try {
@@ -154,7 +185,10 @@ function Profile() {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
+        // console.log("similar users",data);
         setSimilarUsers(data);
+        // const usernames = await Promise.all(similarUsers.map(user => fetchUserNameByUid(user.uid)));
+        // setSimilarUserNames(usernames);
       } catch (err) {
         console.error("Fetch error:", err);
         setSimilarUsers([]);
@@ -183,9 +217,10 @@ function Profile() {
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
     fetchUserName(currUser);
-    console.log(Cookies.get("signedInUser"));
-    console.log(userName);
+    // console.log(Cookies.get("signedInUser"));
+    console.log("similar user names",similarUserNames);
   }, []);
+
 
   return (
     <div className="w-5/6 ml-auto p-12">
@@ -219,9 +254,14 @@ function Profile() {
           <div className="mb-20">
             <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
             <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-              {similarUsers.map((r, i) => (
-                <h1>{r.uid}</h1>
-              ))}
+            {similarUsers.map((user, i) => (
+              <button
+                key={i}
+                onClick={() => navigate(`/user/${user.uid}`)}
+                className="bg-blue-500 text-white px-4 py-2 rounded">
+                {similarUserNames[i]}
+              </button>
+            ))}
             </div>
           </div>
           <div className="mb-20">
