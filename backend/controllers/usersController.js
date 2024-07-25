@@ -228,11 +228,14 @@ exports.watchLaterByID = async (req, res, next) => {
   try {
     const result = await client.query(
       `
-    SELECT m.title, u.username,m.poster_link
+    SELECT m.*, u.*
     FROM watch_later wl
     JOIN movies m ON wl.mid = m.mid
     JOIN users u ON  wl.uid = u.uid
-    WHERE wl.uid = $1`,[uid]);
+    JOIN ratings r ON wl.uid = u.uid AND wl.mid = m.mid 
+    WHERE wl.uid = $1`,
+      [uid]
+    );
     if (result.rowCount === 0) {
       res.status(404).json("user's watch later list not found");
     } else {
@@ -340,9 +343,10 @@ exports.auth = async (req, res, next) => {
   const { username, password } = req.body;
   const client = await pool.connect();
   try {
-    const result = await client.query("SELECT uid,password FROM users WHERE username=$1 OR email=$1", [
-      username,
-    ]);
+    const result = await client.query(
+      "SELECT uid,password FROM users WHERE username=$1 OR email=$1",
+      [username]
+    );
     if (result.rowCount != 1) {
       res.status(404).json("user not found");
     } else {
@@ -352,7 +356,7 @@ exports.auth = async (req, res, next) => {
         res.status(200).json(result.rows[0].uid);
       } else {
         res.status(404).json("Wrong password");
-        console.log("password failed")
+        console.log("password failed");
       }
     }
   } catch (err) {
@@ -361,7 +365,6 @@ exports.auth = async (req, res, next) => {
     client.release();
   }
 };
-
 
 exports.similarTasteByID = async (req, res, next) => {
   const uid = req.params["uid"];
@@ -525,7 +528,8 @@ exports.search = async (req, res, next) => {
       `SELECT uid 
       FROM users
       WHERE username = $1`,
-      [username]);
+      [username]
+    );
     if (result.rowCount === 0) {
       res.status(404).json("userid not found");
     } else {
@@ -542,11 +546,11 @@ exports.search = async (req, res, next) => {
 
 
 // users/hasVotedOn?mid=...&reviewer_uid=...
-exports.hasVotedOn = async (req,res,next) => {
+exports.hasVotedOn = async (req, res, next) => {
   const mid = req.query["mid"];
   const reviewer_uid = req.query["reviewer_uid"];
   const voter_uid = req.cookies.signedInUser;
-  console.log(mid, reviewer_uid, voter_uid)
+  console.log(mid, reviewer_uid, voter_uid);
 
   if (mid == undefined || voter_uid == undefined || reviewer_uid == undefined) {
     res.status(400).json("didnt pass the correct params");
@@ -559,10 +563,10 @@ exports.hasVotedOn = async (req,res,next) => {
       "SELECT * FROM votes WHERE voter_uid = $1 AND mid = $2 AND reviewer_uid = $3",
       [voter_uid, mid, reviewer_uid]
     );
-    if(result.rowCount == 0) {
-      res.status(200).json({voted:null});
+    if (result.rowCount == 0) {
+      res.status(200).json({ voted: null });
     } else {
-      res.status(200).json({vote : result.rows[0].vote});
+      res.status(200).json({ vote: result.rows[0].vote });
     }
   } catch (err) {
     console.log(err);
@@ -570,4 +574,5 @@ exports.hasVotedOn = async (req,res,next) => {
   } finally {
     client.release();
   }
-}
+};
+ 
