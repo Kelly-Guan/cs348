@@ -31,25 +31,31 @@ function MovieButton({ mid, movieImg, movieImgVert, alt, movieTitle, movieTime, 
 
   return (
     <>
+
+
       <div className="max-w-full relative">
-  <button
-    className={`bg-white rounded-lg overflow-hidden p-4${
-      pageType === "search" ? "w-96" : "w-full h-auto max-w-80 object-cover"
-    } relative group`}
-    onClick={() => {
-      setShowReadMoviePopup(true);
-      console.log(movieImg);
-    }}
-  >
-    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <h1 className="text-white text-2xl">{movieTitle}</h1>
+      <button
+        className={`bg-white rounded-lg overflow-hidden p-4 ${
+          pageType === "search" ? "w-96" : "w-full h-auto max-w-80 object-cover"
+        } relative group`}
+        onClick={() => {
+          setShowReadMoviePopup(true);
+          console.log(movieImg);
+        }}
+      >
+        <div className="relative w-full h-full flex items-center justify-center">
+          <img
+            src={movieImg}
+            alt={alt}
+            className="w-full h-auto"
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h1 className="text-white text-2xl">{movieTitle}</h1>
+          </div>
+        </div>
+      </button>
     </div>
-    <img
-      src={movieImg}
-      alt={alt}
-    />
-  </button>
-</div>
+
 
 
       {showReadMoviePopup && (

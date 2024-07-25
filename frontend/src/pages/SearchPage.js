@@ -86,56 +86,39 @@ function SearchPage() {
     fetchMovies();
   }, [search, genre, rating, runtime]);
 
+ 
   return (
     <div className="w-5/6 ml-auto p-12">
-      <div className=" overflow-hidden w-full flex flex-col justify-start">
+      <div className="relative overflow-hidden w-full flex flex-col justify-start">
         <div className="flex flex-row justify-between items-center mb-8">
           <h3 className="text-4xl font-bold">Search</h3>
-          <GenreDropdown name="Genre" genres={genres} onSelect={selectGenre} />
-          <GenreDropdown
-            name="Runtime"
-            genres={runtimes}
-            onSelect={selectRuntime}
-          />
-          <GenreDropdown
-            name="Rating"
-            genres={ratings}
-            onSelect={selectRating}
-          />
+          <div className="relative z-10">
+            <GenreDropdown name="Genre" genres={genres} onSelect={selectGenre} />
+          </div>
+          <div className="relative z-10">
+            <GenreDropdown name="Runtime" genres={runtimes} onSelect={selectRuntime} />
+          </div>
+          <div className="relative z-10">
+            <GenreDropdown name="Rating" genres={ratings} onSelect={selectRating} />
+          </div>
           <SearchBar onReturn={selectSearch} />
         </div>
         <div className="mb-20 w-full">
           <div className="grid gap-x-3 gap-y-10 grid-cols-3">
-            {/* {movies == [] ? (
-              <></>
-            ) : (
-              movies.map((m) => (
-                <MovieButton
-                  movieImg={m.poster_link}
-                  movieImgVert={m.poster_link}
-                  movieTitle={m.title}
-                  movieTime={m.runtime}
-                  movieDescription={m.description}
-                  movieCast={m["cast"].slice(0,5).toString()}
-                  movieGenre={m["genres"].toString()}
-                  alt={m.title}
-                  pageType="search"
-                />
-              ))
-            )} */}
             {movies.map((m) => (
-                <MovieButton
-                  movieImg={m.poster_link}
-                  movieImgVert={m.poster_link}
-                  movieTitle={m.title}
-                  movieTime={m.runtime}
-                  movieDescription={m.description}
-                  movieCast={m["cast"].slice(0,5).toString()}
-                  movieGenre={m["genres"].toString()}
-                  alt={m.title}
-                  pageType="search"
-                />
-              ))}
+              <MovieButton
+                key={m.mid}
+                movieImg={m.poster_link}
+                movieImgVert={m.poster_link}
+                movieTitle={m.title}
+                movieTime={m.runtime}
+                movieDescription={m.description}
+                movieCast={m["cast"].slice(0, 5).toString()}
+                movieGenre={m["genres"].toString()}
+                alt={m.title}
+                pageType="search"
+              />
+            ))}
           </div>
         </div>
       </div>
