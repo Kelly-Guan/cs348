@@ -171,8 +171,9 @@ exports.recentRatings = async (req, res, next) => {
   const client = await pool.connect();
   try {
     const query_str = `
-    SELECT r.*, m.* FROM ratings r
+    SELECT r.*, m.*, u.username FROM ratings r
     JOIN movies m on m.mid = r.mid
+    JOIN users u on r.uid = u.uid
     ORDER BY r.date_posted DESC LIMIT 10;`;
     const result = await client.query(query_str);
     res.status(200).json({data: result.rows});
@@ -219,8 +220,11 @@ exports.vote = async (req, res, next) => {
   try {
     const query = `
       INSERT INTO votes (voter_uid, reviewer_uid, mid, vote)
-      VALUES ($1, $2, $3, $4)
-      ON CONFLICT (uid, mid) DO NOTHING;`;
+VALUES ($1, $2, $3, $4)
+ON CONFLICT (voter_uid, reviewer_uid, mid)
+DO UPDATE SET vote = EXCLUDED.vote`
+
+    
     const values = [voter_uid, reviewer_uid, mid, vote];
     await client.query(query, values);
     res.status(200).json({ message: 'Vote added successfully' });

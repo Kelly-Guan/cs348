@@ -22,18 +22,58 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isDownvoted, setIsDownvoted] = useState(false);
 
-  const upvoteOnClick = () => {
+  const upvoteOnClick = async () => {
+    console.log("downvoting")
     if (!isSignedIn) return;
-    console.log("upvoted");
-    setIsUpvoted(true);
-    setIsDownvoted(false);
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/ratings/vote?mid=${mid}&reviewer_uid=${signedInUser}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            voter_uid: signedInUser,
+            reviewer_uid: reviewer_uid,
+            mid: mid,
+            vote: true,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setIsUpvoted(true);
+      setIsDownvoted(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const downvoteOnClick = () => {
+  const downvoteOnClick = async () => {
     if (!isSignedIn) return;
-    console.log("downvoted");
-    setIsUpvoted(false);
-    setIsDownvoted(true);
+    try {
+      const response = await fetch(`http://localhost:3001/api/ratings/vote?mid=${mid}&reviewer_uid=${signedInUser}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          voter_uid: signedInUser,
+          reviewer_uid: reviewer_uid,
+          mid: mid,
+          vote: false
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setIsUpvoted(false);
+      setIsDownvoted(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -70,7 +110,7 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
 
   return (
     <div className="max-w-md min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
-      {username && <ProfileTitle profileName={username} timePosted={date_posted} />}
+      {username && <ProfileTitle profileName={username} timePosted={date_posted.split("T")[0]} />}
 
       <div className="mt-4 mx-auto max-w-full">
         <img
