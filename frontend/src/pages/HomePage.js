@@ -135,12 +135,6 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recent Releases</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recentReleases.map((r, i) => (
-              // <Content
-              //   key={i}
-              //   title={r.title}
-              //   description={r.description}
-              //   imageURL={r.poster_link}
-              // />
               <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
@@ -151,12 +145,11 @@ function Home() {
             {recentRatings.map((r, i) => (
               <RatingCard
                 ratingInfo={{
-                  uid : r.uid,
-                  mid : r.mid,
-                  score:r.score,
-                  rating_text:r.rating_text,
-                  date_posted:r.date_posted,
-
+                  uid: r.uid,
+                  mid: r.mid,
+                  score: r.score,
+                  rating_text: r.rating_text,
+                  date_posted: r.date_posted,
                 }}
                 movieInfo={{
                   title: r.title,
@@ -167,12 +160,6 @@ function Home() {
                 }}
                 username={r.username}
               />
-              // <Content
-              //   key={i}
-              //   title={r.title}
-              //   description={r.rating_text}
-              //   imageURL={r.poster_link}
-              // />
             ))}
           </div>
         </div>
@@ -189,12 +176,7 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recommendedMovies.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.description}
-                imageURL={r.poster_link}
-              />
+              <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
         </div>

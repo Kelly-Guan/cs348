@@ -5,6 +5,7 @@ import profilePicFiller from "../assets/profilePic.jpg";
 import Content from "../components/Content";
 import Cookies from "js-cookie";
 import { useParams } from 'react-router-dom';
+import RatingCard from "../components/RatingCard";
 
 function UserProfilePage() {
   const { uid } = useParams(); // Profile being viewed
@@ -88,13 +89,22 @@ function UserProfilePage() {
           <h3 className="text-2xl font-bold mb-4">Their Ratings</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {ratings.map((r, i) => (
-              <Content
-                key={i}
-                title={r.title}
-                description={r.rating_text}
-                profileName={r.username}
-                imageURL={r.poster_link}
-                timePosted={r.date_posted.split("T")[0]}
+              <RatingCard
+                ratingInfo={{
+                  uid: r.uid,
+                  mid: r.mid,
+                  score: r.score,
+                  rating_text: r.rating_text,
+                  date_posted: r.date_posted,
+                }}
+                movieInfo={{
+                  title: r.title,
+                  release_date: r.release_date,
+                  runtime: r.runtime,
+                  description: r.description,
+                  poster_link: r.poster_link,
+                }}
+                username={r.username}
               />
             ))}
           </div>
