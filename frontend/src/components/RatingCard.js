@@ -38,13 +38,38 @@ function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
 
   useEffect(() => {
     if (!isSignedIn) return;
+    const getHasVoted = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/api/users/hasVotedOn?mid=${mid}&reviewer_uid=${reviewer_uid}`,
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
 
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-
+        const data = await response.json();
+        console.log(data);
+        if (data.vote != null) {
+          if (data.vote) {
+            setIsUpvoted(true);
+            setIsDownvoted(false);
+          } else {
+            setIsUpvoted(false);
+            setIsDownvoted(true);
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    getHasVoted();
   }, []);
 
   return (
-    <div className="min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
+    <div className="max-w-md min-w-96 bg-white rounded-lg p-6 overflow-hidden border-2 border-gray-100">
       {username && <ProfileTitle profileName={username} timePosted={date_posted} />}
 
       <div className="mt-4 mx-auto max-w-full">

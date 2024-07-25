@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import MovieCard from "../components/MovieCard";
 import RatingCard from "../components/RatingCard";
-import { Rat } from "lucide-react";
 
 function Test() {
   
     const data = {
-      mid: 10,
+      mid: 5,
       title: "A Very Cool Movie",
       release_date: "2012-12-01",
       runtime: 90,
@@ -17,8 +16,8 @@ function Test() {
 
 
     const rev = {
-        uid : 50,
-        mid: 10,
+        uid : 1,
+        mid: 5,
         score : 3,
         rating_text : "movie's highly poggers",
         date_posted : "2024-06-02",

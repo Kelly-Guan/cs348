@@ -30,6 +30,11 @@ function App() {
           <Route exact path="/test" element={<Test />} />
           <Route exact path="/user/:uid" element={<User />} />
           <Route path="/movies/:mid" element={<MovieDetailPage />} />
+
+          <Route exact path="/test" element={<Test />} />
+
+          <Route exact path="/user/:uid" element={<User />} />
+
         </Routes>
       </Layout>
     </BrowserRouter>
@@ -37,3 +42,11 @@ function App() {
 }
 
 export default App;
+
+/*
+INSERT INTO ratings (uid,mid,score,rating_text,date_posted) VALUES
+(1,1,5,'This movie is awesome!','2024-06-12 13:23:00');
+
+INSERT INTO votes (voter_uid, reviewer_uid, mid, vote) VALUES
+(141, 1, 5, true);
+*/
