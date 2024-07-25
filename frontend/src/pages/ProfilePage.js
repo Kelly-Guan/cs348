@@ -245,7 +245,7 @@ function Profile() {
         <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
-            {similarUsers.map((r, i) => (
+            {similarUsers.map((user, i) => (
               <button
                 key={i}
                 onClick={() => navigate(`/user/${user.uid}`)}
@@ -287,7 +287,6 @@ function Profile() {
             ))}
           </div>
         </div>{" "}
-        */}
       </div>
     </div>
   );
