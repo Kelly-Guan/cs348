@@ -246,7 +246,12 @@ function Profile() {
           <h3 className="text-2xl font-bold mb-4">Users Who Have Similar Taste</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {similarUsers.map((r, i) => (
-              <h1>{r.uid}</h1>
+              <button
+                key={i}
+                onClick={() => navigate(`/user/${user.uid}`)}
+                className="bg-blue-500 text-white px-4 py-2 rounded">
+                {similarUserNames[i]}
+              </button>
             ))}
           </div>
         </div>
@@ -281,7 +286,8 @@ function Profile() {
               <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
-        </div> */}
+        </div>{" "}
+        */}
       </div>
     </div>
   );
