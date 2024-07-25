@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfileHeader from "../components/profileHeader";
-import OtherProfileHeader from "../components/userProfileHeader";
 import profilePicFiller from "../assets/profilePic.jpg";
-import Content from "../components/Content";
-import movieVert from "../assets/fillerVert.jpg";
 import Cookies from "js-cookie";
 import { posterLinkToImgURL } from "../utils";
 import { useNavigate } from "react-router-dom";
@@ -15,25 +12,12 @@ function Profile() {
   const navigate = useNavigate(); // Use navigate for programmatic navigation
   const [ratings,setRatings] = useState([]);
   const [favourites,setFavourites] = useState([]);
-  const [watched,setWatched] = useState([]);
-  const [watchLater, setWatchLater] = useState([]);
+  // const [watchLater, setWatchLater] = useState([]);
   const [followers,setFollowers] = useState([]);
   const [following,setFollowing] = useState([]);
   const [similarUsers,setSimilarUsers] = useState([]);
   const [similarUserNames,setSimilarUserNames] = useState([]);
   const [userName, setUserName] = useState([]);
-  const checkImageURL = async (url, defaultURL) => {
-    try {
-      const response = await fetch(url);
-      if (response.status === 200) {
-        return url;
-      } else {
-        return defaultURL;
-      }
-    } catch (error) {
-      return defaultURL;
-    }
-  };
   
   const fetchUserNameByUid = async (uid) => {
     try {
@@ -83,6 +67,7 @@ function Profile() {
         setRatings([]);
       }
     };
+
     const fetchFavourites = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/favourites`);
@@ -103,32 +88,33 @@ function Profile() {
       }
     };
 
-    const fetchWatchLater = async (signedInUser) => {
-      try {
-        const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watch_later`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        const data = await res.json();
-        const updatedData = await Promise.all(
-          data.map(async (r) => ({
-            ...r,
-            poster_link: await posterLinkToImgURL(r.poster_link),
-          }))
-        );
-        setWatchLater(updatedData);
-        console.log(updatedData);
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setWatchLater([]);
-      }
-    };
+    // const fetchWatchLater = async (signedInUser) => {
+    //   try {
+    //     const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/watch_later`);
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! Status: ${res.status}`);
+    //     }
+    //     const data = await res.json();
+    //     const updatedData = await Promise.all(
+    //       data.map(async (r) => ({
+    //         ...r,
+    //         poster_link: await posterLinkToImgURL(r.poster_link),
+    //       }))
+    //     );
+    //     setWatchLater(updatedData);
+    //   } catch (err) {
+    //     console.error("Fetch error:", err);
+    //     setWatchLater([]);
+    //   }
+    // };
+
     const fetchFollowers = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/followers`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
+
         const data = await res.json();
         const updatedData = await Promise.all(
           data.map(async (r) => ({
@@ -137,11 +123,13 @@ function Profile() {
           }))
         );
         setFollowers(updatedData);
+
       } catch (err) {
         console.error("Fetch error:", err);
-        setWatchLater([]);
+        setFollowers([]);
       }
     };
+
     const fetchFollowing = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/following`);
@@ -158,9 +146,10 @@ function Profile() {
         setFollowing(updatedData);
       } catch (err) {
         console.error("Fetch error:", err);
-        setWatchLater([]);
+        setFollowing([]);
       }
     };
+
     const fetchSimilarTaste = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}/similarTaste`);
@@ -177,6 +166,7 @@ function Profile() {
         setSimilarUsers([]);
       }
     };
+
     const fetchUserName = async (signedInUser) => {
       try {
         const res = await fetch(`http://localhost:3001/api/users/${signedInUser}`);
@@ -184,17 +174,17 @@ function Profile() {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         const data = await res.json();
-        console.log(data);
         setUserName(data.username);
       } catch (err) {
         console.error("Fetch error:", err);
         setUserName([]);
       }
     };
+
     const currUser = Cookies.get("signedInUser");
     fetchRatings(currUser);
     fetchFavourites(currUser);
-    fetchWatchLater(currUser);
+    // fetchWatchLater(currUser);
     fetchFollowers(currUser);
     fetchFollowing(currUser);
     fetchSimilarTaste(currUser);
@@ -259,14 +249,7 @@ function Profile() {
           <h3 className="text-2xl font-bold mb-4">Your Favourites</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {favourites.map((r, i) => (
-              <RatingCard
-                ratingInfo={{
-                  uid: r.uid,
-                  mid: r.mid,
-                  score: r.score,
-                  rating_text: r.rating_text,
-                  date_posted: r.date_posted,
-                }}
+              <MovieCard
                 movieInfo={{
                   title: r.title,
                   release_date: r.release_date,
@@ -274,19 +257,18 @@ function Profile() {
                   description: r.description,
                   poster_link: r.poster_link,
                 }}
-                username={r.username}
               />
             ))}
           </div>
         </div>
-        <div className="mb-20">
+        {/* <div className="mb-20">
           <h3 className="text-2xl font-bold mb-4">Watch Later</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {watchLater.map((r, i) => (
               <MovieCard key={r.mid} movieInfo={r} />
             ))}
           </div>
-        </div>{" "}
+        </div> */}
       </div>
     </div>
   );
