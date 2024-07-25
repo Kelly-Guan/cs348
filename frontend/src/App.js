@@ -11,6 +11,7 @@ import SignUp from "./pages/SignUpPage";
 import Login from "./pages/Login";
 import LogOut from "./pages/LogOut";
 import User from "./pages/UserProfilePage";
+import MovieDetailPage from "./pages/MovieDetailPage";
 
 import Test from "./pages/TestPage";
 
@@ -26,11 +27,9 @@ function App() {
           <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/logout" element={<LogOut />} />
-<<<<<<< HEAD
           <Route exact path="/test" element={<Test />} />
-=======
           <Route exact path="/user/:uid" element={<User />} />
->>>>>>> 8bff25fb7a998d65d9fd60bed437890a27b615be
+          <Route path="/movies/:mid" element={<MovieDetailPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

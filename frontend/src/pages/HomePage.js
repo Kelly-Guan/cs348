@@ -170,7 +170,6 @@ function Home() {
           <h3 className="text-2xl font-bold mb-4">Recommended For You</h3>
           <div className="flex flex-row overflow-x-auto space-x-4 no-scrollbar overflow-y-auto">
             {recommendedMovies.map((r, i) => (
-              console.log(r.poster_link),
               <Content
                 key={i}
                 title={r.title}
