@@ -4,6 +4,7 @@ import ProfileTitle from "./ui/profileTitle";
 import Cookies from "js-cookie";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { posterLinkToImgURL } from "../utils";
 
 function RatingCard({ ratingInfo, movieInfo, username, cast, genres }) {
   const navigate = useNavigate();

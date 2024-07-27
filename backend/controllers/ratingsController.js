@@ -119,11 +119,15 @@ exports.ratingsByMovie = async (req, res, next) => {
       `
     SELECT
     r.*,
+    m.*,
+    u.username,
     COALESCE(rv.upvotes, 0) AS upvotes,
     COALESCE(rv.downvotes, 0) AS downvotes
     FROM
     ratings r
     LEFT JOIN reviewer_votes rv ON (r.uid = rv.uid AND r.mid = rv.mid)
+    LEFT JOIN movies m on m.mid = r.mid
+    LEFT JOIN users u on u.uid = r.uid
     WHERE r.mid = $1;
     `,
       [mid]
