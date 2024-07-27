@@ -65,7 +65,7 @@ WITH similar_users_ungrouped AS (
 ),
 similar_users AS (
     SELECT su.uid, SUM(su.mycount) AS similarity_points
-    FROM similar_users su
+    FROM similar_users_ungrouped su
     GROUP BY su.uid
     ORDER BY similarity_points DESC
     LIMIT 10
